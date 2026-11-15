@@ -1,0 +1,10 @@
+# Fetched data — reproduce with scripts/, see README
+data/
+# Python
+env/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# macOS
+.DS_Store

@@ -372,3 +372,44 @@ run stays locked.
 **Still the critical path:** external registration on OSF. The pipeline can be
 finished and validated without it, but the real-label run should not happen before
 the registration is timestamped.
+
+## 2026-11-16 — Two pipeline corrections found by running the permuted validation
+
+The label-permuted run is a substitute for analyst blinding, but it also works as
+what it is: a test harness on a null dataset. It caught two things before any real
+labels were touched, which is the whole point of running it first.
+
+**IC-3 — the primary endpoint is computed on the raw forest score, not the
+calibrated probability.** Platt scaling is monotonic in expectation, so the original
+code treated it as unable to affect AUC. That holds when there is signal to
+calibrate. With permuted labels the fitted slope can come out *negative*, which
+inverts the ranking and reflects AUC about 0.5. The permuted run showed it directly:
+the proximal arm scored **AUC 0.470 raw against 0.535 calibrated** — the two sit on
+opposite sides of chance, from one model on one evaluation set.
+
+With real labels the slope will be firmly positive and the two will agree, so this
+changes no expected result. It is fixed anyway, because an endpoint that depends on
+the sign of a nuisance parameter is not a safe endpoint, and because the permuted
+validation itself would otherwise be reading an inverted number. Calibration still
+produces Brier and ECE and still sets the decision threshold. Both AUCs are
+reported; `auc_calibrated` is retained in the output so the two can be compared.
+
+**IC-4 — the permutation is varied, not fixed.** The proximal arm has exactly one
+evaluation set, so a single permutation gives it a single realisation, and the
+resulting ΔAUC could sit away from zero by luck rather than bias. `--permute-seed`
+repeats the check across permutations; the canonical seed-42 run is the one the gate
+reads, and the others are written beside it.
+
+**Performance, no methodological content.** `ArmModel` replaces
+`CalibratedClassifierCV` plus a nested `cross_val_predict` with one 3-fold loop that
+retains its held-out predictions: identical quantities, three forest fits per arm
+instead of twelve. `n_jobs` is fixed at 6 rather than -1, because nested parallelism
+drove load average past 20 on a 10-core machine and throughput collapsed. A draw
+costs about 3 s where it had been 3.5 min under contention.
+
+**On the 4-draw numbers, which are not results.** Arm C sat about 0.02 above chance
+and arm A about 0.03 below it. Four draws cannot distinguish that from noise — the
+draw-to-draw spread was smaller than the sampling error of a single evaluation set,
+which is what overlapping training partitions produce. The 200-draw runs across four
+permutations are what settle it, and the gate will not unlock unless they return a
+ΔAUC interval covering zero.

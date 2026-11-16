@@ -277,10 +277,22 @@ manuscript must defend them by citation and sensitivity analysis, and must not
 imply specialist review that did not occur.
 
 **AI use will be disclosed** in the manuscript per target-journal policy. Claude
-Code was used for the scoping analysis, the literature search, this
-pre-registration's drafting and the analysis code; all numerical results are
-produced by scripts in this repository and are reproducible from the recorded data
-versions. No AI system is an author.
+Code (Anthropic) was used for: the scoping and sensitivity analyses; the systematic
+literature search in `docs/literature-search.md`; drafting this pre-registration;
+the analysis code in `scripts/`; and **proposing the ChEMBL curation decisions in
+`docs/curation-decisions.md`, together with the published basis for each**. All
+numerical results are produced by scripts in this repository and are reproducible
+from the recorded data versions. No AI system is an author.
+
+**Condition on registration.** The decisions in `docs/curation-decisions.md` are
+attributed to the first author in the roles statement above, which is only accurate
+if the first author can independently defend each one. Before this document is
+registered externally, the first author must have read
+`10.1371/journal.pone.0061007` and `10.1021/acs.jcim.4c00049` and be able to state,
+unprompted, why confidence score 9 was required, why IC50 and Ki were pooled without
+an offset, and why the primary cutoff was not moved to 0.3. Authorship means
+responsibility for the choices, not authorship of the keystrokes; but responsibility
+that cannot survive a reviewer's question is not responsibility.
 
 Target journal: *Journal of Cheminformatics* (leading candidate; APC and waiver
 terms to be confirmed from the publisher's own fees page, not third-party listings).

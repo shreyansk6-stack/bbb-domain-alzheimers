@@ -279,3 +279,29 @@ never registered externally; both versions are in git history.
 
 **No longer blocked.** The critical path is now external registration on OSF, then
 the confirmatory analysis.
+
+## 2026-11-16 — OSF submission package prepared
+
+`docs/osf-submission.md`: paste-ready answers for every field of the OSF
+Preregistration template, drawn from `docs/preregistration.md` v1.1.
+
+**The "Existing data" answer is "Registration following analysis of the data."**
+This is the honest answer and it will feel like the wrong one. The option covers
+"calculation of descriptive statistics and observation of data distributions,"
+which is exactly what the scoping, assay-metadata and sensitivity analyses did.
+Claiming "before analysis" would be a misrepresentation, and a trivially detectable
+one once the repository is public and timestamped. The template's "Explanation of
+existing data" field is designed for this case and is used to state precisely what
+was and was not done: no model trained, no error measured, no proximal-versus-
+matched comparison computed.
+
+**Analyst blinding, functional equivalent.** The confirmatory analysis code will be
+written and validated on label-permuted data before being run once on real labels,
+so the pipeline is fixed before any real outcome is observable. Recorded in the
+registration under Blinding.
+
+**Two blanks must be filled at submission:** the repository URL and the git commit
+hash being registered against. The repo currently has no remote.
+
+**Next:** a public remote (needed for the registration to reference), then register,
+then write the confirmatory pipeline.

@@ -1,0 +1,67 @@
+# scripts/curate_gate.py output
+# run 2026-11-16T14:40:46Z | B3DB fetched 2026-11-14 | ChEMBL_37 (2026-05-01)
+# rdkit 2025.09.2, pandas 2.3.3, Python 3.9.6
+# Skeleton-level curation (InChIKey first block) + recomputed domain overlap.
+
+==============================================================================
+B3DB CURATION
+==============================================================================
+parsed from file:        7805
+canonical-SMILES dupes:  0
+InChIKey skeletons:      4022   (collapsed 3783 records)
+multi-member skeletons:  1488   largest group: 9
+DISCORDANT skeletons:    130   (both BBB+ and BBB- labels on one skeleton)
+labelled reference set:  3892   (BBB+: 2472, BBB-: 1420)
+
+==============================================================================
+TARGET CURATION
+==============================================================================
+   BACE1: parsed  7481 ->  6918 skeletons (collapsed 563, largest group 7)
+    AChE: parsed  3125 ->  3014 skeletons (collapsed 111, largest group 5)
+
+==============================================================================
+1. OUT-OF-DOMAIN FRACTION OF TARGET ACTIVES  (the paper's premise)
+==============================================================================
+Share of target actives whose nearest B3DB neighbour falls below each cutoff.
+
+--- BACE1 ---
+ BACE1 raw vs B3DB raw: n= 7481  median=0.252  mean=0.255
+                        <0.3:  85.8%  <0.35:  97.2%  <0.4:  99.4%  <0.5:  99.9%
+  BACE1 dedup vs clean: n= 6918  median=0.250  mean=0.254
+                        <0.3:  86.0%  <0.35:  97.2%  <0.4:  99.3%  <0.5:  99.9%
+
+--- AChE ---
+  AChE raw vs B3DB raw: n= 3125  median=0.343  mean=0.378
+                        <0.3:  26.4%  <0.35:  53.9%  <0.4:  71.9%  <0.5:  86.2%
+   AChE dedup vs clean: n= 3014  median=0.342  mean=0.375
+                        <0.3:  26.8%  <0.35:  54.7%  <0.4:  72.8%  <0.5:  86.9%
+
+==============================================================================
+2. LABELLED GROUND TRUTH NEAR TARGET CHEMISTRY  (the feasibility gate)
+==============================================================================
+B3DB compounds within each cutoff of target chemistry, after curation.
+
+median max-sim: 0.272   mean: 0.284   p90: 0.380
+ cutoff      n   BBB+   BBB-   BACE1-like    AChE-like
+    0.3   1363    960    403          408         1250
+   0.35    646    464    182          101          611
+    0.4    311    218     93           28          300
+    0.5    102     68     34            3          102
+    0.6     54     32     22            2           54
+    0.7     34     20     14            2           34
+    0.8     30     18     12            1           30
+
+==============================================================================
+3. SCAFFOLD AND IDENTITY OVERLAP
+==============================================================================
+   BACE1: scaffolds  2591  shared with B3DB   14   |  identical skeletons in B3DB: 1
+    AChE: scaffolds  1493  shared with B3DB   36   |  identical skeletons in B3DB: 27
+    B3DB: scaffolds 2075
+
+==============================================================================
+4. PHYSICOCHEMICAL SPACE
+==============================================================================
+      BBB+  n= 2472  MW  318.0±114.7   cLogP  2.85±1.63   TPSA   54.8± 34.3
+      BBB-  n= 1420  MW  417.9±205.3   cLogP  1.99±2.66   TPSA  111.1± 78.5
+     BACE1  n= 6918  MW  472.1±106.4   cLogP  3.44±1.27   TPSA  103.6± 42.7
+      AChE  n= 3014  MW  448.4±128.9   cLogP  4.67±2.27   TPSA   65.1± 31.4

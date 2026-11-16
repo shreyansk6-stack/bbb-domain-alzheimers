@@ -21,20 +21,43 @@ See `docs/decisions.md` for the dated log.
 ## Headline scoping result
 
 Share of target actives with no B3DB neighbour above the given Tanimoto cutoff
-(Morgan fingerprints, radius 2, 2048 bits):
+(Morgan fingerprints, radius 2, 2048 bits), after InChIKey-skeleton curation of
+both sides:
 
 | Target | n | <0.3 | <0.35 | <0.4 | median |
 | --- | --- | --- | --- | --- | --- |
-| BACE1 | 7,481 | 85.8% | 97.2% | 99.4% | 0.252 |
-| Acetylcholinesterase | 3,125 | 26.4% | 53.9% | 71.9% | 0.343 |
+| BACE1 | 6,918 | 86.0% | 97.2% | 99.3% | 0.250 |
+| Acetylcholinesterase | 3,014 | 26.8% | 54.7% | 72.8% | 0.342 |
 
 BACE1 inhibitors sit almost entirely outside the chemistry B3DB covers.
 Acetylcholinesterase inhibitors are reasonably well covered. The contrast is the
 backbone of the planned paper: AChE serves as a positive control, and BACE1 as the
 case where no public ground truth exists to validate the filter against.
 
+For context, published BBB models report ~94% of their *own test compounds* as
+in-domain. That figure is near-guaranteed by construction; the table above is the
+same measurement taken against the chemistry such models are deployed on.
+
 **These numbers are exploratory.** They were computed before any pre-registration and
 must be reported as such. The modelling and error analysis has not been run.
+
+### Curation effect
+
+Skeleton-level deduplication barely moves the headline (BACE1 85.8% to 86.0% at
+0.3; AChE 26.4% to 26.8%) but cuts the available ground truth by about a third,
+because the labelled data nearest to target chemistry is disproportionately
+stereoisomer-redundant:
+
+| | raw | curated |
+| --- | --- | --- |
+| B3DB records / skeletons | 7,805 | 4,022 |
+| labelled reference set (discordant removed) | 7,805 | 3,892 |
+| B3DB compounds within 0.35 of AChE | 942 | 611 |
+| B3DB compounds within 0.35 of BACE1 | 145 | 101 |
+
+Curation independently reproduces the published counts it was derived from
+(4,022 vs 3,952 skeletons; 130 vs 131 discordant labels), which is a useful check
+on the pipeline.
 
 ## Data
 
@@ -64,6 +87,14 @@ curl -sL -o data/B3DB_regression.tsv \
 ./env/bin/python -I scripts/gate.py data | tee results/scoping_overlap.txt
 ```
 
+`curate_gate.py` applies InChIKey-skeleton deduplication and recomputes the same
+quantities; `results/curated_overlap.txt` is its output and supersedes
+`scoping_overlap.txt`, which is kept for comparison.
+
+```sh
+./env/bin/python -I scripts/curate_gate.py data | tee results/curated_overlap.txt
+```
+
 `fetch_chembl.py` pulls BACE1 (CHEMBL4822) and acetylcholinesterase (CHEMBL220),
 both human, filtering to IC50/Ki with pChEMBL ≥ 6. That activity threshold is a
 placeholder pending a chemistry decision — see `docs/decisions.md`.
@@ -75,9 +106,13 @@ placeholder pending a chemistry decision — see `docs/decisions.md`.
   its applicability-domain analysis showed complete structural coverage, concluding
   out-of-domain extrapolation did not explain the gap. The design must measure error
   directly, not infer it from distance.
-- **No BACE1 ground truth.** Only 145 B3DB compounds fall within 0.35 of BACE1
-  chemistry, 49 within 0.4. Error cannot be measured there; the absence is itself
-  the finding.
+- **No BACE1 ground truth.** After curation only 101 B3DB compounds fall within 0.35
+  of BACE1 chemistry, 28 within 0.4. Error cannot be measured there; the absence is
+  itself the finding.
+- **The AChE positive control is tighter than it looked.** Curation cuts usable
+  in-domain ground truth from 942 to 611 compounds at 0.35 (464 BBB+, 182 BBB-).
+  Still workable, but the error-measurement design must be powered for ~600, not
+  ~950, and class imbalance handled explicitly.
 - **Threshold sensitivity.** Out-of-domain fractions move substantially with the
   cutoff. Pre-register the criterion and report the full sweep.
 - **Label quality.** B3DB is compiled from ~50 heterogeneous sources.

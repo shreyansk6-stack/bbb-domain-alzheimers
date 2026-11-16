@@ -114,3 +114,54 @@ before submission.
 confirmed unclaimed, the framing is fixed, and three design constraints above
 (skeleton deduplication, direct error measurement, exploratory-numbers disclosure)
 are settled going in.
+
+## 2026-11-16 — Skeleton-level curation applied; headline holds, gate tightens
+
+Done before writing the pre-registration, so that the pre-registered numbers are
+ones that will not move. Script `scripts/curate_gate.py`, output
+`results/curated_overlap.txt`, which supersedes `scoping_overlap.txt`.
+
+**Curation decision, now settled.** Deduplicate both B3DB and the ChEMBL target
+sets on the first block of the InChIKey (connectivity only; drops stereochemical
+and protonation layers). Rationale: canonical-SMILES deduplication finds **0**
+duplicates in B3DB, because SMILES distinguish stereoisomers that 2D Morgan
+fingerprints cannot. Deduplicating on anything finer than the skeleton is
+incoherent for a fingerprint-based model.
+
+**Effect on B3DB.** 7,805 parsed records collapse to 4,022 skeletons; 1,488
+skeletons have multiple members, largest group 9. 130 skeletons carry both BBB+
+and BBB- labels. Discordant skeletons are **excluded from the labelled reference
+set** (contradictory ground truth) but **retained for domain-coverage geometry**,
+where only structure matters. Labelled reference set: 3,892 compounds, 2,472 BBB+
+and 1,420 BBB-. Target sets: BACE1 7,481 -> 6,918; AChE 3,125 -> 3,014.
+
+**Pipeline independently reproduces the published counts.** We get 4,022 skeletons
+and 130 discordant labels; the preprint reports 3,952 and 131 from 7,802 records.
+Small differences are expected from parse-failure handling and RDKit version. This
+is a genuine check that our curation does what we think it does.
+
+**The headline is robust — this was the main thing to find out.** BACE1
+out-of-domain at 0.3 moves 85.8% -> 86.0%; AChE 26.4% -> 26.8%. Medians essentially
+unchanged. The BACE1/AChE contrast is not a deduplication artefact, and the
+pre-registration can quote these numbers.
+
+**The feasibility gate tightened, and this matters for the design.** Labelled
+ground truth within 0.35 of AChE chemistry falls from 942 to **611** compounds
+(464 BBB+, 182 BBB-); within 0.4, from 458 to 300. For BACE1, from 145 to **101**
+at 0.35 and 49 to **28** at 0.4. The earlier "~942 labelled compounds" figure in
+the 2026-11-14 entry is superseded. AChE remains a viable positive control, but the
+error analysis must be powered for ~600 compounds with 2.5:1 class imbalance, not
+~950. BACE1 remains unmeasurable, as before.
+
+**This is a second finding, not just a correction.** The labelled data sitting
+nearest to target chemistry is disproportionately stereoisomer-redundant — roughly
+a third of it collapses. So apparent ground-truth coverage near target space is
+itself inflated, on top of being thin. Worth a paragraph in the paper.
+
+**Scaffold overlap is starker after curation.** BACE1 shares 14 Bemis-Murcko
+scaffolds with B3DB out of 2,591, and exactly 1 identical skeleton. AChE shares 36
+of 1,493, and 27 identical skeletons.
+
+**Environment note.** The venv was absent and was rebuilt; rdkit 2025.09.2 /
+pandas 2.3.3 / Python 3.9.6, identical to the 2026-11-15 run, so the raw-vs-curated
+comparison is not confounded by library versions. `data/` had survived.

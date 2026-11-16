@@ -13,7 +13,8 @@ error.
 
 ## Status
 
-Scoping complete, project not yet started. Pre-registration not yet written.
+Scoping complete. Literature search complete — the question is confirmed unclaimed
+(`docs/literature-search.md`). Pre-registration not yet written, and is the next step.
 
 See `docs/decisions.md` for the dated log.
 
@@ -69,17 +70,25 @@ placeholder pending a chemistry decision — see `docs/decisions.md`.
 
 ## Known risks
 
-- **Distance may not predict error.** Published work found chemical-space overlap
-  metrics failing to correlate with observed model performance. The design must
-  measure error directly, not infer it from distance.
+- **Distance may not predict error.** Comput Biol Chem 2026
+  (10.1016/j.compbiolchem.2026.109356) found a 0.32-0.39 AUC generalisation gap while
+  its applicability-domain analysis showed complete structural coverage, concluding
+  out-of-domain extrapolation did not explain the gap. The design must measure error
+  directly, not infer it from distance.
 - **No BACE1 ground truth.** Only 145 B3DB compounds fall within 0.35 of BACE1
   chemistry, 49 within 0.4. Error cannot be measured there; the absence is itself
   the finding.
 - **Threshold sensitivity.** Out-of-domain fractions move substantially with the
   cutoff. Pre-register the criterion and report the full sweep.
 - **Label quality.** B3DB is compiled from ~50 heterogeneous sources.
-- **Possible scoop.** Three targeted searches found nothing doing this specific
-  analysis, but a systematic search is still outstanding.
+- **Label quality, sharpened.** Deduplicating B3DB on canonical SMILES finds only 3
+  duplicates; deduplicating on InChIKey skeleton collapses it to 3,952 compounds and
+  exposes 131 skeletons with discordant BBB+/BBB- labels (preprint
+  10.20944/preprints202609.2002.v1). Curation must work at the skeleton level, and
+  the scoping numbers below pre-date this and need recomputing.
+- **Possible scoop: closed.** A systematic Europe PMC search on 2026-11-16 found the
+  specific question unclaimed; zero hits for BBB + applicability domain in title and
+  for BBB + chemical space + coverage. Record in `docs/literature-search.md`.
 
 ## Layout
 

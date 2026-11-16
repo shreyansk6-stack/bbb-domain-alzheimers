@@ -61,3 +61,56 @@ pair on it.
 - APC hardship waiver route: signed letter from the sponsored-programs office
   confirming no funding. Precedent exists with this publisher.
 - Confirm Sam is in, and settle authorship in writing.
+
+## 2026-11-16 — Systematic literature search done; scoop risk closed
+
+**The specific question is unclaimed.** Full record, with queries and hit counts, in
+`docs/literature-search.md`. Europe PMC returns zero papers with both "blood-brain
+barrier" and "applicability domain" in the title, and zero for BBB + chemical space
++ coverage/overlap at abstract level. 35 unique candidate records were identified and
+all 35 abstracts read; four adjacency risks read in full. Every citation was verified
+against the Europe PMC API rather than taken from a search snippet — one web-search
+result supplied a PMC ID that does not resolve.
+
+**The framing sharpened, and this is the main outcome.** Every AD analysis in this
+literature is run on the model's own held-out test set, so all of them report ~94%
+in-domain coverage (93.9%, 94.8%, "complete coverage" in three separate 2026
+papers). That number is near-guaranteed by construction and says nothing about
+deployment. Our 85.8% out-of-domain for BACE1 is its inverse. The contribution is
+not "out-of-domain predictions are worse" — that is already established — but that
+the field certifies domain coverage on a population no screening pipeline meets.
+
+**A prior result now supplies our premise.** Pharmaceutics 2026
+(10.3390/pharmaceutics18060670) reports in-domain R² = 0.641 vs out-of-domain
+R² = 0.164 on a B3DB logBB model. This is the cost of being out of domain, measured
+on our own dataset, and it means we no longer have to establish that ourselves —
+we establish the exposure. Caveat: their out-of-domain figure rests on 13 compounds.
+
+**A prior null result cuts against us and must be cited, not buried.** Comput Biol
+Chem 2026 (10.1016/j.compbiolchem.2026.109356) found a 0.32–0.39 AUC generalisation
+gap while AD analysis showed complete structural coverage, concluding that
+out-of-domain extrapolation did not explain it. This is direct evidence for the
+"distance may not predict error" risk already logged, and it hardens the design
+constraint: error gets measured directly in AChE-proximal space, never inferred
+from distance.
+
+**New curation requirement.** A 2026 preprint (10.20944/preprints202609.2002.v1)
+shows deduplicating B3DB on canonical SMILES finds only 3 duplicates, while
+InChIKey-skeleton deduplication collapses 7,802 compounds to 3,952 and exposes 131
+skeletons carrying discordant BBB+/BBB- labels. Our curation must deduplicate on
+skeleton and report the discordant count. The scoping numbers in `README.md` were
+computed without this and will need recomputing once curation is fixed.
+
+**Abandoning the original idea is confirmed correct.** Benchmark inflation and
+split sensitivity on B3DB are now covered by that preprint plus
+10.3390/pharmaceutics18081018, on top of the two papers already logged.
+
+**Residual risk accepted as low.** Europe PMC does not fully index ChemRxiv or the
+ACS/Wiley/RSC back catalogue at abstract level, and a scoop could sit in a methods
+section whose abstract advertises something else. Re-run the two zero-hit queries
+before submission.
+
+**Next.** Write the pre-registration. It is now unblocked: the question is
+confirmed unclaimed, the framing is fixed, and three design constraints above
+(skeleton deduplication, direct error measurement, exploratory-numbers disclosure)
+are settled going in.

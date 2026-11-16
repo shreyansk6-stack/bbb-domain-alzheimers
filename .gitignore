@@ -8,3 +8,6 @@ __pycache__/
 .ipynb_checkpoints/
 # macOS
 .DS_Store
+
+# Snapshot export of a live doc; regenerate rather than version it
+docs/project-pitch.pdf

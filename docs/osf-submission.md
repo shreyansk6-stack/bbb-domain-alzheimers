@@ -335,9 +335,9 @@ bounded, and separated from the confirmatory test. Text for it is below.
 **Other**
 
 > Full pre-registration, analysis code, decision log and literature search record:
-> [repository URL — fill in before submitting]
+> https://github.com/shreyansk6-stack/bbb-domain-alzheimers
 >
-> Registered against commit [fill in the git commit hash at submission].
+> Registered against commit [run `git rev-parse HEAD` at submission and paste it].
 >
 > AI use disclosure: Claude Code (Anthropic) was used for the exploratory and
 > sensitivity analyses, the systematic literature search, drafting this

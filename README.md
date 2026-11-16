@@ -21,6 +21,9 @@ co-author's sign-off on the activity threshold.
 No model has been trained and no error has been measured. The next step is the
 confirmatory analysis in section 8 of the pre-registration.
 
+Pre-registration is not yet externally registered. `docs/osf-submission.md` holds
+the paste-ready OSF submission; registering it is the next action.
+
 See `docs/decisions.md` for the dated log.
 
 ## Headline scoping result

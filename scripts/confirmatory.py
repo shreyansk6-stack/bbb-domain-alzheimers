@@ -36,6 +36,7 @@ Usage:
         --draws 200 --registered <OSF registration DOI>
 """
 import argparse
+import hashlib
 import json
 import os
 import platform
@@ -313,19 +314,22 @@ def check_unlocked(args):
         sys.exit(f"REFUSED: the recorded permuted run used {m.get('draws')} draws; "
                  f"{MIN_PERMUTED_DRAWS} are required.\nA permuted run too small to "
                  "detect a biased harness does not validate it.")
-    if m.get("commit") != current_commit():
-        sys.exit(f"REFUSED: the permuted run validated commit {m.get('commit')[:12]}, "
-                 f"but HEAD is {current_commit()[:12]}.\nThe code has changed since "
-                 "validation. Re-run --mode permuted on this commit.")
+    # pinned to the script's own content, not to HEAD: editing this pipeline
+    # re-locks the gate, while committing documentation does not
+    if m.get("script_sha256") != script_sha256():
+        sys.exit(f"REFUSED: the permuted run validated pipeline "
+                 f"{str(m.get('script_sha256'))[:12]}, but this file hashes to "
+                 f"{script_sha256()[:12]}.\nThe analysis code has changed since it "
+                 "was validated. Re-run --mode permuted.")
     r = m.get("results", {}).get("property", {})
     if not (r.get("lo", -1) <= 0 <= r.get("hi", 1)):
         sys.exit(f"REFUSED: the permuted run returned dAUC {r.get('delta'):+.4f} with "
                  f"CI [{r.get('lo'):+.4f}, {r.get('hi'):+.4f}], which excludes zero.\n"
                  "The harness finds an effect where none exists. Fix it before "
                  "running on real labels.")
-    print(f"gate passed: permuted run on commit {m['commit'][:12]}, "
-          f"{m['draws']} draws, dAUC {r['delta']:+.4f} "
-          f"CI [{r['lo']:+.4f}, {r['hi']:+.4f}]\n")
+    print(f"gate passed: permuted run on pipeline {m['script_sha256'][:12]} "
+          f"(commit {str(m.get('commit'))[:12]}), {m['draws']} draws, "
+          f"dAUC {r['delta']:+.4f} CI [{r['lo']:+.4f}, {r['hi']:+.4f}]\n")
 
 
 def current_commit():
@@ -334,6 +338,12 @@ def current_commit():
                               text=True, check=True).stdout.strip()
     except Exception:
         return "unavailable"
+
+
+def script_sha256():
+    """Content hash of this pipeline, so a validated run is tied to the code."""
+    with open(os.path.abspath(__file__), "rb") as fh:
+        return hashlib.sha256(fh.read()).hexdigest()
 
 
 # ============================================================================ main
@@ -370,6 +380,7 @@ def main():
         say(f"Registration: {args.registered}")
         say("Real labels. One run. Any analysis beyond this script is post hoc.")
     say(f"commit {commit}   seed {SEED}   draws {args.draws}")
+    say(f"pipeline sha256 {script_sha256()}")
     say(f"python {platform.python_version()}  numpy {np.__version__}  "
         f"sklearn {sklearn.__version__}")
     say()
@@ -545,7 +556,8 @@ def main():
     with open(path, "w") as fh:
         fh.write("\n".join(out) + "\n")
     manifest = dict(
-        mode=args.mode, commit=commit, seed=SEED, draws=args.draws,
+        mode=args.mode, commit=commit, script_sha256=script_sha256(),
+        seed=SEED, draws=args.draws,
         target=args.target, cutoff=CUTOFF, registered=args.registered,
         recipe={k: sorted(v) if isinstance(v, (set, tuple)) else v
                 for k, v in RECIPE.items()},

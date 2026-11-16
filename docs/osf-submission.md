@@ -89,9 +89,32 @@ bounded, and separated from the confirmatory test. Text for it is below.
 
 > No blinding of participants, since there are none. Analyst blinding is not
 > applicable in the usual sense; the functional equivalent is implemented as follows.
-> The confirmatory analysis code will be written and validated on label-permuted data
-> before being run once on the real labels, so that the pipeline is fixed before any
-> real outcome is observable.
+> The confirmatory analysis code was written and validated on label-permuted data
+> before being run on the real labels, so that the pipeline is fixed before any real
+> outcome is observable.
+>
+> This is enforced by the analysis script rather than asserted. `scripts/
+> confirmatory.py` has two modes, and its real-label mode exits unless four
+> conditions hold: a registration identifier is supplied; a label-permuted run is on
+> record; that run used at least 100 control draws; and it returned a ΔAUC confidence
+> interval covering zero, i.e. the pipeline found no effect on data containing none.
+> The permuted run is pinned to a SHA-256 hash of the analysis script, so any
+> subsequent edit to the pipeline re-locks the real-label mode until it is
+> revalidated. The pre-specified decision rules are evaluated by the same script and
+> printed as a verdict, so the reported conclusion cannot be selected after the
+> effect size is known.
+>
+> The permuted validation is repeated across four independent label permutations,
+> because the proximal arm has a single fixed evaluation set and one permutation
+> would test the harness against a single realisation of it.
+>
+> The validation changed the analysis before any real labels were seen: it revealed
+> that Platt calibration can fit a negative slope when there is no signal to
+> calibrate, inverting the model's ranking and reflecting AUC about 0.5 (the proximal
+> arm scored 0.470 on the raw score against 0.535 calibrated). The primary endpoint
+> is therefore computed on the uncalibrated forest score. Calibration continues to
+> supply the secondary Brier and ECE endpoints and to set the decision threshold.
+> Recorded as IC-3 in `docs/decisions.md`.
 
 **Study design**
 

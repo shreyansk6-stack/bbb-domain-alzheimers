@@ -52,12 +52,12 @@ import pandas as pd
 import sklearn
 from rdkit import Chem, DataStructs, RDLogger
 from rdkit.Chem import Descriptors, inchi, rdFingerprintGenerator
-from sklearn.calibration import CalibratedClassifierCV
+
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (balanced_accuracy_score, brier_score_loss,
                              matthews_corrcoef, roc_auc_score)
-from sklearn.model_selection import GridSearchCV, StratifiedKFold, cross_val_predict
+from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 
 RDLogger.DisableLog("rdApp.*")
@@ -74,6 +74,9 @@ SUPPORT_DELTA = 0.06               # decision rules, preregistration section 9
 REFUTE_BAND = 0.03
 BOOTSTRAP = 2000
 ECE_BINS = 10
+# fixed rather than -1: nested parallelism oversubscribes the machine, which on a
+# 10-core box drove load average past 20 and cut throughput
+N_JOBS = 6
 # primary ChEMBL recipe, docs/curation-decisions.md
 RECIPE = dict(types={"IC50", "Ki"}, min_pchembl=6.0, conf={9}, assay_types=("B",))
 
@@ -235,39 +238,77 @@ def ece(y, p, bins=ECE_BINS):
 
 
 def evaluate(model, X_eval, y_eval, threshold):
-    p = model.predict_proba(X_eval)[:, 1]
-    hard = (p >= threshold).astype(int)
+    """Ranking metrics from the raw forest vote, calibration metrics from the
+    calibrated probability.
+
+    AUC is deliberately computed on the uncalibrated score. Platt scaling is
+    monotonic in expectation but its fitted slope can come out negative when
+    there is no signal to calibrate - which is exactly the case under permuted
+    labels - and a negative slope inverts the ranking and flips AUC about 0.5.
+    Taking AUC from the forest's own score removes that hazard from the primary
+    endpoint without changing anything when signal is present.
+    """
+    raw, cal = model.predict_proba(X_eval)
+    hard = (cal >= threshold).astype(int)
     return dict(
-        auc=roc_auc_score(y_eval, p),
+        auc=roc_auc_score(y_eval, raw),
+        auc_calibrated=roc_auc_score(y_eval, cal),
         mcc=matthews_corrcoef(y_eval, hard),
         bacc=balanced_accuracy_score(y_eval, hard),
-        brier=brier_score_loss(y_eval, p),
-        ece=ece(y_eval, p),
+        brier=brier_score_loss(y_eval, cal),
+        ece=ece(y_eval, cal),
         n=len(y_eval),
         n_pos=int(y_eval.sum()),
-    ), p
+    ), raw
+
+
+class ArmModel:
+    """Cross-validated forest ensemble with per-fold Platt calibration.
+
+    Equivalent to sklearn's CalibratedClassifierCV(method="sigmoid", cv=3,
+    ensemble=True) - fit the forest on 2/3, fit a sigmoid on the held-out 1/3,
+    average the fold models at prediction time - but it keeps the held-out
+    predictions, so the decision threshold comes out of the same three fits
+    instead of a second nested cross-validation. Twelve forest fits per arm
+    become three, with no change to what is computed.
+    """
+
+    def __init__(self, params, seed):
+        self.params, self.seed = params, seed
+
+    def fit(self, X, y):
+        self.folds = []
+        oof = np.zeros(len(y))
+        skf = StratifiedKFold(3, shuffle=True, random_state=self.seed)
+        for tr, te in skf.split(X, y):
+            rf = RandomForestClassifier(n_estimators=500, random_state=self.seed,
+                                        n_jobs=N_JOBS, **self.params).fit(X[tr], y[tr])
+            held = rf.predict_proba(X[te])[:, 1]
+            # Platt scaling on the held-out fold: logistic regression on the
+            # single forest score, barely regularised
+            cal = LogisticRegression(C=1e6, max_iter=1000).fit(held.reshape(-1, 1), y[te])
+            oof[te] = cal.predict_proba(held.reshape(-1, 1))[:, 1]
+            self.folds.append((rf, cal))
+        self.oof = oof
+        return self
+
+    def predict_proba(self, X):
+        raws = np.column_stack([rf.predict_proba(X)[:, 1] for rf, _ in self.folds])
+        cals = np.column_stack([cal.predict_proba(raws[:, [i]])[:, 1]
+                                for i, (_, cal) in enumerate(self.folds)])
+        return raws.mean(axis=1), cals.mean(axis=1)
 
 
 def fit_arm(X, y, holdout, params, seed):
-    """Train on everything except `holdout`; return fitted model and the decision
-    threshold, which is chosen from training-fold predictions only."""
+    """Train on everything except `holdout`; return the fitted ensemble and the
+    decision threshold, chosen from held-out training folds only."""
     mask = np.ones(len(y), dtype=bool)
     mask[holdout] = False
     X_tr, y_tr = X[mask], y[mask]
 
-    base = RandomForestClassifier(n_estimators=500, random_state=seed, n_jobs=-1, **params)
-    # sigmoid calibration: monotonic, so it cannot alter AUC, only Brier/ECE
-    model = CalibratedClassifierCV(base, method="sigmoid", cv=3).fit(X_tr, y_tr)
-
-    # threshold from out-of-fold predictions on the training partition only
-    oof = cross_val_predict(
-        CalibratedClassifierCV(
-            RandomForestClassifier(n_estimators=500, random_state=seed, n_jobs=-1, **params),
-            method="sigmoid", cv=3),
-        X_tr, y_tr, cv=StratifiedKFold(3, shuffle=True, random_state=seed),
-        method="predict_proba")[:, 1]
+    model = ArmModel(params, seed).fit(X_tr, y_tr)
     grid = np.linspace(0.05, 0.95, 91)
-    threshold = float(grid[np.argmax([matthews_corrcoef(y_tr, (oof >= t).astype(int))
+    threshold = float(grid[np.argmax([matthews_corrcoef(y_tr, (model.oof >= t).astype(int))
                                       for t in grid])])
     return model, threshold, int(mask.sum())
 
@@ -282,7 +323,7 @@ def tune(X, y, holdout, seed):
     mask = np.ones(len(y), dtype=bool)
     mask[holdout] = False
     search = GridSearchCV(
-        RandomForestClassifier(n_estimators=500, random_state=seed, n_jobs=-1),
+        RandomForestClassifier(n_estimators=500, random_state=seed, n_jobs=N_JOBS),
         {"max_features": ["sqrt", 0.03], "class_weight": [None, "balanced"]},
         scoring="roc_auc", cv=StratifiedKFold(3, shuffle=True, random_state=seed),
     ).fit(X[mask], y[mask])
@@ -355,7 +396,16 @@ def main():
     ap.add_argument("--registered", default=None,
                     help="OSF registration DOI or URL; required for --mode real")
     ap.add_argument("--target", default="AChE")
+    ap.add_argument("--permute-seed", type=int, default=SEED,
+                    help="permuted mode only: which label permutation to use. The "
+                         "proximal arm has one fixed evaluation set, so a single "
+                         "permutation gives it a single realisation; repeating the "
+                         "check across permutations is what shows the harness is "
+                         "unbiased rather than lucky. Seed 42 is the canonical run "
+                         "the gate reads; others are written beside it.")
     args = ap.parse_args()
+    suffix = ("" if args.mode == "real" or args.permute_seed == SEED
+              else f"_seed{args.permute_seed}")
 
     if args.mode == "real":
         check_unlocked(args)
@@ -399,7 +449,8 @@ def main():
         f"BBB+ {int(y[prox_idx].sum())}  BBB- {int((1 - y[prox_idx]).sum())}")
 
     if args.mode == "permuted":
-        y = rng.permutation(y)
+        y = np.random.default_rng(args.permute_seed).permutation(y)
+        say(f"label permutation seed {args.permute_seed}")
         say(f"labels permuted; proximal class counts are now "
             f"{int(y[prox_idx].sum())}/{int((1 - y[prox_idx]).sum())}")
 
@@ -552,12 +603,12 @@ def main():
     say(f"elapsed {time.time() - t0:.0f}s")
 
     # ---------------------------------------------------------------------- output
-    path = f"results/confirmatory_{args.mode}.txt"
+    path = f"results/confirmatory_{args.mode}{suffix}.txt"
     with open(path, "w") as fh:
         fh.write("\n".join(out) + "\n")
     manifest = dict(
         mode=args.mode, commit=commit, script_sha256=script_sha256(),
-        seed=SEED, draws=args.draws,
+        seed=SEED, permute_seed=args.permute_seed, draws=args.draws,
         target=args.target, cutoff=CUTOFF, registered=args.registered,
         recipe={k: sorted(v) if isinstance(v, (set, tuple)) else v
                 for k, v in RECIPE.items()},
@@ -568,9 +619,9 @@ def main():
                       sklearn=sklearn.__version__, pandas=pd.__version__),
         elapsed_s=round(time.time() - t0, 1),
     )
-    with open(f"results/confirmatory_{args.mode}.json", "w") as fh:
+    with open(f"results/confirmatory_{args.mode}{suffix}.json", "w") as fh:
         json.dump(manifest, fh, indent=2, default=float)
-    print(f"\nwrote {path} and results/confirmatory_{args.mode}.json")
+    print(f"\nwrote {path} and results/confirmatory_{args.mode}{suffix}.json")
 
 
 if __name__ == "__main__":

@@ -217,3 +217,65 @@ causal/efficacy language excluded. No bench work proposed or required.
 provisional pending the chemistry co-author's judgement on assay comparability. If
 it changes, the pre-registration is amended and dated before analysis runs. This is
 now the critical path.
+
+## 2026-11-16 — Curation decided from literature, not from a co-author
+
+The second author is a chemistry major but not an enzyme-kinetics specialist, so the
+"placeholder decisions awaiting a chemist's judgement" from 2026-11-14 could not be
+resolved that way. They are now made from published curation standards and verified
+empirically. Full reasoning and citations in `docs/curation-decisions.md`.
+
+**Consequence for the manuscript, stated so it is not forgotten.** These decisions
+are defended by citation and sensitivity analysis, not by expert assertion. The
+paper must not imply specialist kinetics review that did not happen. Author roles in
+the pre-registration were amended accordingly.
+
+**The literature genuinely disagrees.** Kalliokoski et al. 2013
+(10.1371/journal.pone.0061007) find pooling IC50 with Ki acceptable given a ~0.35
+log offset; Landrum & Riniker 2024 (10.1021/acs.jcim.4c00049) find ~65% of paired
+measurements differ by >0.3 log units and advise against casual pooling. Both are
+about the accuracy of potency values.
+
+**That controversy does not reach us, and we can show it rather than argue it.** No
+potency value enters any model; the threshold decides set membership only. We
+measured the replicate spread in our own data (BACE1 46.9% span >0.3 log units,
+18.1% >1.0; AChE 34.0% and 17.2%) — the concern is real and present — and then
+measured whether it matters. Across ten curation variants BACE1 out-of-domain spans
+81.8-89.4% and AChE 21.8-36.4% at the 0.3 cutoff. **Worst case for the contrast
+still leaves a 45-point gap.** `results/sensitivity.txt`.
+
+**Decisions, in brief.** Pool IC50 and Ki with no offset, exclude Kd; assay
+confidence score 9 only; assay type B; pChEMBL >= 6 with the 5-8 sweep reported;
+replicates aggregated by median pChEMBL; no per-target threshold. Four further
+filters (standard_relation, data_validity_comment, units, organism) are asserted in
+code but verified to be no-ops in ChEMBL_37, and are recorded as such so nobody
+later mistakes them for the filters that mattered.
+
+**The confidence-score filter is the one that does real work, and the data decided
+it.** Score-9 assays are 100% Homo sapiens for these targets; score-8 assays have
+assay_organism unspecified or non-human (Cercopithecidae, Cavia porcellus), matching
+relationship_type H. This matters most for AChE, where Electrophorus and Torpedo
+enzyme assays are common and have different inhibitor SAR. Cost: 29.2% of BACE1 and
+19.3% of AChE records. Verified by inspecting the assays, not assumed.
+
+**New primary sets, superseding all earlier counts.** BACE1 5,157 actives
+(85.8% / 97.5% / 99.4% out-of-domain at 0.3 / 0.35 / 0.4); AChE 2,391 actives
+(28.4% / 58.3% / 77.2%).
+
+**The feasibility gate tightened again, and the power with it.** Labelled B3DB
+compounds within 0.35 of AChE: **492** (366 BBB+, 126 BBB-), down from 611.
+Minimum detectable dAUC rises from 0.053 to **0.061**. BACE1: **89** (60/29), now
+failing the sufficiency criterion on both the total and the minority class.
+
+**Declined to move the primary cutoff to 0.3 despite better power** (1,066
+compounds, MDE 0.041). Tanimoto 0.3 on Morgan fingerprints is a weak claim of
+similarity, and buying power by loosening the definition of "in domain" would
+undercut the paper's own argument. Recorded because the temptation was real and the
+decision should be visible.
+
+**Pre-registration amended to v1.1** with the fixed recipe, the new sample sizes,
+the 0.061 power floor and the revised support threshold (dAUC >= 0.06). v1.0 was
+never registered externally; both versions are in git history.
+
+**No longer blocked.** The critical path is now external registration on OSF, then
+the confirmatory analysis.

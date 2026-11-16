@@ -1,36 +1,41 @@
 # scripts/power.py output
-# run 2026-11-16T14:44:51Z
+# run 2026-11-16T15:17:42Z
 # numpy 2.0.2, scipy 1.13.1, Python 3.9.6
 
 binormal simulation | 4000 replicates | seed 42
 sample sizes are post-curation (InChIKey-skeleton deduplicated)
 
 ========================================================================
-AChE-proximal holdout at Tanimoto 0.35: 464 BBB+ / 182 BBB-
+AChE-proximal holdout at Tanimoto 0.35: 366 BBB+ / 126 BBB-  (n=492)
+primary curation recipe: IC50+Ki, pChEMBL>=6, confidence 9, assay type B
 ========================================================================
   true AUC       SE    95% CI width
-      0.95   0.0085        +/-0.017
-      0.90   0.0132        +/-0.026
-      0.85   0.0164        +/-0.032
-      0.80   0.0189        +/-0.037
+      0.95   0.0103        +/-0.020
+      0.90   0.0155        +/-0.030
+      0.85   0.0194        +/-0.038
+      0.80   0.0225        +/-0.044
 
 Minimum detectable dAUC vs a size- and class-matched random holdout
 (80% power, two-sided alpha = 0.05; conservative - repeated control draws do better)
-  baseline AUC 0.90:  SE(diff) 0.0189   MDE dAUC ~ 0.053
-  baseline AUC 0.85:  SE(diff) 0.0229   MDE dAUC ~ 0.064
+  baseline AUC 0.90:  SE(diff) 0.0219   MDE dAUC ~ 0.061
+  baseline AUC 0.85:  SE(diff) 0.0276   MDE dAUC ~ 0.077
 
 ========================================================================
 Alternatives, for the record (none is the pre-registered primary)
 ========================================================================
-       AChE at 0.4 (n= 311): SE 0.0184   MDE dAUC ~ 0.073
-     BACE1 at 0.35 (n= 101): SE 0.0313   MDE dAUC ~ 0.124
-      BACE1 at 0.4 (n=  28): SE 0.0604   MDE dAUC ~ 0.239
+       AChE at 0.3 (n=1066): SE 0.0102   MDE dAUC ~ 0.041
+       AChE at 0.4 (n= 224): SE 0.0224   MDE dAUC ~ 0.089
+      BACE1 at 0.3 (n= 364): SE 0.0166   MDE dAUC ~ 0.066
+     BACE1 at 0.35 (n=  89): SE 0.0343   MDE dAUC ~ 0.136
 
 Pre-registered sufficiency criterion: >=200 labelled compounds with >=50 per class
-at the 0.35 cutoff. AChE (611; 464/182) passes. BACE1 (101) fails, and its MDE of
-~0.124 confirms that measuring error there could not distinguish signal from noise.
+at the 0.35 cutoff. AChE (492; 366/126) passes. BACE1 (89; 60/29) fails on both
+counts, confirming that error cannot be measured in BACE1-proximal space.
 
-BACE1 class counts above are apportioned by the overall B3DB class ratio, since the
-BACE1-proximal set is too small to split reliably. They are indicative only; the
-sufficiency criterion is evaluated on the actual total, which fails regardless.
+Class counts are the real ones from scripts/sensitivity.py under the primary
+curation recipe, not apportioned estimates.
+
+AChE at the 0.3 cutoff (1,066 compounds) is better powered but is a looser
+neighbourhood. It is pre-registered as a secondary cutoff, not swapped in for the
+primary, so the choice cannot be made after seeing results.
 

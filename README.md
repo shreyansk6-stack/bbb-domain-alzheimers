@@ -26,13 +26,13 @@ See `docs/decisions.md` for the dated log.
 ## Headline scoping result
 
 Share of target actives with no B3DB neighbour above the given Tanimoto cutoff
-(Morgan fingerprints, radius 2, 2048 bits), after InChIKey-skeleton curation of
-both sides:
+(Morgan fingerprints, radius 2, 2048 bits), under the primary curation recipe
+(`docs/curation-decisions.md`):
 
 | Target | n | <0.3 | <0.35 | <0.4 | median |
 | --- | --- | --- | --- | --- | --- |
-| BACE1 | 6,918 | 86.0% | 97.2% | 99.3% | 0.250 |
-| Acetylcholinesterase | 3,014 | 26.8% | 54.7% | 72.8% | 0.342 |
+| BACE1 | 5,157 | 85.8% | 97.5% | 99.4% | 0.252 |
+| Acetylcholinesterase | 2,391 | 28.4% | 58.3% | 77.2% | 0.333 |
 
 BACE1 inhibitors sit almost entirely outside the chemistry B3DB covers.
 Acetylcholinesterase inhibitors are reasonably well covered. The contrast is the
@@ -46,23 +46,33 @@ same measurement taken against the chemistry such models are deployed on.
 **These numbers are exploratory.** They were computed before any pre-registration and
 must be reported as such. The modelling and error analysis has not been run.
 
-### Curation effect
+### The result survives every curation choice
 
-Skeleton-level deduplication barely moves the headline (BACE1 85.8% to 86.0% at
-0.3; AChE 26.4% to 26.8%) but cuts the available ground truth by about a third,
-because the labelled data nearest to target chemistry is disproportionately
-stereoisomer-redundant:
+Ten curation variants — pooling IC50 with Ki or not, confidence score 8 versus 9,
+activity thresholds from pChEMBL 5 to 8, assay types, deduplication — move BACE1
+within 81.8–89.4% and AChE within 21.7–36.4% at the 0.3 cutoff. The worst case for
+the contrast still leaves a 45-point gap. Full table in `results/sensitivity.txt`
+and `docs/curation-decisions.md`.
 
-| | raw | curated |
-| --- | --- | --- |
-| B3DB records / skeletons | 7,805 | 4,022 |
-| labelled reference set (discordant removed) | 7,805 | 3,892 |
-| B3DB compounds within 0.35 of AChE | 942 | 611 |
-| B3DB compounds within 0.35 of BACE1 | 145 | 101 |
+That matters because the two standard references on ChEMBL curation disagree about
+pooling IC50 with Ki (`10.1371/journal.pone.0061007` permits it with an offset;
+`10.1021/acs.jcim.4c00049` warns against it). We measured the disagreement in our
+own data — 46.9% of replicated BACE1 compounds span more than 0.3 log units — and
+it does not reach our conclusion, because the activity threshold decides only set
+membership and no potency value enters any model.
 
-Curation independently reproduces the published counts it was derived from
-(4,022 vs 3,952 skeletons; 130 vs 131 discordant labels), which is a useful check
-on the pipeline.
+### Feasibility gate
+
+Labelled B3DB compounds near target chemistry, which is what error can be measured
+on. Pre-registered criterion: ≥200 compounds with ≥50 in each class at 0.35.
+
+| Target | within 0.35 | BBB+ / BBB− | gate | min. detectable ΔAUC |
+| --- | --- | --- | --- | --- |
+| Acetylcholinesterase | 492 | 366 / 126 | passes | 0.061 |
+| BACE1 | 89 | 60 / 29 | **fails** | 0.136 |
+
+BACE1 error is therefore not measurable with existing public data, which is itself
+a primary finding rather than a limitation.
 
 ## Data
 
@@ -92,18 +102,21 @@ curl -sL -o data/B3DB_regression.tsv \
 ./env/bin/python -I scripts/gate.py data | tee results/scoping_overlap.txt
 ```
 
-`curate_gate.py` applies InChIKey-skeleton deduplication and recomputes the same
-quantities; `results/curated_overlap.txt` is its output and supersedes
-`scoping_overlap.txt`, which is kept for comparison.
+`probe_chembl.py` is the current fetch step: it pulls activities at a deliberately
+loose threshold together with their assay metadata, caching them to
+`data/chembl_probe.json` so curation recipes can be re-applied without refetching.
+`sensitivity.py` then applies the primary recipe and every contested variant.
 
 ```sh
-./env/bin/python -I scripts/curate_gate.py data | tee results/curated_overlap.txt
-./env/bin/python -I scripts/power.py            | tee results/power.txt
+./env/bin/python -I scripts/probe_chembl.py data/chembl_probe.json
+./env/bin/python -I scripts/sensitivity.py  data | tee results/sensitivity.txt
+./env/bin/python -I scripts/curate_gate.py  data | tee results/curated_overlap.txt
+./env/bin/python -I scripts/power.py             | tee results/power.txt
 ```
 
-`fetch_chembl.py` pulls BACE1 (CHEMBL4822) and acetylcholinesterase (CHEMBL220),
-both human, filtering to IC50/Ki with pChEMBL ≥ 6. That activity threshold is a
-placeholder pending a chemistry decision — see `docs/decisions.md`.
+`fetch_chembl.py` and `gate.py` are the original scoping scripts, kept because
+`results/scoping_overlap.txt` came from them. They apply no assay-quality filters
+and are superseded by the two scripts above.
 
 ## Known risks
 

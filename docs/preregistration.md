@@ -7,8 +7,12 @@ target chemical space: a methods audit
 (chemistry, curation and synthetic accessibility). Authorship order per
 `docs/project-pitch.pdf`.
 
-**Version 1.0, 2026-11-16.** Written before any modelling or error analysis has been
-run. Amendments are appended, never rewritten, with dates and reasons.
+**Version 1.1, 2026-11-16.** Supersedes v1.0 of the same date, which was never
+registered externally; both versions are in this repository's git history. The
+revision fixes the ChEMBL curation recipe that v1.0 left provisional, and updates
+the sample sizes and power that follow from it. Written before any modelling or
+error analysis has been run. Once registered, amendments are appended, never
+rewritten, with dates and reasons.
 
 ---
 
@@ -67,11 +71,24 @@ model has been trained and no error has been measured at the time of writing.
 | B3DB classification set | GitHub `main`, fetched 2026-11-14 | CC0 1.0 |
 | ChEMBL | ChEMBL_37, released 2026-05-01 | CC BY-SA 3.0 |
 
-Targets: BACE1 (CHEMBL4822) and AChE (CHEMBL220), both human. Activity filter:
-IC50 or Ki, pChEMBL ≥ 6. **This threshold is provisional pending the chemistry
-co-author's judgement on which ChEMBL measurements are comparable across assay
-types, units and inhibition mechanisms.** If it changes, this pre-registration is
-amended before analysis, and the amendment is dated.
+Targets: BACE1 (CHEMBL4822) and AChE (CHEMBL220), both human.
+
+**Activity definition, fixed (`docs/curation-decisions.md`):** IC50 or Ki (Kd
+excluded), `standard_relation = '='`, no `data_validity_comment`, units nM, assay
+type B, **assay confidence score 9** (direct single-protein assignment), replicates
+aggregated by median pChEMBL, threshold **pChEMBL ≥ 6**.
+
+The confidence-score filter is the substantive one: score-9 assays are 100%
+*Homo sapiens* in these targets, while score-8 assays have organism unspecified or
+non-human, which matters for AChE where non-human enzyme assays are common.
+
+Resulting sets: **BACE1 5,157 actives, AChE 2,391 actives.**
+
+These decisions are justified by citation and by sensitivity analysis rather than
+by expert assertion, because no enzyme-kinetics specialist is on the author list.
+Every contested choice is reported as a variant in `results/sensitivity.txt`;
+across all of them BACE1 out-of-domain ranges 81.8–89.4% and AChE 21.7–36.4%, so
+the headline contrast survives every available alternative with a ≥45-point margin.
 
 No data refetch after this date without a dated amendment. ChEMBL is a live API.
 
@@ -96,6 +113,12 @@ radius 2, 2048 bits. A compound is in-domain at cutoff *t* if its nearest traini
 neighbour is at similarity ≥ *t*. **Primary cutoff: t = 0.35**, fixed here, chosen
 because it is the cutoff at which the AChE-proximal set is large enough to measure
 error (section 9) while remaining a defensible neighbourhood.
+
+The 0.3 cutoff would give better power (1,066 compounds, minimum detectable
+ΔAUC 0.041, versus 492 and 0.061 at 0.35). It is deliberately **not** adopted:
+Tanimoto 0.3 on Morgan fingerprints is a weak claim of similarity, and buying power
+by loosening the definition of "in domain" would undercut the paper's own argument.
+0.35 was fixed before the class counts were known.
 
 **Reported in full regardless.** The complete cutoff sweep 0.3–0.8, because
 out-of-domain fractions are known to be threshold-sensitive and reporting a single
@@ -127,8 +150,8 @@ only, never from the evaluation set.
 The question is what happens when a model is applied to target chemistry. So:
 
 1. **Proximal holdout.** Remove from training every labelled B3DB compound within
-   0.35 of AChE chemistry (n = 611; 464 BBB+, 182 BBB− at the 0.35 row). Train on
-   the remainder. Evaluate on the held-out proximal set.
+   0.35 of AChE chemistry (**n = 492; 366 BBB+, 126 BBB−**). Train on the
+   remainder. Evaluate on the held-out proximal set.
 2. **Matched random holdout.** Remove instead a random set of identical size and
    class balance. Train identically. Evaluate on it. Repeat over 200 draws to build
    a null distribution rather than relying on one comparison.
@@ -158,30 +181,36 @@ cutoff sweep — is secondary and reported without inferential claims of primacy
 
 ## 9. Power, and what a null result would mean
 
-Simulated (binormal, 4,000 replicates, rank-based AUC) at the actual curated sample
-size of 464 BBB+ / 182 BBB−:
+Simulated (`scripts/power.py`; binormal, 4,000 replicates, rank-based AUC) at the
+actual curated sample size of 366 BBB+ / 126 BBB−:
 
 | True AUC | SE of AUC | 95% CI width |
 | --- | --- | --- |
-| 0.95 | 0.009 | ±0.017 |
-| 0.90 | 0.013 | ±0.026 |
-| 0.85 | 0.016 | ±0.032 |
+| 0.95 | 0.010 | ±0.020 |
+| 0.90 | 0.016 | ±0.030 |
+| 0.85 | 0.019 | ±0.038 |
 
 Minimum detectable ΔAUC at 80% power, two-sided α = 0.05, against a matched holdout:
-**≈ 0.053** if baseline AUC is 0.90, ≈ 0.064 if 0.85. Repeated draws on the control
+**≈ 0.061** if baseline AUC is 0.90, ≈ 0.077 if 0.85. Repeated draws on the control
 arm will improve on this, since the control's contribution to the variance shrinks
-with 200 draws; 0.053 is therefore the conservative figure.
+over 200 draws; 0.061 is the conservative figure.
 
 **Stated plainly: this study is not powered to detect a small effect.** If the true
 degradation is on the order of 0.01–0.03 AUC, we will not find it, and a null result
-must be reported as "no degradation larger than ~0.05 AUC" — not as evidence of no
+must be reported as "no degradation larger than ~0.06 AUC" — not as evidence of no
 degradation. Given that the abandoned predecessor idea foundered on an effect of
 0.00–0.03 AUC, this is a live possibility and is stated in advance so it cannot be
 quietly reframed later.
 
+For reference, the effects this design is built to detect are much larger than its
+floor: the in/out-of-domain gap reported for a B3DB logBB model is R² 0.641 vs 0.164
+(`10.3390/pharmaceutics18060670`), and a comparable QSAR generalisation study found
+AUC gaps of 0.32–0.39 (`10.1016/j.compbiolchem.2026.109356`). If the effect is of
+that order, 0.061 is ample. The risk is a genuinely small effect, not a blind spot.
+
 **Pre-specified decision rules.**
 
-- **Support:** ΔAUC ≥ 0.05 against the property-matched control, CI excluding zero.
+- **Support:** ΔAUC ≥ 0.06 against the property-matched control, CI excluding zero.
 - **Refutation:** ΔAUC CI contained within ±0.03. Reported as a null result, in
   those words, with the conclusion that nearest-neighbour domain distance does not
   predict BBB prediction error in this setting — which would corroborate
@@ -198,10 +227,11 @@ Pre-specified sufficiency criterion for measuring error in a target-proximal
 neighbourhood: **≥ 200 labelled compounds with ≥ 50 in each class** at the primary
 0.35 cutoff.
 
-- AChE: 611 compounds, 464/182. **Passes.**
-- BACE1: 101 compounds at 0.35, 28 at 0.4. **Fails.** Simulated minimum detectable
-  ΔAUC at that size is ≈ 0.124, which could not distinguish a real effect from
-  noise.
+- AChE: **492 compounds, 366 BBB+ / 126 BBB−. Passes.**
+- BACE1: **89 compounds at 0.35, 60 BBB+ / 29 BBB−. Fails on both counts** — fewer
+  than 200 total and fewer than 50 in the minority class. Simulated minimum
+  detectable ΔAUC at that size is ≈ 0.136, which could not distinguish a real effect
+  from noise.
 
 So BACE1 error will not be measured, and this is recorded before any attempt rather
 than reported as a failure afterwards. **The absence is a primary finding:** for
@@ -234,9 +264,17 @@ trail, and the repository is public.
 
 ## 13. Roles and disclosure
 
-First author: question, pipeline, domain and error analysis, manuscript. Chemistry
-co-author: activity-threshold and assay-comparability decisions, physicochemical
-interpretation, synthetic accessibility, corresponding manuscript sections.
+First author: question, pipeline, curation decisions, domain and error analysis,
+manuscript. Second author: physicochemical interpretation, synthetic accessibility
+assessment of the shortlist, literature context for the target chemistry, and
+corresponding manuscript sections.
+
+**Changed from v1.0.** Curation and assay-comparability decisions were originally
+assigned to the second author. They were instead made from published curation
+standards and verified empirically (`docs/curation-decisions.md`), because the
+specialist kinetics judgement that assignment assumed was not available. The
+manuscript must defend them by citation and sensitivity analysis, and must not
+imply specialist review that did not occur.
 
 **AI use will be disclosed** in the manuscript per target-journal policy. Claude
 Code was used for the scoping analysis, the literature search, this

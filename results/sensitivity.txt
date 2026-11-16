@@ -1,0 +1,65 @@
+# scripts/sensitivity.py output
+# run 2026-11-16T15:16:27Z | B3DB fetched 2026-11-14 | ChEMBL_37 (2026-05-01)
+# metadata cache: data/chembl_probe.json via scripts/probe_chembl.py
+# rdkit 2025.09.2, pandas 2.3.3, numpy 2.0.2, Python 3.9.6
+
+B3DB labelled reference set: 3892 skeletons (130 discordant skeletons excluded)
+  BBB+: 2472   BBB-: 1420
+
+====================================================================================
+BACE1: out-of-domain % of target actives (no B3DB neighbour above cutoff)
+====================================================================================
+variant                                         n     <0.3    <0.35     <0.4  median
+PRIMARY  IC50+Ki, p>=6, conf9, B, dedup      5157    85.8%    97.5%    99.4%   0.252
+pool      + confidence 8 (homologous)        6787    86.0%    97.2%    99.4%   0.250   drift  0.3pp
+types     IC50 only                          4164    85.9%    97.5%    99.4%   0.250   drift  0.1pp
+types     Ki only                            1177    83.6%    97.2%    99.3%   0.259   drift  2.2pp
+types     + Kd                               5161    85.8%    97.5%    99.4%   0.252   drift  0.0pp
+thresh    pChEMBL >= 5                       6500    81.8%    95.5%    98.6%   0.256   drift  4.0pp
+thresh    pChEMBL >= 7                       3434    88.0%    98.6%    99.7%   0.250   drift  2.2pp
+thresh    pChEMBL >= 8                       1336    89.4%    98.5%    99.5%   0.244   drift  3.6pp
+assay     B + F + A                          5157    85.8%    97.5%    99.4%   0.252   drift  0.0pp
+dedup     no skeleton dedup                  5590    85.5%    97.5%    99.4%   0.253   drift  0.3pp
+
+====================================================================================
+AChE: out-of-domain % of target actives (no B3DB neighbour above cutoff)
+====================================================================================
+variant                                         n     <0.3    <0.35     <0.4  median
+PRIMARY  IC50+Ki, p>=6, conf9, B, dedup      2391    28.4%    58.3%    77.2%   0.333
+pool      + confidence 8 (homologous)        2966    27.0%    55.1%    73.1%   0.341   drift  4.1pp
+types     IC50 only                          2221    29.6%    59.2%    77.7%   0.333   drift  1.2pp
+types     Ki only                             378    21.7%    54.5%    78.8%   0.342   drift  6.7pp
+types     + Kd                               2399    28.3%    58.1%    77.0%   0.333   drift  0.2pp
+thresh    pChEMBL >= 5                       3946    30.0%    59.4%    78.8%   0.333   drift  1.6pp
+thresh    pChEMBL >= 7                       1243    31.7%    61.7%    79.3%   0.328   drift  3.4pp
+thresh    pChEMBL >= 8                        475    36.4%    66.3%    83.4%   0.318   drift  8.1pp
+assay     B + F + A                          2411    28.2%    57.9%    76.9%   0.333   drift  0.4pp
+dedup     no skeleton dedup                  2470    28.3%    57.7%    76.6%   0.333   drift  0.6pp
+
+Interpretation: the primary recipe is the first row; "drift" is the largest
+change in any out-of-domain percentage relative to it. Small drift means the
+curation decision is not load-bearing for this study's conclusion.
+
+==============================================================================
+FEASIBILITY GATE under the primary recipe
+==============================================================================
+Labelled B3DB compounds within each cutoff of target chemistry. This is the
+sample available for measuring prediction error, and it sets the power.
+
+--- BACE1 (n=5157 actives) ---
+ cutoff      n   BBB+   BBB-   ratio    sufficient?
+    0.3    364    240    124   1.9:1           PASS
+   0.35     89     60     29   2.1:1           fail
+    0.4     22     13      9   1.4:1           fail
+    0.5      3      1      2   0.5:1           fail
+
+--- AChE (n=2391 actives) ---
+ cutoff      n   BBB+   BBB-   ratio    sufficient?
+    0.3   1066    778    288   2.7:1           PASS
+   0.35    492    366    126   2.9:1           PASS
+    0.4    224    166     58   2.9:1           PASS
+    0.5     71     48     23   2.1:1           fail
+
+Pre-registered sufficiency criterion (docs/preregistration.md section 10):
+>=200 labelled compounds with >=50 in each class at the primary 0.35 cutoff.
+Rerun scripts/power.py with the class counts above after any recipe change.

@@ -1,3 +1,6 @@
-# Verified working with Python 3.9.6 on macOS, 2026-11-14
+# Verified working with Python 3.9.6 on macOS, 2026-11-16
 rdkit==2025.09.2
 pandas==2.3.3
+# power simulation only (scripts/power.py)
+scipy==1.13.1
+numpy==2.0.2

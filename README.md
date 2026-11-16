@@ -14,7 +14,12 @@ error.
 ## Status
 
 Scoping complete. Literature search complete — the question is confirmed unclaimed
-(`docs/literature-search.md`). Pre-registration not yet written, and is the next step.
+(`docs/literature-search.md`). **Pre-registration written**
+(`docs/preregistration.md`, v1.0, 2026-11-16) and awaiting the chemistry
+co-author's sign-off on the activity threshold.
+
+No model has been trained and no error has been measured. The next step is the
+confirmatory analysis in section 8 of the pre-registration.
 
 See `docs/decisions.md` for the dated log.
 
@@ -93,6 +98,7 @@ quantities; `results/curated_overlap.txt` is its output and supersedes
 
 ```sh
 ./env/bin/python -I scripts/curate_gate.py data | tee results/curated_overlap.txt
+./env/bin/python -I scripts/power.py            | tee results/power.txt
 ```
 
 `fetch_chembl.py` pulls BACE1 (CHEMBL4822) and acetylcholinesterase (CHEMBL220),
@@ -131,5 +137,5 @@ placeholder pending a chemistry decision — see `docs/decisions.md`.
 scripts/   analysis code
 data/      gitignored; fetched by the commands above
 results/   captured script output
-docs/      decision log, pre-registration (when written)
+docs/      decision log, literature search, pre-registration
 ```

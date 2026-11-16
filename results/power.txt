@@ -1,0 +1,36 @@
+# scripts/power.py output
+# run 2026-11-16T14:44:51Z
+# numpy 2.0.2, scipy 1.13.1, Python 3.9.6
+
+binormal simulation | 4000 replicates | seed 42
+sample sizes are post-curation (InChIKey-skeleton deduplicated)
+
+========================================================================
+AChE-proximal holdout at Tanimoto 0.35: 464 BBB+ / 182 BBB-
+========================================================================
+  true AUC       SE    95% CI width
+      0.95   0.0085        +/-0.017
+      0.90   0.0132        +/-0.026
+      0.85   0.0164        +/-0.032
+      0.80   0.0189        +/-0.037
+
+Minimum detectable dAUC vs a size- and class-matched random holdout
+(80% power, two-sided alpha = 0.05; conservative - repeated control draws do better)
+  baseline AUC 0.90:  SE(diff) 0.0189   MDE dAUC ~ 0.053
+  baseline AUC 0.85:  SE(diff) 0.0229   MDE dAUC ~ 0.064
+
+========================================================================
+Alternatives, for the record (none is the pre-registered primary)
+========================================================================
+       AChE at 0.4 (n= 311): SE 0.0184   MDE dAUC ~ 0.073
+     BACE1 at 0.35 (n= 101): SE 0.0313   MDE dAUC ~ 0.124
+      BACE1 at 0.4 (n=  28): SE 0.0604   MDE dAUC ~ 0.239
+
+Pre-registered sufficiency criterion: >=200 labelled compounds with >=50 per class
+at the 0.35 cutoff. AChE (611; 464/182) passes. BACE1 (101) fails, and its MDE of
+~0.124 confirms that measuring error there could not distinguish signal from noise.
+
+BACE1 class counts above are apportioned by the overall B3DB class ratio, since the
+BACE1-proximal set is too small to split reliably. They are indicative only; the
+sufficiency criterion is evaluated on the actual total, which fails regardless.
+

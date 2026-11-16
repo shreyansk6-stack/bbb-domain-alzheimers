@@ -165,3 +165,55 @@ of 1,493, and 27 identical skeletons.
 **Environment note.** The venv was absent and was rebuilt; rdkit 2025.09.2 /
 pandas 2.3.3 / Python 3.9.6, identical to the 2026-11-15 run, so the raw-vs-curated
 comparison is not confounded by library versions. `data/` had survived.
+
+## 2026-11-16 — Pre-registration v1.0 written
+
+`docs/preregistration.md`. Written after curation so that its numbers are ones that
+will not move, and before any model has been trained.
+
+**Primary design settled: proximal holdout versus matched random holdout.** Remove
+from training every labelled B3DB compound within 0.35 of AChE chemistry (n = 611),
+train on the remainder, evaluate on the held-out proximal set; compare against a
+size- and class-matched random holdout over 200 draws, and against a holdout
+propensity-matched on MW, cLogP and TPSA. Training-set size is identical across arms
+by construction.
+
+**The property-matched arm exists for a real reason.** Target-proximal compounds are
+larger and more lipophilic than B3DB's average (BACE1 mean MW 472 vs BBB+ 318), so a
+performance drop could reflect molecular complexity rather than domain novelty. If
+the simple and property-matched controls disagree, the property-matched one governs
+the conclusion. Without this arm a reviewer would be right to reject the inference.
+
+**Primary endpoint:** ΔROC-AUC, ECFP4 random forest, proximal versus
+property-matched holdout. One endpoint, one model, one control. Everything else is
+secondary and labelled so.
+
+**Calibration added as a secondary endpoint.** A filter that is merely
+miscalibrated out of domain still misranks compounds even when its AUC holds, which
+is the practically relevant failure for a screening cutoff.
+
+**Power computed, not asserted.** `scripts/power.py`, output `results/power.txt`.
+At the curated 464/182 split the minimum detectable ΔAUC is **≈0.053** at 80% power.
+Stated bluntly in the pre-registration: if the true degradation is 0.01-0.03 AUC we
+will not detect it, and a null must be reported as "no effect larger than ~0.05",
+not as no effect. The abandoned predecessor idea died on an effect of 0.00-0.03 AUC,
+so this is a live possibility and is on the record in advance.
+
+**Decision rules pre-specified**, including what counts as refutation (ΔAUC CI
+within ±0.03, reported as a null in those words, corroborating
+10.1016/j.compbiolchem.2026.109356) and what counts as inconclusive. No outcome
+licenses switching endpoint, cutoff, model or target.
+
+**BACE1 declared unmeasurable in advance** against a stated sufficiency criterion
+(≥200 labelled compounds, ≥50 per class at 0.35). AChE passes at 611; BACE1 fails at
+101, where the minimum detectable ΔAUC would be ≈0.124. Recording this before
+attempting it converts a dead end into a stated finding.
+
+**Component 2 (AChE shortlist) is declared exploratory and hypothesis-generating**,
+with no claim of activity, brain penetration or therapeutic potential, and
+causal/efficacy language excluded. No bench work proposed or required.
+
+**Blocked on one thing:** the activity threshold (pChEMBL ≥ 6 on IC50/Ki) is still
+provisional pending the chemistry co-author's judgement on assay comparability. If
+it changes, the pre-registration is amended and dated before analysis runs. This is
+now the critical path.

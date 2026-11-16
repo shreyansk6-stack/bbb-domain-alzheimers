@@ -305,3 +305,70 @@ hash being registered against. The repo currently has no remote.
 
 **Next:** a public remote (needed for the registration to reference), then register,
 then write the confirmatory pipeline.
+
+## 2026-11-16 — Confirmatory pipeline written, label-permuted validation running
+
+`scripts/confirmatory.py` implements pre-registration sections 6–9 for the primary
+endpoint. Committed before being run, so the permuted validation is tied to a
+specific commit hash.
+
+**The real-label run is gated in code, not by intention.** `--mode real` exits
+unless four conditions hold: a registration identifier is supplied; a permuted run
+is on record; that run used ≥ 100 draws; and it returned a ΔAUC confidence interval
+covering zero. The permuted manifest must also match the current commit, so editing
+the pipeline re-locks it. The pre-registered blinding substitute is therefore
+enforced by the script rather than asserted in prose.
+
+The pre-specified decision rules from section 9 are evaluated by the script and
+printed as a verdict. A verdict computed by frozen code cannot be selected after
+the number is known.
+
+### Implementation clarifications the pre-registration did not settle
+
+Both were decided and recorded **before any real-label run**. Neither changes a
+pre-registered quantity; each resolves an ambiguity in how section 8 is realised.
+
+**IC-1 — what pool the random control is drawn from.** Section 8 says "a random set
+of identical size and class balance" without saying whether proximal compounds may
+be drawn. Taken literally: arm B draws from the whole labelled set, so roughly 12.6%
+of each control holdout is itself proximal. That dilution biases arm B **toward the
+null**, making it the conservative reading, and it is the one adopted. The realised
+share is reported per run (13.8% in the smoke test). Arm C draws from the distal
+pool only, since a propensity-matched control containing proximal compounds would
+defeat its purpose.
+
+**IC-2 — hyperparameter tuning across arms.** Section 7 requires tuning "within the
+training partition only." Tuning independently inside all 401 training partitions is
+computationally gratuitous, and per-arm tuning would make the arms differ in two
+ways at once. Resolution: tune once by 3-fold CV inside the **proximal arm's**
+training partition — exactly as section 7 specifies for the primary arm — and share
+that configuration with every control arm. A configuration identical across arms
+cannot generate a between-arm difference, which is the only thing the primary
+endpoint measures. Stated in the manuscript rather than left implicit, because the
+control arms' evaluation compounds are inside the pool the configuration was chosen
+on; with a four-point grid this is a very low-capacity channel and it is shared, not
+differential.
+
+**Threshold and calibration.** The decision threshold is chosen by maximising MCC on
+out-of-fold predictions within each arm's own training partition, never on its
+evaluation set. Calibration is Platt (sigmoid), which is monotonic and therefore
+cannot change AUC — only the secondary Brier and ECE figures.
+
+### What the smoke test already confirms about the design
+
+Two draws are not a result, but the matching diagnostics are structural and do not
+depend on the labels:
+
+- **The property confound is real and large.** Proximal versus distal standardised
+  mean differences: cLogP and TPSA around ±0.4. Arm B inherits that imbalance
+  (cLogP −0.39, TPSA +0.38); arm C removes it (all three within ±0.05). This is
+  precisely why section 8 makes arm C govern the conclusion, and the diagnostic now
+  demonstrates the arms behave as designed.
+- Permuted arm AUCs land near 0.5 as they must.
+
+**Running:** 200-draw permuted validation, ~3 h. Until it returns null, the real
+run stays locked.
+
+**Still the critical path:** external registration on OSF. The pipeline can be
+finished and validated without it, but the real-label run should not happen before
+the registration is timestamped.

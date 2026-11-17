@@ -1,0 +1,64 @@
+{
+  "mode": "permuted",
+  "commit": "977e735dc1bc75ae612bf9dd6e92eec603e17064",
+  "script_sha256": "922efb8f8c28b3ef30b11d07b9534caa9a5675caaa04eda6ed9a70215dd79a75",
+  "seed": 42,
+  "permute_seed": 13,
+  "draws": 200,
+  "target": "AChE",
+  "cutoff": 0.35,
+  "registered": null,
+  "recipe": {
+    "types": [
+      "IC50",
+      "Ki"
+    ],
+    "min_pchembl": 6.0,
+    "conf": [
+      9
+    ],
+    "assay_types": [
+      "B"
+    ]
+  },
+  "hyperparameters": {
+    "class_weight": "None",
+    "max_features": "sqrt"
+  },
+  "threshold": 0.6499999999999999,
+  "n_train": 3400,
+  "proximal": {
+    "auc": 0.5071627744858836,
+    "auc_calibrated": 0.4943882886023004,
+    "mcc": -0.02072276008504015,
+    "bacc": 0.4943185779017079,
+    "brier": 0.2378724364818394,
+    "ece": 0.023739218523422423,
+    "n": 492,
+    "n_pos": 302
+  },
+  "results": {
+    "property": {
+      "delta": -0.026886545834785724,
+      "lo": -0.1001753659811781,
+      "hi": 0.04255663994423138,
+      "share_control_below": 0.865,
+      "control_auc": 0.4802762286510979
+    },
+    "random": {
+      "delta": -0.01697019867549676,
+      "lo": -0.08591647786685264,
+      "hi": 0.051752352736145035,
+      "share_control_below": 0.75,
+      "control_auc": 0.4901925758103869
+    }
+  },
+  "verdict": "INCONCLUSIVE",
+  "versions": {
+    "python": "3.9.6",
+    "numpy": "2.0.2",
+    "sklearn": "1.6.1",
+    "pandas": "2.3.3"
+  },
+  "elapsed_s": 2396.8
+}

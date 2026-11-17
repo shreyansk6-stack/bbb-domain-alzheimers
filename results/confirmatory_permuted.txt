@@ -1,0 +1,74 @@
+==============================================================================
+CONFIRMATORY RUN - mode: PERMUTED
+==============================================================================
+LABELS ARE PERMUTED. Nothing here is a result. This run exists to show
+the harness produces no dAUC when there is no signal to find.
+commit a290ff6fd466979dfbf95f38c868f59365d3a6b6   seed 42   draws 200
+pipeline sha256 922efb8f8c28b3ef30b11d07b9534caa9a5675caaa04eda6ed9a70215dd79a75
+python 3.9.6  numpy 2.0.2  sklearn 1.6.1
+
+B3DB labelled reference: 3892 skeletons (130 discordant excluded)   BBB+ 2472  BBB- 1420
+AChE actives under primary recipe: 2391
+proximal holdout at Tanimoto 0.35: n=492  BBB+ 366  BBB- 126
+label permutation seed 42
+labels permuted; proximal class counts are now 323/169
+
+Physicochemical profile (the confound arm C removes)
+         set             MW        cLogP           TPSA
+    proximal   345.3+-96.2   3.28+-1.66    56.1+-34.6 
+      distal   355.8+-168.7  2.43+-2.14    78.1+-63.5 
+SMD proximal vs distal:  MW -0.08  cLogP +0.44  TPSA -0.43
+
+hyperparameters (CV inside the proximal arm's training partition): {'class_weight': 'balanced', 'max_features': 'sqrt'}   inner CV AUC 0.503
+Shared across arms by construction, so tuning cannot advantage one arm.
+
+==============================================================================
+ARM A - proximal holdout
+==============================================================================
+trained on 3400   decision threshold 0.58 (from training folds only)
+  auc=0.4703  auc_calibrated=0.5350  mcc=0.0000  bacc=0.5000  brier=0.2258  ece=0.0248  n=492  n_pos=323
+
+==============================================================================
+ARM B - size/class-matched random holdout
+==============================================================================
+200 draws   AUC mean 0.5056  median 0.5058  sd 0.0250  [0.4598, 0.5594]
+     mcc mean -0.0050  sd 0.0327
+    bacc mean 0.4980  sd 0.0107
+   brier mean 0.2263  sd 0.0004
+     ece mean 0.0246  sd 0.0008
+  proximal compounds inside the control holdout: 12.8% mean
+  match quality vs proximal (SMD, |x|<0.1 is good):  MW +0.07  cLogP -0.39  TPSA +0.39
+
+==============================================================================
+ARM C - property-matched holdout (GOVERNS)
+==============================================================================
+200 draws   AUC mean 0.5209  median 0.5212  sd 0.0200  [0.4859, 0.5592]
+     mcc mean 0.0000  sd 0.0355
+    bacc mean 0.5003  sd 0.0127
+   brier mean 0.2262  sd 0.0004
+     ece mean 0.0245  sd 0.0008
+  proximal compounds inside the control holdout: 0.0% mean
+  match quality vs proximal (SMD, |x|<0.1 is good):  MW -0.05  cLogP -0.02  TPSA -0.03
+
+==============================================================================
+PRIMARY ENDPOINT - dAUC = AUC(property-matched) - AUC(proximal)
+==============================================================================
+ property: dAUC +0.0509   95% CI [-0.0192, +0.1181]  <- PRIMARY
+           (descriptive: 1.0% of control draws fell at or below the proximal AUC; not a test)
+   random: dAUC +0.0354   95% CI [-0.0379, +0.1086]
+           (descriptive: 5.5% of control draws fell at or below the proximal AUC; not a test)
+  proximal AUC 0.4703  bootstrap 95% CI [0.4159, 0.5218]
+
+==============================================================================
+PRE-SPECIFIED VERDICT: INCONCLUSIVE
+==============================================================================
+dAUC +0.051, CI [-0.019, +0.118]: neither >= 0.06 with a CI excluding zero, nor contained within +-0.03. Not to be resolved by adding metrics, cutoffs, models or targets.
+
+Permuted labels: the verdict above is a harness check, not a finding.
+Expected: arm AUCs near 0.500 and a dAUC CI covering zero. If the CI
+excludes zero here, the pipeline is biased and must be fixed before
+any real-label run.
+
+Note (preregistration section 9): minimum detectable dAUC at this sample size is ~0.061. A null must be reported as 'no degradation larger than ~0.06 AUC', never as no degradation.
+
+elapsed 3770s

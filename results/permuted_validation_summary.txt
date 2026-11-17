@@ -1,0 +1,31 @@
+==========================================================================
+LABEL-PERMUTED VALIDATION - summary across runs
+==========================================================================
+pipeline under test : confirmatory.py sha256 922efb8f8c28b3ef
+manifests found     : 8
+all same pipeline   : yes
+gate requires       : 6 runs, >=100 draws, mean |dAUC| <= 0.02
+
+    seed  draws  proximal  control      dAUC               95% CI  covers 0
+       1    200    0.5318   0.5139   -0.0179   [-0.0845, +0.0546]       yes
+       7    200    0.4726   0.4919   +0.0193   [-0.0472, +0.0863]       yes
+      13    200    0.5072   0.4803   -0.0269   [-0.1002, +0.0426]       yes
+      42    200    0.4703   0.5212   +0.0509   [-0.0192, +0.1181]       yes
+      99    200    0.4774   0.4777   +0.0003   [-0.0613, +0.0645]       yes
+     777    200    0.5234   0.4948   -0.0286   [-0.0955, +0.0356]       yes
+    2024    200    0.4659   0.5159   +0.0500   [-0.0134, +0.1239]       yes
+   31415    200    0.4804   0.4936   +0.0132   [-0.0581, +0.0766]       yes
+
+mean dAUC +0.0075   sd 0.0317   SE 0.0112   t vs 0: +0.67
+signs: 5 positive, 3 negative
+intervals covering zero: 8/8
+
+==========================================================================
+VERDICT: PASS - harness shows no effect on data containing none
+==========================================================================
+The per-run spread (sd 0.0317) is dominated by the proximal arm, which is
+measured on one fixed set of compounds and so varies with sd ~0.027 between
+permutations. Individual runs therefore reach +0.0509 by chance alone; the
+first four seeds run during development were all positive, averaging +0.030,
+which looked like bias and was not (docs/decisions.md IC-5). The mean over
+8 runs is the quantity that carries information, and it is +0.0075.

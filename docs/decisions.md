@@ -477,3 +477,59 @@ must be reported as "no degradation larger than ~0.06 AUC" — is now supported
 empirically rather than only by simulation.
 
 **Running:** eight 200-draw permuted runs, which is two more than the gate requires.
+
+## 2026-11-17 — Permuted validation complete; the real-label run is unlocked
+
+Eight 200-draw permuted runs on pipeline `922efb8f8c28`, summarised in
+`results/permuted_validation_summary.txt` (regenerate with
+`scripts/summarise_permuted.py`).
+
+| | value |
+| --- | --- |
+| mean ΔAUC under the null | **+0.0075** |
+| sd across runs | 0.0317 |
+| t vs zero | **+0.67** |
+| signs | 5 positive, 3 negative |
+| intervals covering zero | **8 / 8** |
+
+The gate's conditions are met: eight runs against a required six, all on one
+pipeline hash, mean within ±0.02, every interval covering zero. Verified by calling
+`check_unlocked()` directly rather than by starting a real run, so the pipeline file
+was not touched and the eight runs stay pinned to it.
+
+**This closes IC-5 cleanly.** The four development seeds were all positive with a
+mean of +0.030; across eight seeds the signs are mixed and the mean is +0.0075.
+Individual runs still reach +0.0509 and −0.0286 by chance, because each one's ΔAUC
+is dominated by a proximal arm measured on a single fixed set of 492 compounds.
+That is the same ~0.027 spread that sets the study's 0.061 minimum detectable
+effect. Any single permuted run was always going to look like something.
+
+**Note for the manuscript.** The methods section should report the mean across
+permutations rather than a single validation run, and should say why: one
+permutation validates one realisation. This is a small point that would be easy to
+get wrong in writing up and is the kind of thing a reviewer of a pre-registered
+methods audit will check.
+
+### Environment failure, and what it cost
+
+Five of the first eight runs never executed a line of Python. The interpreter died
+in `site.py` reading `env/pyvenv.cfg` with `TimeoutError: [Errno 60]`. Cause: the
+machine's iCloud account is at **175 bytes of remaining quota** with Desktop &
+Documents sync enabled, and this repository sits in `~/Documents`, so iCloud was
+failing to sync 333 MB of virtual environment while the local disk sat at 99% full.
+Reads against the synced venv stalled. The same contention inflated completed runs
+to 1 h and 3 h 39 m against about 20 minutes of actual work.
+
+**Fixed:** the virtual environment now lives at `~/.venvs/bbb-domain-alzheimers`
+with `env/` as a symlink, so `./env/bin/python` still works as documented
+everywhere and the repository presents 15 MB rather than 333 MB to the sync daemon.
+`requirements.txt` reproduces it exactly; versions are unchanged.
+
+**Outstanding, and not a code issue:** the disk is still near capacity and the repo
+still sits inside a permanently failing iCloud sync queue. Moving the project out of
+`~/Documents` would remove a recurring source of non-deterministic failure in a
+project whose whole value is reproducibility.
+
+**Next, and now the only blocker:** OSF registration. The pipeline is finished,
+validated and locked; `--mode real` requires a registration identifier and will
+refuse without one.

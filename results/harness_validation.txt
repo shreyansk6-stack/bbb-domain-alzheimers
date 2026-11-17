@@ -1,0 +1,46 @@
+==========================================================================
+HARNESS VALIDATION - proximal arm, permuted labels only
+==========================================================================
+pipeline under test: confirmatory.py  sha256 922efb8f8c28b3ef
+
+labelled reference 3892   proximal holdout n=492 at Tanimoto 0.35
+
+--------------------------------------------------------------------------
+TEST 1  model frozen, evaluation labels permuted
+--------------------------------------------------------------------------
+scores: 427 distinct values, sd 0.1028
+2000 permutations: mean 0.4998  sd 0.0277  95% [0.4453, 0.5543]
+Hanley-McNeil sd for 323/169: 0.0274
+verdict: PASS - the metric itself is centred
+
+--------------------------------------------------------------------------
+TEST 2  labels permuted and model retrained, across seeds
+--------------------------------------------------------------------------
+    seed  eval pos  arm A AUC
+      42       323     0.4703
+       7       311     0.4727
+    2024       314     0.4556
+      99       312     0.4609
+       1       323     0.5318
+      13       302     0.4963
+     256       303     0.4844
+     777       291     0.5253
+   31415       298     0.4776
+       8       282     0.5241
+     500       304     0.4928
+      64       320     0.5037
+
+mean 0.4913  sd 0.0257  range [0.4556, 0.5318]  n=12
+t vs 0.5: -1.17
+verdict: PASS - the arm is centred under the null
+
+==========================================================================
+OVERALL: PASS
+==========================================================================
+The proximal arm's AUC varies with sd ~0.026 across
+permutations because it is measured on one fixed set of 492 compounds.
+That spread is irreducible and is why the pre-registered minimum detectable
+dAUC is ~0.061 rather than something smaller. It also means a single permuted
+run cannot establish that the harness is unbiased: the gate in
+confirmatory.py therefore requires 6 permuted runs and judges their
+mean, not any one of them.

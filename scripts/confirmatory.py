@@ -36,6 +36,7 @@ Usage:
         --draws 200 --registered <OSF registration DOI>
 """
 import argparse
+import glob
 import hashlib
 import json
 import os
@@ -332,6 +333,8 @@ def tune(X, y, holdout, seed):
 
 # =========================================================================== gate
 MIN_PERMUTED_DRAWS = 100
+MIN_PERMUTATIONS = 6       # one permutation characterises one realisation, not a harness
+MAX_MEAN_NULL_DELTA = 0.02
 
 
 def check_unlocked(args):
@@ -355,6 +358,31 @@ def check_unlocked(args):
         sys.exit(f"REFUSED: the recorded permuted run used {m.get('draws')} draws; "
                  f"{MIN_PERMUTED_DRAWS} are required.\nA permuted run too small to "
                  "detect a biased harness does not validate it.")
+
+    # Several permutations, not one. The proximal arm has a single fixed
+    # evaluation set whose AUC varies with sd ~0.028 across permutations, so one
+    # permutation says nothing about bias: four runs once landed a mean dAUC of
+    # +0.030 purely by seed choice (docs/decisions.md IC-5).
+    siblings = sorted(glob.glob("results/confirmatory_permuted*.json"))
+    runs = []
+    for f in siblings:
+        try:
+            j = json.load(open(f))
+        except Exception:
+            continue
+        if (j.get("script_sha256") == script_sha256()
+                and j.get("draws", 0) >= MIN_PERMUTED_DRAWS):
+            runs.append(j)
+    if len(runs) < MIN_PERMUTATIONS:
+        sys.exit(f"REFUSED: {len(runs)} valid permuted run(s) on this pipeline; "
+                 f"{MIN_PERMUTATIONS} are required.\nRun --mode permuted across at "
+                 "least that many --permute-seed values.")
+    deltas = np.array([j["results"]["property"]["delta"] for j in runs])
+    if abs(deltas.mean()) > MAX_MEAN_NULL_DELTA:
+        sys.exit(f"REFUSED: mean dAUC across {len(runs)} permuted runs is "
+                 f"{deltas.mean():+.4f}, outside +-{MAX_MEAN_NULL_DELTA}.\n"
+                 f"individual: {', '.join(f'{d:+.4f}' for d in deltas)}\n"
+                 "The harness finds an effect on data that contains none.")
     # pinned to the script's own content, not to HEAD: editing this pipeline
     # re-locks the gate, while committing documentation does not
     if m.get("script_sha256") != script_sha256():
@@ -368,9 +396,11 @@ def check_unlocked(args):
                  f"CI [{r.get('lo'):+.4f}, {r.get('hi'):+.4f}], which excludes zero.\n"
                  "The harness finds an effect where none exists. Fix it before "
                  "running on real labels.")
-    print(f"gate passed: permuted run on pipeline {m['script_sha256'][:12]} "
-          f"(commit {str(m.get('commit'))[:12]}), {m['draws']} draws, "
-          f"dAUC {r['delta']:+.4f} CI [{r['lo']:+.4f}, {r['hi']:+.4f}]\n")
+    print(f"gate passed: pipeline {m['script_sha256'][:12]} "
+          f"(commit {str(m.get('commit'))[:12]}); {len(runs)} permuted runs x "
+          f"{m['draws']} draws; mean null dAUC {deltas.mean():+.4f} "
+          f"(individual {', '.join(f'{d:+.4f}' for d in deltas)}); canonical CI "
+          f"[{r['lo']:+.4f}, {r['hi']:+.4f}]\n")
 
 
 def current_commit():
@@ -555,13 +585,21 @@ def main():
         delta = float(np.median(c) - prox_metrics["auc"])
         dist = c[rng.integers(0, len(c), BOOTSTRAP)] - boot
         lo, hi = float(np.percentile(dist, 2.5)), float(np.percentile(dist, 97.5))
-        # one-sided empirical p: how often a control draw is no better than proximal
-        p_emp = float((c <= prox_metrics["auc"]).mean())
-        results[arm] = dict(delta=delta, lo=lo, hi=hi, p_emp=p_emp,
+        # Descriptive only, and deliberately NOT a p-value. It compares one
+        # proximal AUC against the spread of control DRAWS, whose median has a
+        # small standard error, so it ignores the proximal arm's own sampling
+        # error (~0.028 at this size) - which dominates. On label-permuted data
+        # it returned 0.010 and 0.005, i.e. it manufactures significance from
+        # nothing. The confidence interval below carries both sources and is the
+        # only inferential quantity reported. See docs/decisions.md IC-5.
+        share_below = float((c <= prox_metrics["auc"]).mean())
+        results[arm] = dict(delta=delta, lo=lo, hi=hi,
+                            share_control_below=share_below,
                             control_auc=float(np.median(c)))
         tag = "  <- PRIMARY" if arm == "property" else ""
-        say(f"{arm:>9}: dAUC {delta:+.4f}   95% CI [{lo:+.4f}, {hi:+.4f}]   "
-            f"empirical p {p_emp:.4f}{tag}")
+        say(f"{arm:>9}: dAUC {delta:+.4f}   95% CI [{lo:+.4f}, {hi:+.4f}]{tag}")
+        say(f"{'':>11}(descriptive: {100 * share_below:.1f}% of control draws fell "
+            f"at or below the proximal AUC; not a test)")
     say(f"  proximal AUC {prox_metrics['auc']:.4f}  "
         f"bootstrap 95% CI [{np.percentile(boot, 2.5):.4f}, "
         f"{np.percentile(boot, 97.5):.4f}]")

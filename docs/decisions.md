@@ -413,3 +413,67 @@ draw-to-draw spread was smaller than the sampling error of a single evaluation s
 which is what overlapping training partitions produce. The 200-draw runs across four
 permutations are what settle it, and the gate will not unlock unless they return a
 ΔAUC interval covering zero.
+
+## 2026-11-16 — A false alarm, and the real defect under it (IC-5)
+
+The first four permuted runs returned ΔAUC **+0.051, +0.019, +0.050, +0.000** —
+every one positive, mean +0.030, which is half the pre-registered support threshold.
+Two of them reported a descriptive tail probability of 0.010 and 0.005 on data
+containing no signal whatsoever. The proximal arm's AUC across those four runs was
+0.4703, 0.4726, 0.4659, 0.4774: mean 0.472, standard deviation 0.005, where the
+Hanley–McNeil standard deviation for this class split is 0.028. An AUC varying five
+times less than it should, sitting consistently below chance, looks like a biased
+harness.
+
+**It was not biased. The four seeds landed low together by chance.**
+`scripts/validate_harness.py` establishes this with two tests, both on permuted
+labels, and `results/harness_validation.txt` records the output:
+
+- **Model frozen, evaluation labels permuted, 2,000 reps:** mean **0.4998**, sd
+  **0.0277**, against a Hanley–McNeil prediction of **0.0274**. The metric is
+  centred and has exactly the expected spread.
+- **Joint permutation across twelve seeds:** mean **0.4913**, sd **0.0257**, range
+  0.4556–0.5318, **t = −1.17** versus 0.5. The arm is centred under the null.
+
+Recorded rather than quietly deleted, because the wrong conclusion was reachable
+from the first four runs and the correction cost nothing but twelve more fits.
+
+### IC-5 — the "empirical p" was invalid and has been removed
+
+The defect the false alarm exposed. The quantity was the share of control draws
+falling at or below the proximal AUC, printed as "empirical p". It compares **one**
+proximal AUC against the spread of control **draws** — but the control median has a
+small standard error over 200 draws, while the proximal arm carries its own sampling
+error of ~0.028, which dominates and which this quantity ignores entirely. Whenever
+the proximal arm landed a standard deviation low by chance, nearly every control
+draw exceeded it and the number collapsed toward zero. **It manufactures
+significance out of noise**, and on permuted data it duly produced 0.010 and 0.005.
+
+It is now reported as a labelled descriptive share with an explicit note that it is
+not a test. The confidence interval — which pairs a stratified bootstrap of the
+proximal AUC with the control draw distribution, carrying both variance sources —
+covered zero in all four permuted runs, as a correct interval should. It is the only
+inferential quantity the study reports.
+
+Had this run on real labels first, a chance-low proximal arm would have produced a
+headline "p = 0.005" that no reviewer could have caught from the manuscript, because
+the quantity sounds reasonable and the code was not public at the point the number
+would have been quoted. This is the clearest justification the project has for
+validating on permuted labels before real ones.
+
+### The gate now judges six permutations, not one
+
+One permutation characterises one realisation of a single fixed evaluation set.
+`--mode real` therefore requires **six** valid permuted runs on the same pipeline
+hash and tests their **mean** ΔAUC against ±0.02, in addition to the canonical run's
+interval covering zero.
+
+**Consequence for the power statement, which is unchanged but now better founded.**
+The proximal arm's irreducible AUC spread of ~0.026–0.028 comes from measuring on
+492 fixed compounds, and it is the reason the pre-registered minimum detectable
+ΔAUC is ~0.061. The simulation in `scripts/power.py` said 0.061; the permutation
+spread says the same thing by a different route. Section 9's warning — that a null
+must be reported as "no degradation larger than ~0.06 AUC" — is now supported
+empirically rather than only by simulation.
+
+**Running:** eight 200-draw permuted runs, which is two more than the gate requires.

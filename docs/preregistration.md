@@ -3,9 +3,15 @@
 **Title.** Applicability domain of blood–brain barrier predictors in Alzheimer's
 target chemical space: a methods audit
 
-**Authors.** Shreyan Kancharla, Davidson College. Second author to be confirmed
-(chemistry, curation and synthetic accessibility). Authorship order per
-`docs/project-pitch.pdf`.
+**Authors.** Shreyan Kancharla, Davidson College (first author). Sam [surname to be
+filled in], Davidson College (second author; physicochemical interpretation,
+synthetic accessibility, target-chemistry literature context).
+
+**Authorship order fixed 2026-11-19: first and second, not co-first.** An earlier
+co-first arrangement with an equal-contribution footnote was considered and is not
+adopted. The division of work in section 13 is a first/second split rather than an
+equal one, and an equal-contribution note that the work does not support would be a
+misstatement on the paper itself.
 
 **Version 1.1, 2026-11-16.** Supersedes v1.0 of the same date, which was never
 registered externally; both versions are in this repository's git history. The
@@ -264,10 +270,17 @@ trail, and the repository is public.
 
 ## 13. Roles and disclosure
 
-First author: question, pipeline, curation decisions, domain and error analysis,
-manuscript. Second author: physicochemical interpretation, synthetic accessibility
-assessment of the shortlist, literature context for the target chemistry, and
-corresponding manuscript sections.
+**First author (Shreyan Kancharla):** the question; the pre-registration; ChEMBL and
+B3DB curation decisions; the domain and error analysis; the confirmatory pipeline
+and its validation; the design-proposal enumeration; the manuscript.
+
+**Second author (Sam):** physicochemical interpretation; synthetic accessibility
+assessment of the shortlist and of the design proposals; literature context for the
+target chemistry; corresponding manuscript sections.
+
+**Order is first/second, not co-first** (fixed 2026-11-19). The split above is not
+an equal one, and an equal-contribution footnote the work does not support would
+misstate the record.
 
 **Changed from v1.0.** Curation and assay-comparability decisions were originally
 assigned to the second author. They were instead made from published curation

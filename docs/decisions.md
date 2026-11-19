@@ -585,3 +585,25 @@ registration text and the pre-registration do not drift.
 **Next for this component:** implement the enumeration. Filter thresholds are fixed
 in writing first, which is what keeps it credible — they cannot be tuned once it is
 visible what survives them.
+
+## 2026-11-19 — Authorship order fixed: first/second, not co-first
+
+Shreyan Kancharla first author, Sam second. An earlier co-first arrangement with an
+equal-contribution footnote is **not** adopted.
+
+The reason is simply that the work is not equal. The question, pre-registration,
+curation decisions, confirmatory pipeline and its validation, domain and error
+analysis, design-proposal enumeration and manuscript sit with the first author; the
+second author's contribution is physicochemical interpretation, synthetic
+accessibility, target-chemistry literature context and the corresponding sections.
+That is a substantial second-author contribution and it is not an equal one. An
+equal-contribution footnote the division of labour does not support would misstate
+the record on the paper itself.
+
+Recorded in `docs/preregistration.md` in both the Authors line and section 13.
+
+**Owed to Sam directly.** Co-first authorship was floated to him earlier, and
+`docs/project-pitch.pdf` — the version he has seen — still describes that
+arrangement along with a curation role he no longer holds. He should hear the change
+in a conversation rather than find it on a draft. Both the change and the reason are
+defensible; being told late is what would not be.

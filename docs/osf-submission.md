@@ -346,12 +346,41 @@ bounded, and separated from the confirmatory test. Text for it is below.
 > counts, assay metadata distributions and curation sensitivity analyses already
 > computed are exploratory and will be labelled as such.
 >
-> A second, explicitly exploratory and hypothesis-generating component will produce a
-> shortlist of acetylcholinesterase-directed candidate compounds prioritised using
-> only in-domain BBB predictions, with synthetic accessibility assessed. No claim of
-> activity, brain penetration or therapeutic potential will be made; compounds will be
-> described as prioritised for evaluation, never as hits or leads. Causal and efficacy
-> language is excluded. No laboratory work is proposed or required.
+> Two further components are explicitly exploratory and hypothesis-generating. Both
+> are specified in Amendment A1 of the pre-registration, dated 2026-11-19 and written
+> before either was run. Neither carries a p-value and neither bears on the primary
+> endpoint.
+>
+> (a) A shortlist **selected** from the 2,391 curated acetylcholinesterase actives —
+> compounds with measured activity against the human enzyme. Those falling outside the
+> applicability domain are discarded before any prediction is made, on the grounds
+> that no BBB prediction on them can be defended; the BBB model is then applied to the
+> in-domain remainder only, with synthetic accessibility and property triage. Nothing
+> is generated for this component. "Candidate" denotes candidate for brain
+> penetration, not for activity: activity is measured, penetration is predicted.
+>
+> (b) A set of **domain-constrained design proposals**: novel structures produced by
+> applying a fixed, pre-declared catalogue of single medicinal-chemistry
+> transformations to in-domain parent compounds, then filtering on in-domain
+> membership, predicted permeability, synthetic accessibility, novelty against ChEMBL
+> and PubChem, scaffold retention, a property window and PAINS. **No generative model
+> is used**, deliberately: a learned generator would carry its own unexamined
+> applicability domain, which is the error this study documents. Enumeration keeps
+> every structure traceable to one named parent and one named transformation. For the
+> same reason **no activity prediction is applied**, so the proposals carry no
+> predicted potency; the only activity-related claim available is shared scaffold with
+> a compound of measured activity.
+>
+> For both components: no claim of activity, brain penetration or therapeutic
+> potential will be made; compounds will be described as prioritised for evaluation or
+> as design proposals, never as hits or leads. Causal and efficacy language is
+> excluded. No laboratory work is proposed or required for any claim made.
+>
+> Component (b) carries a stated weakness that is also its scientific content:
+> constraining proposals to be in-domain biases them toward chemistry resembling the
+> BBB training set, which may trade away target potency. The component trades
+> plausibility-of-activity for defensibility-of-prediction and cannot evaluate that
+> trade without activity data it does not have. This is reported, not buried.
 
 ## Other
 

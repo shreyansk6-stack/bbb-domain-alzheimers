@@ -533,3 +533,55 @@ project whose whole value is reproducibility.
 **Next, and now the only blocker:** OSF registration. The pipeline is finished,
 validated and locked; `--mode real` requires a registration identifier and will
 refuse without one.
+
+## 2026-11-19 — Amendment A1: Component 2 specified, design component added
+
+`docs/preregistration.md` now carries an **Amendments** section with A1, appended
+rather than edited, per section 12.
+
+**A1.1 closes a real gap.** Section 11 promised "a shortlist of AChE-directed
+candidate compounds" and never said where the candidates came from. Three sentences,
+all of them about what would *not* be claimed. Ambiguity in a pre-registered
+component is what a reviewer attacks first. The shortlist is now specified as
+**selected** from the 2,391 curated actives — compounds with measured human AChE
+activity — with the out-of-domain 58.3% discarded *before* any BBB prediction is
+made. "Candidate" means candidate for brain penetration; activity is measured,
+penetration is predicted, and the manuscript must keep those words apart.
+
+**A1.2 adds novel structures, by enumeration rather than generation.** The
+distinction is the whole reason this is defensible. A learned generator carries its
+own applicability domain, unexamined — which would reproduce, inside this paper, the
+exact error the paper documents. Instead: a fixed catalogue of single
+medicinal-chemistry transformations applied to in-domain parents, so every structure
+traces to one named parent and one named transformation, and the component is
+reproducible from the repository.
+
+The framing is what makes it on-thesis rather than bolted on. The audit says
+target-directed chemistry sits outside the predictors' domain; the constructive form
+of that finding is a design constraint — **can AChE-directed chemistry be proposed
+that stays inside the domain, so the BBB prediction on it is defensible?** Filter 2
+makes in-domain membership a construction requirement rather than an outcome.
+
+**No activity prediction is applied, deliberately.** Ranking novel structures by a
+QSAR activity model would mean applying a model to novel chemistry without auditing
+that model's domain. Omitting it costs the component any claim to potency, and that
+cost is stated rather than hidden: the only activity-related claim available is
+shared scaffold with a compound of measured activity.
+
+**The weakness is the content.** Requiring in-domain membership biases proposals
+toward chemistry resembling B3DB, which is enriched in approved and CNS-active
+drugs, and the transformations are not chosen to preserve AChE binding. The
+component trades plausibility-of-activity for defensibility-of-prediction and cannot
+evaluate that trade without activity data. Written into the amendment in those
+words.
+
+Both components are exploratory, carry no p-values, and leave the confirmatory
+analysis in sections 6–9 untouched. The amendment was written after the exploratory
+58.3% figure was known and before any selection or enumeration was run; it says so.
+
+`docs/osf-submission.md` updated to match under Exploratory analyses, so the
+registration text and the pre-registration do not drift.
+
+**Next for this component:** implement the enumeration. Filter thresholds are fixed
+in writing first, which is what keeps it credible — they cannot be tuned once it is
+visible what survives them.

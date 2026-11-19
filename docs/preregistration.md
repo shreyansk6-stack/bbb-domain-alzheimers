@@ -296,3 +296,142 @@ that cannot survive a reviewer's question is not responsibility.
 
 Target journal: *Journal of Cheminformatics* (leading candidate; APC and waiver
 terms to be confirmed from the publisher's own fees page, not third-party listings).
+
+---
+
+# Amendments
+
+Appended, never rewritten. Each states its date, what changed, why, and whether it
+was decided before or after seeing any affected result.
+
+## Amendment A1 — 2026-11-19 — Component 2 specified; a design component added
+
+**Status of both parts: exploratory and hypothesis-generating.** Neither bears on
+the confirmatory primary endpoint in sections 6–9, neither carries a p-value, and
+the confirmatory analysis is unaffected. Written **after** the exploratory scoping
+and sensitivity results were known — in particular after it was known that 58.3% of
+curated AChE actives fall outside the 0.35 domain cutoff — and **before** any
+compound selection or structure enumeration has been run.
+
+### A1.1 — Section 11 was ambiguous; the shortlist is selected, not generated
+
+Section 11 committed to "a shortlist of AChE-directed candidate compounds produced
+using only in-domain BBB predictions" without saying where the candidates come
+from. That is specified now:
+
+**The shortlist is selected from the 2,391 curated AChE actives**, which are
+compounds with *measured* activity against human AChE. Nothing is generated for
+this component. The procedure:
+
+1. Partition the curated actives by domain membership at the primary cutoff
+   (Tanimoto 0.35 to the B3DB labelled reference set).
+2. **Discard the out-of-domain fraction** — not because those compounds are poor,
+   but because no BBB prediction on them can be defended. On current numbers this
+   removes 58.3% of the pool before any prediction is made, and that figure is
+   itself reported as the constructive counterpart to the audit's finding.
+3. Apply the audited BBB model to the in-domain remainder only; retain predicted
+   permeant compounds with calibrated probabilities reported.
+4. Apply synthetic accessibility (Ertl SA score) and standard property triage.
+5. Report what survives, with every filter value per compound.
+
+"Candidate" here means candidate for **brain penetration**, not for activity:
+activity is measured, penetration is predicted. The manuscript must use that
+wording.
+
+### A1.2 — New component: domain-constrained design proposals
+
+**Rationale.** The audit finds that target-directed chemistry sits largely outside
+the applicability domain of the BBB predictors applied to it. The constructive form
+of that finding is a design constraint: can AChE-directed chemistry be proposed
+that remains *inside* the domain, so that a BBB prediction on it is defensible? A
+structure proposed under that constraint is downstream of this paper's thesis
+rather than appended to it.
+
+**No generative model is used, and this is deliberate.** A learned generator has
+its own applicability domain, which would be unexamined — committing, inside this
+paper, the exact error the paper documents. Structures are produced by
+**enumeration** instead: a fixed catalogue of single medicinal-chemistry
+transformations applied to parent compounds with measured activity. Every proposed
+structure is therefore traceable to one named parent and one named transformation,
+and the whole component is reproducible from the repository.
+
+**Procedure, fixed here before enumeration.**
+
+*Parents.* The in-domain AChE actives from A1.1 — compounds with measured activity
+whose own BBB prediction is already defensible.
+
+*Transformations.* A fixed catalogue of common bioisosteric and R-group
+replacements, encoded as RDKit reaction SMARTS and listed in full in the
+implementing script:
+
+| Class | Transformations |
+| --- | --- |
+| Acid isosteres | carboxylic acid → tetrazole, acylsulfonamide |
+| Aromatic N-walk | phenyl → pyridyl (2-, 3-, 4-) |
+| Ring replacement | benzene → thiophene, furan; piperidine ↔ piperazine ↔ morpholine |
+| Linker | amide → reversed amide, sulfonamide; ether O → S, NH, CH₂ |
+| Small alkyl | methyl → ethyl, cyclopropyl, CF₃, Cl |
+| Halogen | F ↔ Cl ↔ Br |
+| Fluorine scan | aromatic C–H → C–F |
+
+**One transformation per parent.** Single-edit products only, to keep every
+structure traceable and to avoid a combinatorial explosion that no one can inspect.
+
+*Filters, all pre-declared, applied in this order, with a funnel table reporting
+how many structures survive each:*
+
+| # | Filter | Threshold |
+| --- | --- | --- |
+| 1 | Valid structure, parses and sanitises | RDKit |
+| 2 | **In-domain by construction** | max Tanimoto to B3DB labelled set ≥ 0.35 |
+| 3 | BBB predicted permeant by the audited model | calibrated probability reported |
+| 4 | Synthetic accessibility | Ertl SA score ≤ 4.0 |
+| 5 | Novelty | InChIKey skeleton absent from ChEMBL and PubChem |
+| 6 | Scaffold retention | shares Bemis–Murcko scaffold with its parent |
+| 7 | Property window | MW ≤ 450, cLogP 1–4, TPSA ≤ 90 |
+| 8 | No PAINS | RDKit FilterCatalog |
+
+*Ranking and cap.* At most **20** structures reported, ranked by maximum Tanimoto
+to the B3DB reference set (descending — most defensible prediction first), ties
+broken by SA score (ascending). The ranking deliberately contains **no activity
+estimate**; see below.
+
+*Novelty check.* ChEMBL is checked locally. PubChem is checked by API; if it is
+unavailable the component reports ChEMBL-only novelty and says so explicitly rather
+than implying a broader check than was run.
+
+**No activity prediction is applied, and this is a deliberate omission.** Ranking
+novel structures by a QSAR activity model would mean applying a model to novel
+chemistry without auditing that model's own domain — again, the error this paper
+documents. Auditing an activity model as well is a separate project. The
+consequence is stated plainly: these structures have **no predicted potency**, and
+the only activity-related claim available is that each shares a scaffold with a
+compound of measured activity.
+
+**Permitted claims.** Each proposed structure is novel, synthetically accessible by
+the stated metric, derived by one named transformation from a compound with
+measured human AChE activity, and — the point of the exercise — positioned such
+that the BBB prediction made on it falls inside the model's demonstrated domain.
+
+**Prohibited claims.** That any structure is active, that it penetrates the brain,
+that it is a hit, lead, candidate drug, or has therapeutic potential. Causal and
+efficacy language is excluded, as in section 11. No in vitro or in vivo work is
+proposed, and none is required for any claim made.
+
+**Stated weakness, which is also the scientific content.** Requiring in-domain
+membership biases the proposals toward chemistry resembling B3DB, which is enriched
+in approved and CNS-active drugs. That may trade away target potency: the
+transformations that move a compound into the BBB domain are not chosen to preserve
+AChE binding, and single-edit bioisosteric replacement does not guarantee retained
+activity. **This component therefore trades plausibility-of-activity for
+defensibility-of-prediction, and it cannot evaluate that trade without activity
+data it does not have.** The trade is the honest subject of the component and must
+be described as such, not buried.
+
+**Follow-on work, explicitly out of scope here.** Synthesis of any proposed
+structure, and any biochemical assay, belong to a separate project. Should an AChE
+assay ever be run, note that commercially available enzyme is typically
+*Electrophorus* or *Torpedo*, which decision D2 excluded from the training data on
+the grounds of divergent inhibitor SAR; measured data from such an assay would fail
+this study's own inclusion criterion and would have to be reported with that
+qualification.

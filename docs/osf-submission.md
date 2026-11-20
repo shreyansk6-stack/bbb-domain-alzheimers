@@ -54,6 +54,15 @@ bounded, and separated from the confirmatory test. Text for it is below.
 > actually applied to, and measures directly whether BBB prediction error increases
 > on target-proximal compounds. A systematic Europe PMC search (2026-11-16) found the
 > specific question unclaimed.
+>
+> The confirmatory analysis is the audit. Two further components are explicitly
+> exploratory and hypothesis-generating, and demonstrate the audit's constructive use:
+> a shortlist selected from acetylcholinesterase inhibitors of measured activity,
+> retaining only those on which a BBB prediction can be defended; and a set of novel
+> structures produced by enumerating fixed medicinal-chemistry transformations under
+> the constraint that the product remain inside the predictor's applicability domain.
+> Neither component claims activity, brain penetration or therapeutic potential, and
+> no laboratory work is proposed or required.
 
 **Hypotheses**
 

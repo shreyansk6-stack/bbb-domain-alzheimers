@@ -652,3 +652,89 @@ be carried into the manuscript's methods:
 **Next:** retrieve the DOI, record it here and in the pre-registration, then run
 `scripts/confirmatory.py --mode real --registered <DOI>`. The gate will refuse
 without it.
+
+## 2026-11-20 — CONFIRMATORY RUN COMPLETE. Verdict: INCONCLUSIVE
+
+One run, real labels, registration `10.17605/OSF.IO/UQR62`, pipeline
+`922efb8f8c28`, 8.9 hours. Full output in `results/confirmatory_real.txt` and
+`results/confirmatory_real.json`.
+
+### Primary endpoint
+
+| Comparison | ΔAUC | 95% CI |
+| --- | --- | --- |
+| **vs property-matched (arm C, GOVERNS)** | **+0.0284** | **[−0.0164, +0.0749]** |
+| vs size/class-matched random (arm B) | +0.0553 | [+0.0071, +0.1005] |
+
+Proximal holdout AUC **0.8352** (bootstrap CI [0.7977, 0.8714]); arm B median
+0.8905; arm C median 0.8636.
+
+**Pre-specified verdict: INCONCLUSIVE.** ΔAUC is neither ≥ 0.06 with a CI excluding
+zero (support) nor contained within ±0.03 (refutation). Evaluated by the frozen
+script, not chosen afterwards.
+
+Per section 9, this must be reported as **"no degradation larger than ~0.06 AUC"**
+and never as no degradation. The minimum detectable effect is 0.061 and the point
+estimate is 0.028: this study cannot resolve an effect of that size. That limitation
+was stated in advance, which is the only reason it is a result rather than an
+excuse.
+
+### The property confound is real and it is about half the apparent effect
+
+This is the substantive finding, and it is what the three-arm design existed to
+produce.
+
+Against the **unmatched** random control the gap is +0.0553 with a CI excluding
+zero. Against the **property-matched** control it is +0.0284 with a CI covering
+zero. **Roughly 49% of the apparent degradation is molecular-property difference,
+not domain novelty.**
+
+Section 8 pre-registered exactly this contingency — "if arms 2 and 3 disagree, arm 3
+governs and the gap between them is reported as the magnitude of the property
+confound" — so the number is reportable as specified rather than as a post hoc
+observation. The practical lesson for the field is sharp: **a study that compared
+target-proximal compounds against an unmatched random holdout would have reported a
+significant degradation, and roughly half of it would have been molecular weight,
+lipophilicity and polarity rather than the applicability domain.**
+
+### A registered expectation that the data did not support
+
+Sections 8 and the registration both state that target-proximal compounds are
+"larger and more lipophilic" than the B3DB average, citing BACE1 mean MW 472 against
+318. **For AChE that is half wrong.** Measured on the actual proximal set:
+
+| | proximal | distal | SMD |
+| --- | --- | --- | --- |
+| MW | 345.3 ± 96.2 | 355.8 ± 168.7 | **−0.08** |
+| cLogP | 3.28 ± 1.66 | 2.43 ± 2.14 | +0.44 |
+| TPSA | 56.1 ± 34.6 | 78.1 ± 63.5 | −0.43 |
+
+AChE-proximal compounds are **not larger** — they are marginally smaller, with a
+negligible standardised difference. They are more lipophilic and distinctly less
+polar. The MW claim was carried over from the BACE1 figures and does not hold for
+the target actually analysed. The manuscript must state the AChE numbers and must
+not repeat the "larger" claim. Recorded here because the registration contains it.
+
+### Secondary endpoints, no inferential claim
+
+Calibration is the one that moves. Expected calibration error on the proximal
+holdout is **0.0971** against **0.0601** on the property-matched control, and Brier
+0.1449 against 0.1283 — roughly 60% worse calibration error out of domain, while
+discrimination (MCC 0.496 vs 0.519, balanced accuracy 0.775 vs 0.778) barely
+differs. Section 8 anticipated this as the practically relevant failure mode: a
+filter that is merely miscalibrated still misranks compounds even when its AUC
+holds. It is secondary, has no pre-specified decision rule, and carries no p-value.
+
+### What happens now, and what does not
+
+The confirmatory analysis is **finished**. Section 9 forbids resolving an
+inconclusive result by adding metrics, cutoffs, models or targets, and the
+registration says any analysis run after this point is post hoc and must be labelled
+so. The 0.3 and 0.4 cutoff sweeps and the other two models remain pre-registered
+secondary analyses and may be run and reported as secondary — but none of them can
+convert this verdict into a different one.
+
+The paper does not depend on this outcome. The chemical-space mapping, the BACE1
+unmeasurability finding, the held-out-test-set critique and the property-confound
+magnitude all stand on their own, and the last of these is arguably more useful to
+the field than a clean positive would have been.

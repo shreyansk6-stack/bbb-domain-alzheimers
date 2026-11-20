@@ -1,0 +1,42 @@
+{
+  "cutoffs": {
+    "0.35": {
+      "n": 492,
+      "n_pos": 366,
+      "prox": 0.8351548269581056,
+      "ctrl": 0.8635831381733021,
+      "delta": 0.02842831121519651,
+      "lo": -0.016401032179720835,
+      "hi": 0.07485254575418505,
+      "draws": 200,
+      "source": "confirmatory run"
+    },
+    "0.3": {
+      "n": 1066,
+      "n_pos": 778,
+      "prox": 0.8052877749214511,
+      "ctrl": 0.8724449264495859,
+      "delta": 0.06715715152813484,
+      "lo": 0.035412649957154964,
+      "hi": 0.09851950781919455,
+      "draws": 50,
+      "source": "secondary run"
+    },
+    "0.4": {
+      "n": 224,
+      "n_pos": 166,
+      "prox": 0.8499688408807644,
+      "ctrl": 0.8935656418778561,
+      "delta": 0.043596800997091734,
+      "lo": -0.0172439759036146,
+      "hi": 0.10583973826339853,
+      "draws": 50,
+      "source": "secondary run"
+    }
+  },
+  "draws": 50,
+  "pipeline_sha256": "922efb8f8c28b3ef30b11d07b9534caa9a5675caaa04eda6ed9a70215dd79a75",
+  "commit": "5423213a33840d389d3174c6f6ea7097b895ec93",
+  "secondary": true,
+  "note": "Pre-registered secondary (H2). Cannot change the primary verdict."
+}

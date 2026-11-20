@@ -1,0 +1,46 @@
+==============================================================================
+SECONDARY ANALYSIS - H2, degradation vs domain cutoff
+==============================================================================
+PRE-REGISTERED SECONDARY. Run after the confirmatory result was known.
+It cannot and does not change the primary verdict (INCONCLUSIVE at 0.35).
+pipeline sha256 922efb8f8c28b3ef (confirmatory.py, imported unchanged)
+commit 5423213a33840d389d3174c6f6ea7097b895ec93   seed 42   draws 50 per cutoff
+
+B3DB labelled reference: 3892 skeletons   AChE actives: 2391
+
+==============================================================================
+CUTOFF 0.30
+==============================================================================
+proximal holdout n=1066  BBB+ 778  BBB- 288   trained on 2826
+hyperparameters {'class_weight': 'balanced', 'max_features': 'sqrt'}   proximal AUC 0.8053
+control AUC median 0.8724  sd 0.0083  (SE of mean 0.0012)
+match quality (SMD):  MW -0.07  cLogP -0.04  TPSA -0.04
+dAUC +0.0672   95% CI [+0.0354, +0.0985]
+
+==============================================================================
+CUTOFF 0.40
+==============================================================================
+proximal holdout n=224  BBB+ 166  BBB- 58   trained on 3668
+hyperparameters {'class_weight': 'balanced', 'max_features': 'sqrt'}   proximal AUC 0.8500
+control AUC median 0.8936  sd 0.0161  (SE of mean 0.0023)
+match quality (SMD):  MW -0.01  cLogP -0.01  TPSA -0.01
+dAUC +0.0436   95% CI [-0.0172, +0.1058]
+
+==============================================================================
+H2 - does degradation increase with a stricter cutoff?
+==============================================================================
+ cutoff      n   train  proximal  control      dAUC               95% CI
+   0.30   1066    2826    0.8053   0.8724   +0.0672   [+0.0354, +0.0985]
+   0.35    492    3400    0.8352   0.8636   +0.0284   [-0.0164, +0.0749]
+   0.40    224    3668    0.8500   0.8936   +0.0436   [-0.0172, +0.1058]
+
+dAUC increases monotonically with cutoff: NO
+every interval covers zero: no
+
+Reading this honestly: the intervals at every cutoff are wide and overlap each
+other, so H2 is not resolved by these data whichever direction the point
+estimates run. The trend is also confounded with training-set size, which the
+registration did not anticipate (see this script's header). Report the table,
+report the confound, and do not claim a cutoff effect.
+
+elapsed 260s

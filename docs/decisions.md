@@ -738,3 +738,106 @@ The paper does not depend on this outcome. The chemical-space mapping, the BACE1
 unmeasurability finding, the held-out-test-set critique and the property-confound
 magnitude all stand on their own, and the last of these is arguably more useful to
 the field than a clean positive would have been.
+
+## 2026-11-20 — H2 secondary analysis. Not supported, and a result that must be handled carefully
+
+`scripts/secondary_cutoffs.py`, `results/secondary_cutoffs.txt`. Pre-registered
+secondary, run after the confirmatory verdict was known, and labelled as such.
+50 control draws per cutoff rather than 200: the control mean is estimated to
+within ~0.002 at 50 draws while the proximal arm is one fixed evaluation set with
+sd ~0.027 that no number of control draws reduces.
+
+| cutoff | n | train | proximal | control | ΔAUC | 95% CI |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0.30 | 1066 | 2826 | 0.8053 | 0.8724 | **+0.0672** | **[+0.0354, +0.0985]** |
+| 0.35 | 492 | 3400 | 0.8352 | 0.8636 | +0.0284 | [−0.0164, +0.0749] |
+| 0.40 | 224 | 3668 | 0.8500 | 0.8936 | +0.0436 | [−0.0172, +0.1058] |
+
+**H2 is not supported.** It predicted that degradation increases at stricter
+cutoffs. The pattern is non-monotonic, and the largest effect is at the *loosest*
+cutoff — the opposite of the prediction.
+
+### The 0.30 row is not evidence for H1, and must not be reported as if it were
+
+At 0.30 the interval excludes zero and the point estimate exceeds the 0.06 support
+threshold. Had 0.30 been the registered primary cutoff, the verdict would have been
+SUPPORT rather than INCONCLUSIVE.
+
+This is exactly the move section 9 forbids, and it is forbidden for a reason the
+data illustrate. Three things differ at 0.30 besides strictness: n is 1066 rather
+than 492, so the minimum detectable effect falls from 0.061 to 0.041; the training
+set shrinks from 3400 to 2826, so the model is weaker on every arm; and "within
+Tanimoto 0.30 on Morgan fingerprints" is a weak claim of chemical similarity. The
+0.30 comparison is better powered and simultaneously measures something less
+meaningful.
+
+**The 0.35 cutoff was fixed before any of these class counts were known, and 0.30
+was explicitly declined with the reasoning recorded (decision D9, section 6).** That
+decision is what makes this reportable at all. The paper should state plainly that
+the looser cutoff would have produced a positive headline, that it was declined in
+advance on chemical grounds, and that the registered endpoint governs. A reader who
+cannot verify that ordering has only our word for it; the git history and the OSF
+timestamp mean they do not need to take it.
+
+### A confound the registration did not anticipate
+
+Changing the cutoff changes the training-set size, because a looser cutoff holds
+out more compounds. Across cutoffs the comparison therefore conflates domain
+strictness with training-set size. Within a cutoff the arms remain matched by
+construction, so each row is internally clean; the *trend*, which is what H2 asks
+about, is not. H2 as written could not have answered its own question. Reported as
+a limitation.
+
+## 2026-11-20 — A1.2 enumeration built, and the registered ranking rule is defective
+
+`config/transformations.json`, `scripts/design_enumerate.py`,
+`results/design_enumeration.txt`. Exploratory, post-registration.
+
+Catalogue of 10 single medicinal-chemistry transformations, every entry carrying
+its rationale and a `status` field that stays `proposed` until the chemistry
+co-author signs off. All 10 parse, fire on real actives, and yield valid products.
+From 2,391 curated AChE actives: 30,860 raw products → 906 survivors after scaffold
+retention, the property window, PAINS, SA ≤ 4.0, in-domain membership and predicted
+BBB+.
+
+### Defect 1: the pre-registered ranking selects for compounds that already exist
+
+A1.2 ranks survivors by "max Tanimoto descending, then SA ascending". Maximum
+Tanimoto to the labelled reference is maximised by changing the parent as little as
+possible, so the ranking optimises directly for *least novel*. It is not a
+tie-break detail: the top three proposals at Tanimoto 1.000 are **already in B3DB**
+— known compounds, reachable because a single halogen or N-demethyl edit lands on
+one. Ranking by similarity-to-known and then filtering for novelty are opposed
+objectives, and the registration contains both.
+
+Three of the 906 survivors are already in B3DB. The novelty filter would remove
+them, but it would be removing precisely the molecules the ranking promoted, which
+means the rank order below them is also driven by the wrong objective.
+
+**Not fixed unilaterally.** The ranking is a registered rule; changing it after
+seeing the output is the kind of post hoc adjustment this project exists to avoid.
+It needs a dated amendment stating the defect, the replacement rule, and that both
+were decided with knowledge of the current output. The replacement should rank on
+something that is not monotone in novelty — predicted margin above the decision
+threshold, or distance into the domain rather than proximity to a specific
+neighbour — and should cap products per parent, which the current rule also lacks.
+
+### Defect 2: the novelty filter as written is not executable
+
+A1.2 specifies novelty against ChEMBL and PubChem. Neither is checkable offline,
+and there is no bulk lookup that avoids one network call per structure, so it could
+never have been applied to 30,860 products. It is feasible on the survivors, which
+is why the script orders it last and leaves it unapplied with the reason printed in
+the output. Both databases are live, so any novelty claim must carry the date it
+was checked.
+
+### What the output says about the catalogue
+
+Six of ten transformations contribute zero survivors (T01–T04, T09, T10). All
+surviving products come from the aromatic fluorine scan (529), chlorination (303),
+N-demethylation (61) and methyl→ethyl (12). The property window — cLogP 1–4 in
+particular — removes the acid isosteres and ring replacements. A catalogue whose
+output is 92% halogen scans is not proposing designs so much as decorating three
+parent scaffolds, and the top 20 draws on only five distinct parents. This is a
+chemistry judgement rather than a coding one and is the first thing the chemistry
+co-author should rule on.

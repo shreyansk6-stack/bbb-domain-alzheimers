@@ -1,0 +1,105 @@
+{
+  "_comment": [
+    "Amendment A1.2 transformation catalogue. Pre-declared and fixed before enumeration.",
+    "Every transformation is a SINGLE medicinal-chemistry edit a chemist would actually",
+    "make. No generative model. Adding a transformation after seeing which products",
+    "survive the filters would make the catalogue a tuned parameter; it is not one.",
+    "",
+    "REVIEW STATUS: every entry is 'proposed' until the chemistry co-author reviews it.",
+    "Sam: change 'status' to 'approved' or 'rejected' and write why in 'review_note'.",
+    "A rejected transformation is left in the file, not deleted, so the catalogue",
+    "records what was considered."
+  ],
+  "transformations": [
+    {
+      "id": "T01",
+      "name": "Carboxylic acid to tetrazole",
+      "smarts": "[C:1](=[O:2])[OX2H1]>>[C:1]1=[N][N]=[N][NH]1",
+      "class": "acid isostere",
+      "rationale": "Classical carboxylic acid bioisostere. Similar pKa, markedly lower polar surface area, routinely used to improve CNS exposure.",
+      "status": "proposed",
+      "review_note": ""
+    },
+    {
+      "id": "T02",
+      "name": "Carboxylic acid to primary amide",
+      "smarts": "[C:1](=[O:2])[OX2H1]>>[C:1](=[O:2])[NH2]",
+      "class": "acid isostere",
+      "rationale": "Removes the ionisable centre entirely. Lowers TPSA and removes the permanent negative charge that blocks passive diffusion at physiological pH.",
+      "status": "proposed",
+      "review_note": ""
+    },
+    {
+      "id": "T03",
+      "name": "Methyl ester to primary amide",
+      "smarts": "[C:1](=[O:2])[OX2][CH3]>>[C:1](=[O:2])[NH2]",
+      "class": "linker swap",
+      "rationale": "Removes a metabolically labile ester. Standard stability fix; changes hydrogen-bonding without changing the scaffold.",
+      "status": "proposed",
+      "review_note": ""
+    },
+    {
+      "id": "T04",
+      "name": "Benzene to pyridine (aromatic N-walk)",
+      "smarts": "[cH1:1]1[cH1:2][cH1:3][cH1:4][cH1:5][c:6]1>>[n:1]1[cH1:2][cH1:3][cH1:4][cH1:5][c:6]1",
+      "class": "aromatic N-walk",
+      "rationale": "Introduces a basic nitrogen into an unsubstituted phenyl. Lowers logP and adds a hydrogen-bond acceptor; the standard first move against excessive lipophilicity.",
+      "status": "proposed",
+      "review_note": ""
+    },
+    {
+      "id": "T05",
+      "name": "Aromatic fluorine scan",
+      "smarts": "[cH1:1]>>[c:1][F]",
+      "class": "fluorine scan",
+      "rationale": "Single aromatic fluorination. Blocks metabolic oxidation at that position and modestly raises lipophilicity. Fires at every unsubstituted aromatic CH, so it is the highest-yield transformation in the catalogue and will dominate the raw product count.",
+      "status": "proposed",
+      "review_note": ""
+    },
+    {
+      "id": "T06",
+      "name": "Aromatic chlorination",
+      "smarts": "[cH1:1]>>[c:1][Cl]",
+      "class": "halogen",
+      "rationale": "As the fluorine scan but larger and more lipophilic. Included so the property filter has something to reject; a catalogue whose every member passes is not testing anything.",
+      "status": "proposed",
+      "review_note": ""
+    },
+    {
+      "id": "T07",
+      "name": "Methyl to ethyl homologation",
+      "smarts": "[CX4H3:1][c:2]>>[CH2:1]([CH3])[c:2]",
+      "class": "small alkyl",
+      "rationale": "Single-carbon homologation on an aromatic methyl. Probes whether a lipophilic pocket tolerates one more carbon.",
+      "status": "proposed",
+      "review_note": ""
+    },
+    {
+      "id": "T08",
+      "name": "Tertiary amine N-demethylation",
+      "smarts": "[NX3:1]([CH3])([#6:2])[#6:3]>>[NX3:1]([H])([#6:2])[#6:3]",
+      "class": "small alkyl",
+      "rationale": "Removes an N-methyl. Lowers logP and molecular weight, converts a tertiary to a secondary amine, and adds a hydrogen-bond donor.",
+      "status": "proposed",
+      "review_note": ""
+    },
+    {
+      "id": "T09",
+      "name": "Morpholine to piperidine",
+      "smarts": "[#6:1][NX3:2]1[CH2][CH2][OX2][CH2][CH2]1>>[#6:1][NX3:2]1[CH2][CH2][CH2][CH2][CH2]1",
+      "class": "ring replacement",
+      "rationale": "Removes the morpholine oxygen. Raises lipophilicity and basicity and lowers TPSA; a common move when a morpholine has made a series too polar to cross.",
+      "status": "proposed",
+      "review_note": ""
+    },
+    {
+      "id": "T10",
+      "name": "Piperidine to morpholine",
+      "smarts": "[#6:1][NX3:2]1[CH2][CH2][CH2:3][CH2][CH2]1>>[#6:1][NX3:2]1[CH2][CH2][OX2][CH2][CH2]1",
+      "class": "ring replacement",
+      "rationale": "The reverse of T09, included deliberately. If the predictor rates both directions as improvements it is not tracking anything physical, which is worth knowing and is a check on the model rather than on the chemistry.",
+      "status": "proposed",
+      "review_note": ""
+    }
+  ]
+}

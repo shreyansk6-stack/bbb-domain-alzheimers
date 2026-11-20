@@ -613,7 +613,10 @@ defensible; being told late is what would not be.
 The pre-registration was submitted to OSF Registries and timestamped **2026-11-19**,
 registered against commit `134ab6065bb6cbc79000944e52837932f7fe7219`. Public, not
 embargoed. Schema: OSF Preregistration. Contributors: Shreyan Kancharla, Samuel
-Siyanbola. Licence CC BY 4.0. DOI to be added here once archiving completes.
+Siyanbola. Licence CC BY 4.0.
+
+**DOI `10.17605/OSF.IO/UQR62`** — <https://osf.io/uqr62>. Archiving completed and the
+registration accepted at 23:24:29 on 2026-11-19.
 
 Title as registered: *Applicability domain of blood–brain barrier predictors in
 Alzheimer's target chemical space: a methods audit and domain-constrained design.*

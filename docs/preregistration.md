@@ -13,6 +13,12 @@ adopted. The division of work in section 13 is a first/second split rather than 
 equal one, and an equal-contribution note that the work does not support would be a
 misstatement on the paper itself.
 
+**REGISTERED 2026-11-19 on OSF Registries.** DOI `10.17605/OSF.IO/UQR62`
+(<https://osf.io/uqr62>), public and not embargoed, against commit
+`134ab6065bb6cbc79000944e52837932f7fe7219`. This document is frozen as of that
+commit; subsequent changes are appended as dated amendments, never rewritten.
+The registration record, field by field, is `docs/osf-submission.md`.
+
 **Version 1.1, 2026-11-16.** Supersedes v1.0 of the same date, which was never
 registered externally; both versions are in this repository's git history. The
 revision fixes the ChEMBL curation recipe that v1.0 left provisional, and updates

@@ -1,0 +1,53 @@
+==============================================================================
+SENSITIVITY - DOES THE RESULT DEPEND ON THE DOMAIN DEFINITION?
+==============================================================================
+PRE-REGISTERED SECONDARY. Run after the confirmatory verdict was known.
+Reported whatever it shows; disagreement with the primary definition is
+itself the result (preregistration section 8).
+commit 7c1812f423616795a5c9319cbf1da17387a8213e   draws 50 per definition
+
+B3DB labelled reference: 3892   AChE actives: 2391
+descriptor/scaffold rows verified aligned to the confirmatory reference order.
+definition A (nearest-neighbour Tanimoto >= 0.35): n=492  [from the confirmatory run]
+
+overlap with definition A (Jaccard, and share of A recovered):
+  B scaffold       n=547    Jaccard 0.143   recovers 26.4% of A
+  C mahalanobis    n=492    Jaccard 0.131   recovers 23.2% of A
+  D leverage       n=492    Jaccard 0.131   recovers 23.2% of A
+
+==============================================================================
+DEFINITION B SCAFFOLD
+==============================================================================
+n=547  BBB+ 371  BBB- 176   trained on 3345
+proximal AUC 0.7983   ece 0.0513
+match quality (SMD):  MW +0.19  cLogP -0.07  TPSA +0.20
+dAUC -0.0064   95% CI [-0.0460, +0.0365]
+
+==============================================================================
+DEFINITION C MAHALANOBIS
+==============================================================================
+n=492  BBB+ 380  BBB- 112   trained on 3400
+proximal AUC 0.8527   ece 0.0559
+match quality (SMD):  MW -0.20  cLogP -0.11  TPSA -0.17
+dAUC +0.0319   95% CI [-0.0138, +0.0746]
+
+==============================================================================
+DEFINITION D LEVERAGE
+==============================================================================
+n=492  BBB+ 380  BBB- 112   trained on 3400
+proximal AUC 0.8527   ece 0.0559
+match quality (SMD):  MW -0.21  cLogP -0.11  TPSA -0.17
+dAUC +0.0306   95% CI [-0.0140, +0.0746]
+
+==============================================================================
+SUMMARY - dAUC by domain definition
+==============================================================================
+definition                  n  proximal  control      dAUC                95% CI
+A nearest-neighbour       492    0.8352   0.8636   +0.0284    [-0.0164, +0.0749]
+B scaffold                547    0.7983   0.7919   -0.0064    [-0.0460, +0.0365]
+C mahalanobis             492    0.8527   0.8846   +0.0319    [-0.0138, +0.0746]
+D leverage                492    0.8527   0.8833   +0.0306    [-0.0140, +0.0746]
+
+every definition's interval covers zero: yes
+
+elapsed 414s

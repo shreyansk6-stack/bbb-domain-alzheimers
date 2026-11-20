@@ -841,3 +841,78 @@ output is 92% halogen scans is not proposing designs so much as decorating three
 parent scaffolds, and the top 20 draws on only five distinct parents. This is a
 chemistry judgement rather than a coding one and is the first thing the chemistry
 co-author should rule on.
+
+## 2026-11-20 — Domain-definition sensitivity. The conclusion holds; the definitions do not agree
+
+`scripts/secondary_domain_defs.py`, `results/secondary_domain_defs.txt`.
+Pre-registered secondary (section 8), run after the confirmatory verdict was known.
+50 property-matched control draws per definition. Definitions C and D take the 492
+closest compounds, matching the primary's n so that holdout size — and therefore
+the minimum detectable effect — is held constant across definitions.
+
+| definition | n | proximal | control | ΔAUC | 95% CI | match quality |
+| --- | --- | --- | --- | --- | --- | --- |
+| A nearest-neighbour Tanimoto | 492 | 0.8352 | 0.8636 | +0.0284 | [−0.0164, +0.0749] | **passes** |
+| B Bemis–Murcko scaffold | 547 | 0.7983 | 0.7919 | −0.0064 | [−0.0460, +0.0365] | fails |
+| C Mahalanobis | 492 | 0.8527 | 0.8846 | +0.0319 | [−0.0138, +0.0746] | fails |
+| D leverage | 492 | 0.8527 | 0.8833 | +0.0306 | [−0.0140, +0.0746] | fails |
+
+### The verdict is robust to the definition
+
+Every interval covers zero. The INCONCLUSIVE verdict is not an artifact of having
+chosen nearest-neighbour Tanimoto: no alternative definition turns it into an
+effect, and none reverses its sign in a way the interval supports. This is the
+result the sensitivity analysis existed to produce and it is reassuring.
+
+### But the definitions disagree about which compounds are in domain
+
+Jaccard overlap with the primary definition is **0.13–0.14**. Scaffold membership
+recovers 26.4% of the nearest-neighbour proximal set; the descriptor-distance
+definition recovers 23.2%. Three definitions that all claim to identify "compounds
+inside the applicability domain" are, to a first approximation, selecting different
+compounds.
+
+That is a substantive finding and belongs in the paper rather than in a
+supplementary table. The field reports applicability-domain coverage as though it
+were one quantity. It is not: two papers using different standard AD methods on the
+same model and the same dataset would be describing largely disjoint sets of
+molecules. The agreement in ΔAUC across definitions therefore says the *conclusion*
+is robust; it does not say the definitions measure the same thing, and the overlap
+figures show they do not.
+
+### Mahalanobis and leverage are the same statistic, not two checks
+
+C and D select **identical** compound sets — 492 of 492, correlation 1.000. This is
+expected once the descriptor matrix is centred on the target-set mean: leverage
+h = xᵀ(XᵀX)⁻¹x and squared Mahalanobis distance differ only by scaling, and ranking
+is invariant to it. The pre-registration lists them as separate sensitivity
+analyses, which overstates the number of independent checks performed. The paper
+should report **two** alternative definitions, not three, and say why.
+
+### All three alternatives fail the registered matching criterion
+
+The registered manipulation check requires |SMD| < 0.1 on MW, cLogP and TPSA, and
+says that failing it means reporting the comparison as confounded rather than
+quietly accepting it. Observed:
+
+- A: MW −0.07, cLogP −0.03, TPSA −0.04 — **passes**
+- B: MW +0.19, cLogP −0.07, TPSA +0.20 — fails
+- C: MW −0.20, cLogP −0.11, TPSA −0.17 — fails
+- D: MW −0.21, cLogP −0.11, TPSA −0.17 — fails
+
+So the three alternative ΔAUC values above must be reported as confounded
+comparisons. They are reported because the registration says to report them
+whatever they show, not because they are clean.
+
+For C and D the failure is **structural, not incidental**. Proximity is defined by
+distance in a descriptor space that contains MW, cLogP and TPSA, so the definition
+selects compounds that are extreme in precisely the covariates the control arm must
+match on, and an adequately matched control pool does not exist. Any future study
+defining its applicability domain on physicochemical descriptors and then
+property-matching its controls faces the same circularity. Worth stating explicitly
+in the discussion.
+
+The primary definition is the only one of the four that both passes the matching
+check and is independent of the matching covariates, which is a point in favour of
+the pre-registered choice — decided, it should be noted, before any of this was
+visible.

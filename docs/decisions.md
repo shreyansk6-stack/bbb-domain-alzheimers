@@ -607,3 +607,45 @@ Recorded in `docs/preregistration.md` in both the Authors line and section 13.
 arrangement along with a curation role he no longer holds. He should hear the change
 in a conversation rather than find it on a draft. Both the change and the reason are
 defensible; being told late is what would not be.
+
+## 2026-11-19 — REGISTERED on OSF
+
+The pre-registration was submitted to OSF Registries and timestamped **2026-11-19**,
+registered against commit `134ab6065bb6cbc79000944e52837932f7fe7219`. Public, not
+embargoed. Schema: OSF Preregistration. Contributors: Shreyan Kancharla, Samuel
+Siyanbola. Licence CC BY 4.0. DOI to be added here once archiving completes.
+
+Title as registered: *Applicability domain of blood–brain barrier predictors in
+Alzheimer's target chemical space: a methods audit and domain-constrained design.*
+Broader than the working title, to cover the Amendment A1 design component.
+
+**The exploratory/confirmatory boundary is now closed.** Everything computed before
+this date is exploratory and must be labelled so in the manuscript. The confirmatory
+analysis has not been run.
+
+OSF's newer schema differs from the one `docs/osf-submission.md` was written
+against: the old three-option "Existing data" question is replaced by an eight-level
+"Foreknowledge of data or evidence" scale. The selected level was **"Authors have
+observed the data, but have not performed the proposed analyses"** — which describes
+this study exactly, where the old form forced a blunter answer. `docs/osf-submission.md`
+should be rewritten against the newer schema so the repository records what was
+actually registered rather than a form that no longer exists.
+
+Material added at registration that is not in `docs/preregistration.md` and should
+be carried into the manuscript's methods:
+
+- **Negative control**, stated as a pre-registered precondition: the pipeline run on
+  label-permuted data, eight permutations, mean ΔAUC +0.0075 (sd 0.0317, t = +0.67),
+  all eight intervals covering zero.
+- **Manipulation check** with a failure rule: property matching verified by
+  standardised mean differences, target |SMD| < 0.1 on MW, cLogP and TPSA. If the
+  property-matched arm misses that on any covariate, the matching is reported as
+  failed and the primary comparison reported as confounded rather than quietly
+  accepted.
+- **Assumption handling**: the primary endpoint is rank-based and distribution-free;
+  the bootstrap is stratified by class; non-convergence of the propensity model
+  within 2,000 iterations would be treated as matching failure.
+
+**Next:** retrieve the DOI, record it here and in the pre-registration, then run
+`scripts/confirmatory.py --mode real --registered <DOI>`. The gate will refuse
+without it.

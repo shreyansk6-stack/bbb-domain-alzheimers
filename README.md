@@ -13,16 +13,42 @@ error.
 
 ## Status
 
-Scoping complete. Literature search complete — the question is confirmed unclaimed
-(`docs/literature-search.md`). **Pre-registration written**
-(`docs/preregistration.md`, v1.0, 2026-11-16) and awaiting the chemistry
-co-author's sign-off on the activity threshold.
+**Registered and analysed.** Pre-registration `docs/preregistration.md` was
+registered on OSF on 2026-11-19, DOI
+[`10.17605/OSF.IO/UQR62`](https://doi.org/10.17605/OSF.IO/UQR62), against commit
+`134ab60`. `docs/osf-submission.md` is the field-by-field record of what was
+submitted.
 
-No model has been trained and no error has been measured. The next step is the
-confirmatory analysis in section 8 of the pre-registration.
+**The confirmatory analysis is complete and closed.** One run, real labels,
+2026-11-20. Verdict **INCONCLUSIVE**, computed by the frozen script from the
+pre-specified rules.
 
-Pre-registration is not yet externally registered. `docs/osf-submission.md` holds
-the paste-ready OSF submission; registering it is the next action.
+| Comparison | ΔAUC | 95% CI |
+| --- | --- | --- |
+| **vs property-matched control (governs)** | **+0.0284** | **[−0.0164, +0.0749]** |
+| vs unmatched random control | +0.0553 | [+0.0071, +0.1005] |
+
+Must be reported as "no degradation larger than ~0.06 AUC", never as no
+degradation: the minimum detectable effect is 0.061 and the point estimate is
+0.028.
+
+The substantive finding is the gap between those two rows. **About 49% of the
+apparent degradation is molecular-property difference rather than domain novelty** —
+pre-registered in section 8 as the quantity to report if the arms disagreed. A study
+using an unmatched control would have reported a significant effect, half of it
+confounded.
+
+Calibration degrades out of domain while discrimination barely does: ECE 0.0971 vs
+0.0601, Brier 0.1449 vs 0.1283. Secondary, no decision rule, no p-value.
+
+**Do not re-run `scripts/confirmatory.py`, and do not edit it.** Section 9 forbids
+resolving an inconclusive result by adding metrics, cutoffs, models or targets. The
+script is hash-gated and any edit re-locks it. Full output in
+`results/confirmatory_real.txt`.
+
+Open work: the exploratory components of Amendment A1 (in-domain shortlist; A1.2
+design enumeration), the pre-registered secondary analyses, and the manuscript.
+New contributors start at `docs/onboarding-sam.md`.
 
 See `docs/decisions.md` for the dated log.
 
@@ -79,7 +105,16 @@ a primary finding rather than a limitation.
 
 ## Data
 
-Neither dataset is committed; `data/` is gitignored. Reproduce with the scripts below.
+Neither dataset is committed; `data/` is gitignored, because ChEMBL is CC BY-SA and
+share-alike would propagate to this repository.
+
+> **Do not refetch the data to obtain a working copy.** ChEMBL is a live API and
+> ChEMBL_38 would differ from the registered ChEMBL_37 snapshot. The pre-registration
+> forbids refetching without a dated amendment. Get `data/` by direct transfer from a
+> collaborator and verify it with
+> `shasum -a 256 -c docs/data-manifest.sha256`, which pins the exact registered
+> snapshot. The fetch commands below are kept as a record of how the snapshot was
+> built, not as setup instructions.
 
 | Source | Version used | Licence | Notes |
 | --- | --- | --- | --- |

@@ -1,0 +1,10 @@
+# Checksums of the registered data snapshot.
+# Registration 10.17605/OSF.IO/UQR62. B3DB fetched 2026-11-14; ChEMBL_37 queried 2026-11-16.
+# data/ is gitignored (ChEMBL is CC BY-SA share-alike). Verify a transferred copy with:
+#   shasum -a 256 -c docs/data-manifest.sha256
+# A mismatch means the snapshot differs from the registered one. Do NOT refetch to fix it.
+#
+47a160aea1551423ead2aab70b301fb1646aea03cf151fd614eb37c78fa55b82  data/B3DB_classification.tsv
+1be4e33ab1fa1d99897541b6e0a9a00cd6061cf970a36dc838e640407735eba1  data/B3DB_regression.tsv
+041daaf0fa9905195584f3b724781f3004533388fdd135bb649c37dff825e1c4  data/chembl_actives.json
+1ebc0ea5ee2c41c621efb505ad40297d4b21f60c2638e514c9dbde118a94a371  data/chembl_probe.json

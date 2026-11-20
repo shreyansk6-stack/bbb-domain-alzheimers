@@ -24,11 +24,9 @@ Usage: ./env/bin/python -I scripts/design_enumerate.py data
 """
 import json
 import os
-import statistics
 import sys
 import time
 from collections import defaultdict
-
 import numpy as np
 from rdkit import Chem, DataStructs, RDLogger
 from rdkit.Chem import AllChem, Crippen, Descriptors, FilterCatalog
@@ -40,6 +38,7 @@ sys.path.insert(0, "scripts")
 sys.path.append(os.path.join(RDConfig.RDContribDir, "SA_Score"))
 import confirmatory as C  # noqa: E402
 import sascorer  # noqa: E402
+from targetset import load_target_smiles  # noqa: E402
 
 RDLogger.DisableLog("rdApp.*")
 
@@ -66,37 +65,7 @@ say(f"commit {C.current_commit()}   catalogue config/transformations.json")
 say()
 
 # ------------------------------------------------------------------ parents
-probe = json.load(open(f"{data_dir}/chembl_probe.json"))
-per = defaultdict(list)
-for a in probe["AChE"]:
-    if (a.get("standard_type") not in C.RECIPE["types"]
-            or a.get("confidence_score") not in C.RECIPE["conf"]
-            or a.get("assay_type") not in C.RECIPE["assay_types"]
-            or a.get("standard_relation") != "="
-            or a.get("data_validity_comment") is not None
-            or a.get("standard_units") != "nM"):
-        continue
-    try:
-        val = float(a["pchembl_value"])
-    except (TypeError, ValueError, KeyError):
-        continue
-    per[a["molecule_chembl_id"]].append((val, a.get("canonical_smiles")))
-
-parents, seen = [], set()
-for cid, recs in per.items():
-    if statistics.median([v for v, _ in recs]) < C.RECIPE["min_pchembl"]:
-        continue
-    smi = next((s for _, s in recs if s), None)
-    if not smi:
-        continue
-    m = Chem.MolFromSmiles(smi)
-    if m is None:
-        continue
-    sk = Chem.MolToInchiKey(m).split("-")[0]
-    if sk in seen:
-        continue
-    seen.add(sk)
-    parents.append((cid, Chem.MolToSmiles(m)))
+parents = load_target_smiles(data_dir, "AChE")
 say(f"curated AChE actives (identical recipe to the confirmatory run): {len(parents)}")
 
 # ------------------------------------------------- reference set and the model

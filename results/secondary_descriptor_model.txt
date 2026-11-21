@@ -1,0 +1,53 @@
+==============================================================================
+SECONDARY MODEL - gradient boosting on curated 2D descriptors
+==============================================================================
+PRE-REGISTERED SECONDARY. The primary model and verdict are unchanged.
+DEVIATION: RDKit 2D descriptors substituted for Mordred (see header).
+commit 29b9343b5c8ffd4c10f482e29be0f0d89628ca0c   draws 50
+
+B3DB labelled reference: 3892   rows verified aligned
+RDKit 2D descriptors computed: 217
+  after dropping non-finite columns: 209
+  after dropping zero-variance columns: 202
+  after pruning |r| > 0.95: 173 descriptors retained
+
+proximal holdout at Tanimoto 0.35: n=492  BBB+ 366  BBB- 126
+hyperparameters (inside the proximal arm's training partition): {'max_iter': 300, 'learning_rate': 0.05, 'max_leaf_nodes': 15}   inner CV AUC 0.891
+Shared across arms by construction.
+
+==============================================================================
+ARM A - proximal holdout
+==============================================================================
+trained on 3400   threshold 0.64
+  auc=0.8175  mcc=0.4041  bacc=0.6988  brier=0.1490  ece=0.0634
+
+==============================================================================
+ARM B - size/class-matched random holdout
+==============================================================================
+50 draws   AUC mean 0.9013  median 0.9008  sd 0.0146
+  match quality (SMD):  MW -0.02  cLogP -0.35  TPSA +0.28
+
+==============================================================================
+ARM C - property-matched holdout (GOVERNS)
+==============================================================================
+50 draws   AUC mean 0.8715  median 0.8722  sd 0.0131
+  match quality (SMD):  MW -0.07  cLogP -0.04  TPSA -0.04
+
+==============================================================================
+SECONDARY ENDPOINT - dAUC, descriptor model
+==============================================================================
+ property: dAUC +0.0547   95% CI [+0.0075, +0.1030]  <- comparable to the primary endpoint
+   random: dAUC +0.0832   95% CI [+0.0363, +0.1343]
+  proximal AUC 0.8175
+
+==============================================================================
+SIDE BY SIDE WITH THE PRIMARY (FINGERPRINT) MODEL
+==============================================================================
+model                               proximal  control      dAUC                95% CI
+ECFP4 random forest (primary)         0.8352   0.8636   +0.0284    [-0.0164, +0.0749]
+Descriptor gradient boosting          0.8175   0.8722   +0.0547    [+0.0075, +0.1030]
+
+The primary verdict is unchanged whatever this shows. A secondary model that
+agreed would corroborate; one that disagreed would be a reportable limitation.
+
+elapsed 320s

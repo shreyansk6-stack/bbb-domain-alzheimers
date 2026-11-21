@@ -1,4 +1,4 @@
-"""The curated target active set, as SMILES, under the registered recipe.
+"""Shared dataset loaders: the curated target actives, and B3DB molecules.
 
 scripts/confirmatory.py builds this set internally and returns only
 fingerprints, which is all the confirmatory analysis needs. The exploratory
@@ -62,3 +62,37 @@ def load_target_smiles(data_dir, target):
         seen.add(sk)
         actives.append((cid, Chem.MolToSmiles(mol)))
     return actives
+
+
+def aligned_b3db_mols(data_dir):
+    """B3DB molecules in the exact order confirmatory.load_b3db returns rows.
+
+    load_b3db deduplicates to InChIKey skeletons, drops discordant skeletons and
+    appends unkeyed records last. Indices into its fps/y/props arrays are only
+    meaningful against that same order, so the grouping is replicated here
+    rather than approximated: a misalignment would silently pair each
+    compound's descriptors with a different compound's label and still produce
+    entirely plausible output.
+
+    Callers should assert len(result) == len(fps).
+    """
+    import pandas as pd
+    from collections import defaultdict as _dd
+
+    df = pd.read_csv(f"{data_dir}/B3DB_classification.tsv",
+                     sep="\t").dropna(subset=["SMILES"])
+    groups, unkeyed = _dd(list), []
+    for smi, lab in zip(df["SMILES"], df["BBB+/BBB-"].astype(str)):
+        fp, sk, _ = C.featurise(smi)
+        if fp is None:
+            continue
+        (groups[sk] if sk else unkeyed).append((smi, lab))
+
+    mols = []
+    for members in groups.values():
+        if len({lab for _, lab in members}) > 1:
+            continue
+        mols.append(Chem.MolFromSmiles(members[0][0]))
+    for smi, _ in unkeyed:
+        mols.append(Chem.MolFromSmiles(smi))
+    return mols

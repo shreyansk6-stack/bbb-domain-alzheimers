@@ -1,0 +1,33 @@
+{
+  "secondary": true,
+  "deviation": "RDKit 2D descriptors substituted for Mordred",
+  "commit": "29b9343b5c8ffd4c10f482e29be0f0d89628ca0c",
+  "draws": 50,
+  "n_descriptors": 173,
+  "hyperparameters": {
+    "max_iter": 300,
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 15
+  },
+  "proximal": {
+    "auc": 0.8175470552519732,
+    "mcc": 0.40412590675526866,
+    "bacc": 0.6988030184751496,
+    "brier": 0.14904992444949358,
+    "ece": 0.06340710774499123
+  },
+  "results": {
+    "property": {
+      "delta": 0.054655650967126435,
+      "lo": 0.007475713418336358,
+      "hi": 0.10300438025847862,
+      "control_auc": 0.8722027062190997
+    },
+    "random": {
+      "delta": 0.0832357533177206,
+      "lo": 0.03627753924885077,
+      "hi": 0.13431347037904406,
+      "control_auc": 0.9007828085696938
+    }
+  }
+}

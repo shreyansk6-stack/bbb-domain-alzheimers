@@ -916,3 +916,77 @@ The primary definition is the only one of the four that both passes the matching
 check and is independent of the matching covariates, which is a point in favour of
 the pre-registered choice — decided, it should be noted, before any of this was
 visible.
+
+## 2026-11-21 — Secondary model (descriptor gradient boosting). Same sign, larger effect, still inconclusive
+
+`scripts/secondary_descriptor_model.py`, `results/secondary_descriptor_model.txt`.
+Model 2 of the three named in section 8. 50 property-matched draws.
+
+### Declared deviation: RDKit descriptors substituted for Mordred
+
+The registration specifies "curated 2D Mordred descriptors". Mordred is not a
+dependency of this project and is unmaintained against current Python and numpy;
+adding it would mean pinning an unmaintained package into the environment that
+produced the registered results. The substantive requirement is a descriptor-based
+baseline standing against the fingerprint-based primary model, not Mordred
+specifically, so RDKit's 2D descriptor set was used instead.
+
+Curation is unsupervised and label-free — non-finite columns, then zero-variance
+columns, then one of each pair correlated above |r| = 0.95, dropped in fixed column
+order — so it cannot leak outcome information. 210 descriptors → 209 → 202 → **173
+retained**.
+
+The deviation was decided knowing the confirmatory result but with no knowledge of
+this model's result, since this is its first run. Recorded here, and to be stated in
+the manuscript.
+
+### Result
+
+| model | proximal | control | ΔAUC | 95% CI |
+| --- | --- | --- | --- | --- |
+| ECFP4 random forest (**primary**) | 0.8352 | 0.8636 | +0.0284 | [−0.0164, +0.0749] |
+| Descriptor gradient boosting (secondary) | 0.8175 | 0.8722 | **+0.0547** | **[+0.0075, +0.1030]** |
+
+Match quality passes for this arm: MW −0.07, cLogP −0.04, TPSA −0.04, all inside
+the registered |SMD| < 0.1 criterion. Unlike the alternative domain definitions,
+this comparison is not confounded.
+
+### What this does and does not license
+
+**The primary verdict is unchanged.** Section 8 names the ECFP4 random forest as the
+primary model and section 9 defines one endpoint on it. A secondary model's interval
+excluding zero does not convert INCONCLUSIVE into SUPPORT, and the registration
+anticipates exactly this by reporting secondary models "without inferential claims
+of primacy".
+
+**And it would not have, even as the primary.** Support requires ΔAUC ≥ 0.06 *and*
+an interval excluding zero. At +0.0547 this falls short of 0.06, and it is outside
+the ±0.03 refutation band, so judged by the registered rules this model is **also
+INCONCLUSIVE** — inconclusive in a more suggestive direction, but inconclusive. The
+two models agree on the verdict; they differ only on whether the interval clears
+zero.
+
+**The sign agrees and the magnitude is about double.** Both models find target-
+proximal chemistry harder than property-matched controls. That consistency across
+two quite different representations is worth reporting, and it is the honest
+counterweight to the primary's null: the effect is probably real and probably small,
+and this study is not powered to pin it down. The pre-registered reading — "no
+degradation larger than ~0.06 AUC" — covers both results without strain.
+
+### Secondary metrics diverge in an interesting direction
+
+On the proximal holdout the descriptor model discriminates worse than the forest
+(MCC 0.404 vs 0.496; balanced accuracy 0.699 vs 0.775) yet is *better calibrated*
+(ECE 0.063 vs 0.097). It is also better than the forest on the matched controls
+(0.872 vs 0.864). So the descriptor model is the stronger model in general and the
+weaker one specifically on target-proximal chemistry, which is what produces its
+larger gap. That is a cleaner demonstration of the paper's thesis than the primary
+model gives, and it must be reported as a secondary observation rather than
+promoted.
+
+### Remaining
+
+Model 3, the off-the-shelf published BBB tool, is still unrun. Section 8 provides
+for dropping it if none can be executed reproducibly with a recorded version, and
+requires the omission be reported rather than a substitute chosen after seeing
+results.

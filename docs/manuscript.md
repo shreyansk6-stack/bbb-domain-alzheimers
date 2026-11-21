@@ -57,41 +57,72 @@ pre-registered design that only execution revealed.
 
 ## 1. Introduction
 
-**[AUTHORS: this section is the thinnest and most conventional part of the draft;
-it needs your framing and additional citations.]**
+Alzheimer's disease has no disease-modifying small-molecule therapy, and the
+computational pipelines that search for one share a common two-stage shape.
+Compounds are first ranked for predicted activity against a target — most often
+BACE1 or acetylcholinesterase — and the surviving hits are then filtered for
+predicted brain penetration using a published blood–brain barrier model. Screens of
+this form now routinely operate at scale; one 2026 study screened approximately 117
+million compounds through such a cascade (Jia & Sosso 2026).
 
-A standard Alzheimer's virtual-screening workflow has two stages. Compounds are
-ranked for predicted activity against a target — most commonly BACE1 or AChE — and
-the resulting hits are filtered for predicted brain penetration using a published
-BBB permeability model. The second stage is treated as a commodity: a model is
-selected, applied, and its output used as a gate.
+The first stage is the object of intense methodological scrutiny. The second is
+treated as a commodity: a model is selected, applied, and its output used as a gate
+that decides which compounds advance. A compound filtered out at this stage is not
+examined again.
 
-That treatment assumes the BBB model's predictions are valid for the compounds it is
-being applied to. The assumption is rarely examined, and there is structural reason
-to doubt it. BBB training sets are literature compilations weighted toward approved
-drugs and CNS-active agents. Target inhibitor series are the product of iterative
-medicinal-chemistry optimisation around a small number of scaffolds. There is no
-reason for the two distributions to coincide.
+That treatment rests on an assumption that is rarely examined — that the BBB model's
+predictions are valid for the compounds it is being applied to. There is structural
+reason to doubt it. BBB training data are literature compilations weighted toward
+approved drugs and known CNS-active agents, assembled because those are the
+compounds for which human or rodent brain-penetration data exist. Target inhibitor
+series are something else entirely: the product of iterative medicinal-chemistry
+optimisation around a small number of scaffolds, selected for potency against one
+protein, with no selection pressure toward resembling a marketed drug. There is no
+reason for the two distributions to coincide, and considerable reason to expect they
+do not.
 
-The standard instrument for this question is the applicability domain. In practice
-AD coverage is almost always computed on the model's own held-out test set. A
-held-out split is drawn from the training distribution, so high coverage follows by
-construction. Three 2026 reports illustrate this directly: 93.9% coverage on a
-212-compound internal test set (Pharmaceutics 2026a), 94.8% on an internal B3DB
-split (Pharmaceutics 2026b), and "complete structural coverage" (Comput Biol Chem
-2026). None measures coverage against the target-directed chemistry the filter is
-deployed on.
+Quantifying that gap is what the applicability domain exists to do. A model's domain
+is the region of chemical space in which its predictions can be trusted, and a
+prediction made outside it is an extrapolation whose error is unbounded by anything
+the model has seen. The concept is well established, with regulatory standing in the
+OECD validation principles for (Q)SAR models (OECD 2007).
+
+In practice, however, AD coverage is almost always computed on the model's own
+held-out test set — and a held-out split is drawn from the training distribution, so
+high coverage follows by construction rather than by evidence. Three 2026 reports
+illustrate the pattern: 93.9% coverage on a 212-compound internal test set
+(Pharmaceutics 2026a), 94.8% on an internal B3DB split (Pharmaceutics 2026b), and
+"complete structural coverage" (Comput Biol Chem 2026). Each figure is correct and
+none is informative about deployment, because none measures coverage against the
+target-directed chemistry on which the filter is actually used.
+
+The question is sharpened by a result that cuts against the intuitive expectation.
+A 2026 QSAR ADMET study reported a 0.32–0.39 AUC generalisation gap while its own
+applicability-domain analysis showed complete structural coverage (Comput Biol Chem
+2026) — domain membership and predictive reliability came apart. If that
+generalises, structural domain distance may not predict BBB prediction error at all,
+and we pre-specified a null result as a publishable outcome for that reason.
 
 A systematic Europe PMC search (2026-11-16; five queries, 35 unique candidate
 records, all abstracts read, four near neighbours read in full; recorded in
-`docs/literature-search.md`) returned no study measuring BBB-model domain coverage
-against target inhibitor chemistry, and none measuring BBB prediction error as a
-function of distance from that chemistry.
+`docs/literature-search.md`) found the specific question unclaimed: no study measures
+BBB-model domain coverage against target inhibitor chemistry, and none measures BBB
+prediction error as a function of distance from it.
 
-We pre-registered an audit of exactly that question. We state at the outset that the
-study was powered for a moderate effect and returned an inconclusive primary result,
-and that its contribution lies in what the surrounding analyses establish about
-whether the question can be answered with public data at all.
+This paper reports a pre-registered audit of that question. We ask three things: how
+much Alzheimer's target chemistry falls outside a BBB model's applicability domain;
+whether prediction error measurably increases on the chemistry that lies inside it
+but far from the training distribution; and whether the comparison can be made at
+all with the public data available.
+
+We state the outcome at the outset. The primary endpoint is **inconclusive** — the
+study was powered for a moderate effect and observed a smaller one. Its contribution
+lies in what the surrounding analyses establish: that roughly half of a naively
+measured domain effect is physicochemical confounding; that for BACE1 the question
+cannot be asked at all for want of ground truth; that no off-the-shelf BBB tool can
+be independently evaluated, because the available tools are trained on the only
+available public ground truth; and that the standard applicability-domain methods
+disagree with one another about which compounds they include.
 
 ---
 
@@ -419,48 +450,31 @@ barely moves. For a filter applied at a fixed probability threshold — which is
 BBB models are used in screening — miscalibration is the failure mode that bites,
 and it is invisible to AUC. Secondary, no decision rule, no p-value.
 
-### 3.9 Domain-constrained design
+### 3.9 Domain-constrained design (summary; full treatment in S1)
 
-**[AUTHORS: on review this component is recommended for supplementary, with this
-section reduced to a short main-text paragraph. Retained here in full pending that
-decision.]**
+Exploratory, and reported in full in Supplementary Information S1. A fixed catalogue
+of ten single medicinal-chemistry transformations was applied to the 2,391 curated
+AChE actives, with no generative model and deliberately no activity prediction —
+predicting activity on novel chemistry without auditing that model's own domain is
+the error this paper documents. 40,534 raw products reduce to 905 after validity,
+scaffold retention, a property window, PAINS, Ertl SA ≤ 4.0, in-domain membership
+and predicted BBB+, and to **793 with no exact structure match in ChEMBL or PubChem
+as of 2026-11-21**, spanning 177 parents and 95 scaffolds.
 
-Exploratory. Specified in Amendment A1 before execution, with ranking subsequently
-replaced by Amendment A2 (§4.3). A fixed catalogue of ten single medicinal-chemistry
-transformations was applied to the 2,391 curated AChE actives. No generative model,
-and deliberately no activity prediction — predicting activity on novel chemistry
-without auditing that model's own domain is the error this paper documents.
+Three observations carry into the discussion. **The output is mostly minimal
+perturbation**: 93% of the surviving set is a single aromatic fluorination or
+chlorination, which is optimisation chemistry performed against assay feedback
+rather than hypothesis-generating design. **Ranking trades depth-in-domain for
+diversity**: the reported set spans 20 scaffolds but sits at maximum Tanimoto
+0.351–0.483 against a 0.35 cutoff, where the superseded rule returned 0.672–0.818
+across 6 scaffolds. And **structural liabilities survive a PAINS filter**: 200 of
+the 793, and 7 of the reported 20, carry a BRENK alert inherited from their parent
+ChEMBL actives — including an aryl thiosulfonate, a thiol-reactive electrophile —
+while PAINS, which the pipeline applies, matches none of them.
 
-40,534 raw products → 905 surviving validity, scaffold retention, a property window,
-PAINS, Ertl SA ≤ 4.0, in-domain membership and predicted BBB+ → **793 with no exact
-structure match in ChEMBL or PubChem as of 2026-11-21**, spanning 177 parents and 95
-scaffolds, mean Ertl SA 2.69.
-
-Under Amendment A2 the reported set is one representative per scaffold ranked by
-synthetic accessibility, capped at 20: **20 distinct parents and 20 distinct
-scaffolds**, against 7 and 6 under the original rule.
-
-**A tradeoff we report rather than hide.** Ranking by synthetic accessibility selects
-simpler molecules, which are less similar to the reference set. Maximum Tanimoto
-across the reported 20 is **0.351–0.483** against a 0.35 cutoff, where the original
-rule returned 0.672–0.818. The reported set sits just inside the applicability
-domain, several compounds within 0.01 of the boundary, and trades depth-in-domain
-for chemical diversity and makeability. Readers wanting depth-in-domain should use
-the alternative table, published for that purpose.
-
-These are compounds on which a BBB prediction can be *defended*. They are not
-predicted to be active, and no activity model was applied.
-
-**They are also, mostly, minimal perturbations.** 93% of the surviving set is a
-single aromatic fluorination or chlorination. Halogen scanning is real medicinal
-chemistry, but it is optimisation performed iteratively against assay feedback, not
-hypothesis-generating design; proposed cold it is the smallest edit that keeps a
-molecule inside the predictor's domain. The honest description of this component is
-that it demonstrates the constraint and shows what domain-constrained enumeration
-mostly yields, rather than that it contributes drug design. Novelty is exact
-full-InChIKey matching, so a stereoisomer, tautomer or salt of a known compound
-reads as unmatched; close analogues exist by construction; and no literature or
-patent search was performed.
+These are compounds on which a BBB prediction can be defended. They are not
+predicted to be active, no activity model was applied, and none has been
+synthesised or assayed.
 
 ---
 
@@ -608,10 +622,17 @@ proposed analyses". Amendments A1 (2026-11-19) and A2 (2026-11-21) are in
 
 ## Author contributions
 
-**[AUTHORS: confirm.]** S.K. conceived the study, wrote the pre-registration,
-implemented the analysis and drafted the manuscript. S.S. contributed medicinal-
-chemistry judgement on curation criteria and the transformation catalogue, and
-critical revision.
+**[AUTHORS: confirm S.S.'s contributions; the statement below reflects only what is
+documented in the repository and may understate them.]**
+
+S.K. conceived the study, wrote the pre-registration, implemented the analysis and
+drafted the manuscript. S.S. contributed to study conception and to review of the
+manuscript.
+
+The assessment of the transformation catalogue, the curation criteria and the
+property window was made from the published literature rather than by a practising
+medicinal chemist, and is documented in full in the project repository
+(`docs/catalogue-review.md`). It is reported as a limitation in §4.4.
 
 ## AI use disclosure
 
@@ -621,6 +642,20 @@ analysis code, and proposing ChEMBL curation decisions together with the publish
 basis for each. All numerical results are produced by scripts in the repository and
 are reproducible from the recorded data versions. No AI system is an author; the
 authors are responsible for all decisions.
+
+## Supplementary Information
+
+- **S1. Domain-constrained design, full treatment.** Catalogue with per-entry
+  rationale and review status; the eight filters and the funnel; the Amendment A2
+  ranking and the superseded rule; the reported 20 with structures, properties, HBD
+  and BRENK alerts; and the full table of 793 structures with SMILES, parent, and
+  novelty query date.
+- **S2. Pre-registration and amendments**, with the dated decision log.
+- **S3. Label-permuted validation.** Eight permutations, the two null checks, and
+  the code-enforced gate.
+- **S4. Curation sensitivity.** Ten variants and the resulting out-of-domain ranges.
+- **S5. Literature search record.** Queries, counts, and screening decisions.
+- **S6. Per-transformation funnel and the scaffold-filter sensitivity.**
 
 ## References
 

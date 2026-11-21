@@ -290,6 +290,10 @@ Against the labelled B3DB reference, **81.8–89.4% of BACE1 actives and 21.7–
 AChE actives fall outside the applicability domain** at Tanimoto 0.35, across all
 ten curation variants.
 
+**Figure 1a** shows the two distributions directly: the bulk of both sets sits below
+the 0.35 cutoff, and only 12.6% of the labelled BBB reference (492 compounds) is
+close enough to any AChE active to serve as a proximal holdout.
+
 Published AD coverage for BBB models, computed on internal test splits, is 93.9%,
 94.8% and "complete". The contrast is the paper's starting point: coverage measured
 on the training distribution is not coverage measured where the model is used.
@@ -315,7 +319,7 @@ existing public data.** The ground truth does not exist in sufficient quantity.
 
 † bootstrap CI on the proximal AUC itself.
 
-**Figure 1** places this estimate alongside every other ΔAUC comparison in the
+**Figure 2** places this estimate alongside every other ΔAUC comparison in the
 study — both control arms, the cutoff sensitivity, the four domain definitions and
 the secondary model — against the pre-registered support threshold and refutation
 band. No comparison resolves the effect.
@@ -367,6 +371,11 @@ and polarity.
 | B Bemis–Murcko scaffold | 547 | −0.0064 | [−0.0460, +0.0365] | fails |
 | C Mahalanobis | 492 | +0.0319 | [−0.0138, +0.0746] | fails |
 | D leverage | 492 | +0.0306 | [−0.0140, +0.0746] | fails |
+
+**Figure 3** gives the pairwise overlaps. No two definitions agree above a Jaccard of
+0.15 except C and D, which agree exactly (1.000) because they are the same statistic;
+scaffold membership and the descriptor-distance definitions are very nearly disjoint
+(0.010).
 
 Definitions C and D take the 492 closest compounds, holding holdout size — and
 therefore the minimum detectable effect — constant, so differences reflect *which*
@@ -616,11 +625,21 @@ supply.
 
 ## Figures
 
-**Figure 1.** Forest plot of every ΔROC-AUC estimate (`results/forest.png`).
-Primary endpoint in black; the grey band is the pre-registered refutation region
-(±0.03) and the dashed line the support threshold (0.06).
+**Figure 1.** (a) Maximum Tanimoto similarity between the labelled BBB reference and
+the AChE active set, in both directions, against the registered 0.35 cutoff.
+(b) The registered manipulation check: property matching brings all three descriptors
+inside |SMD| < 0.1, random matching does not. (`results/fig1_chemical_space.png`)
 
-**Figure 2.** Representative domain-constrained design products beside their parent
+**Figure 2.** Forest plot of every ΔROC-AUC estimate in the study
+(`results/fig2_forest.png`). Primary endpoint in black; the grey band is the
+pre-registered refutation region (±0.03) and the dashed line the support threshold
+(0.06).
+
+**Figure 3.** Pairwise Jaccard overlap of the four applicability-domain definitions
+(`results/fig3_domain_definitions.png`). C and D are identical; no other pair
+exceeds 0.15.
+
+**Figure 4.** Representative domain-constrained design products beside their parent
 compounds, changed atom highlighted (`results/design_proposals.png`). To
 supplementary with S1.
 

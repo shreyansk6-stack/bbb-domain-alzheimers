@@ -1287,3 +1287,35 @@ not occur. The wording of the latter is for the authors to settle.
   component reframed from "proposed structures" to compounds demonstrating the
   domain constraint — 93% of the set is a single halogenation, which is optimisation
   chemistry rather than design.
+
+## 2026-11-21 — Manuscript figures 1 and 3
+
+Added `scripts/make_figures.py`, producing the two figures the text was asserting
+without showing.
+
+**Figure 1** answers "what does *far* actually look like?" — the maximum-Tanimoto
+distributions in both directions against the registered 0.35 cutoff (panel a), and
+the registered manipulation check as a paired |SMD| plot (panel b). Panel a makes
+the coverage gap visible: only 12.6% of the labelled BBB reference is close enough
+to any AChE active to serve as a proximal holdout.
+
+**Figure 3** is the domain-definition disagreement as a pairwise Jaccard matrix, and
+it lands harder than the table did. **C and D overlap exactly (1.000)** — the
+empirical confirmation that Mahalanobis distance *is* leverage once descriptors are
+centred on the target mean — while **B and C/D overlap at 0.010**, very nearly
+disjoint. No pair other than C/D exceeds 0.15.
+
+**Figures are descriptive only and recompute nothing that feeds an estimate.** The
+script rebuilds every set through the same code paths the analyses used
+(`confirmatory.load_b3db`, `targetset`, and the definition constructions copied from
+`secondary_domain_defs.py`) and asserts its recomputed counts against the recorded
+results, so a figure cannot silently drift from the numbers it illustrates.
+
+The confirmatory SMDs exist only in `results/confirmatory_real.txt`, not in the
+JSON, and `confirmatory.py` is hash-gated and must not be re-run. The script
+therefore parses the recorded text artifact and asserts the parsed values still
+contradict random matching and satisfy property matching.
+
+Figures renumbered to text order: 1 chemical space, 2 forest, 3 domain definitions,
+4 design structures (to SI). Palette is the three validated categorical slots,
+checked for colour-vision separation rather than chosen by eye.

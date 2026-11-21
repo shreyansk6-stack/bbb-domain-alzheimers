@@ -78,5 +78,5 @@ ax.text(0.0, -0.72, "refutation band (±0.03)", fontsize=7.5, color="#777",
 ax.set_title("No comparison in this study resolves the effect", fontsize=11.5,
              fontweight="bold", loc="left", pad=14)
 fig.tight_layout()
-fig.savefig("results/forest.png", dpi=200)
-print("wrote results/forest.png")
+fig.savefig("results/fig2_forest.png", dpi=200)
+print("wrote results/fig2_forest.png")

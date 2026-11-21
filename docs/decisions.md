@@ -1049,3 +1049,51 @@ since it would produce a publishable-looking number that means nothing. If a
 reviewer names a BBB tool with a pinnable version and a training set demonstrably
 disjoint from B3DB, running it would be worthwhile and the result reported as post
 hoc.
+
+## 2026-11-21 — A1.2 filter F5 run. 793 of 905 survivors have no exact match
+
+`scripts/novelty_check.py`, `results/novelty.txt`. Exploratory. **Query date
+2026-11-21**, which must travel with any novelty claim because both databases are
+live.
+
+Exact-structure lookup by full InChIKey against PubChem (PUG-REST) and ChEMBL,
+throttled below PubChem's published limits, results cached. 905 checked, **0 lookup
+failures**.
+
+| | n |
+| --- | --- |
+| exact match found (not novel) | 112 |
+| no exact match | **793** |
+| lookup failed | 0 |
+
+Of the 112 matched: 67 PubChem only, 45 both, **0 ChEMBL only** — consistent with
+PubChem indexing ChEMBL, and a weak sanity check that both lookups work.
+
+The 793 span 177 distinct parent compounds, by transformation: fluorine scan 471,
+chlorination 267, N-demethylation 44, methyl→ethyl 11.
+
+### What may and may not be claimed
+
+The defensible sentence is "no exact structure match in ChEMBL or PubChem as of
+2026-11-21". Three limitations must be reported with it, and are printed in the
+output:
+
+1. Matching is on the **full InChIKey**, so a stereoisomer, tautomer or salt of a
+   known compound is counted here as unmatched. These products inherit stereo-
+   centres from their parents, so this is a live exposure rather than a formality.
+2. **No exact match is not no close analogue.** Every product is a single edit of a
+   known active; close analogues exist by construction, which is the design.
+3. Absence from these two databases is not absence from the **literature or
+   patents**, which were not searched. Anything proposed for synthesis needs a
+   patent check, which is a separate job and not one this pipeline performs.
+
+### Status of A1.2
+
+Filters F1, F2, F3, F4, F5, F6, F7 and F8 have now all been applied. The remaining
+blockers to a proposal list are not computational:
+
+- the registered **ranking rule is defective** (it maximises similarity to known
+  chemistry, so it promotes exactly the 112 that this filter just removed) and
+  needs a dated amendment;
+- the **catalogue has not been reviewed** by the chemistry co-author, and 6 of 10
+  transformations contribute nothing, so the surviving chemistry is narrow.

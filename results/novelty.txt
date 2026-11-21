@@ -1,0 +1,28 @@
+==============================================================================
+A1.2 FILTER F5 - NOVELTY AGAINST CHEMBL AND PUBCHEM
+==============================================================================
+EXPLORATORY. Query date 2026-11-21. Both databases are live, so this
+result is only true as of that date and the date must be reported.
+
+survivors checked        : 905
+  exact match found      : 112  (not novel)
+  no exact match         : 793
+  lookup failed          : 0
+
+  of the matched: PubChem only 67, ChEMBL only 0, both 45
+
+novel survivors by transformation:
+  T05  471
+  T06  267
+  T07  11
+  T08  44
+distinct parents among novel: 177
+
+CAVEATS, to be reported with any novelty claim:
+  - Exact-structure lookup on the full InChIKey. A stereoisomer, tautomer
+    or salt of a known compound is reported here as unmatched.
+  - 'No exact match' is not 'no close analogue'. These are single edits of
+    known actives, so close analogues exist by construction.
+  - Absence from ChEMBL and PubChem is not absence from the literature or
+    from patents, which were not searched.
+

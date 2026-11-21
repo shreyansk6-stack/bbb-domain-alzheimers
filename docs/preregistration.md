@@ -454,3 +454,64 @@ assay ever be run, note that commercially available enzyme is typically
 the grounds of divergent inhibitor SAR; measured data from such an assay would fail
 this study's own inclusion criterion and would have to be reported with that
 qualification.
+
+---
+
+## Amendment A2 — 2026-11-21 — A1.2 ranking rule replaced; it selected against novelty
+
+**Decided with knowledge of the enumeration output.** This is a post hoc change to
+a registered rule and is labelled as such wherever it is reported. The output under
+the original rule is retained and published alongside the output under the new one,
+so a reader can see exactly what the change did.
+
+### The defect
+
+A1.2 ranks surviving products by "maximum Tanimoto to the labelled reference,
+descending, then Ertl SA ascending". Maximum Tanimoto to the reference set is
+maximised by changing the parent as little as possible, so the rule ranks products
+by *how close they are to compounds that already exist*. It therefore selects
+directly against the novelty filter A1.2 also specifies.
+
+This is not a theoretical conflict. Under the original rule the three
+highest-ranked products were already present in B3DB, and of the 905 filtered
+survivors the 112 that the novelty check removed are concentrated at exactly the
+top of the ranking. The rule promotes the compounds the filter deletes.
+
+The rule also has no cap on products per parent. The original top 20 drew on five
+distinct parent compounds and consisted largely of positional isomers of the same
+single edit.
+
+### The replacement
+
+Applied to the novelty-filtered survivors (793 structures, 95 distinct Bemis–Murcko
+scaffolds, query date 2026-11-21):
+
+1. **One representative per scaffold.** Within each scaffold, take the product with
+   the lowest Ertl SA score; ties broken by higher predicted p(BBB+), then by
+   canonical SMILES in lexicographic order, so the selection is fully deterministic.
+2. **Rank the representatives by Ertl SA ascending** — most synthetically
+   accessible first.
+3. **Cap at 20.**
+4. Maximum Tanimoto and predicted p(BBB+) are **reported as columns, not used to
+   rank.**
+
+### Why this rule
+
+Ranking must not be monotone in novelty, which excludes similarity-to-reference.
+It should also not rank on the predicted BBB probability, because this paper's
+subject is the unreliability of that very prediction and ranking on a model's own
+output while auditing it invites the obvious objection — the probability is
+therefore reported but not ranked on. Synthetic accessibility is the one criterion
+that is independent of both the model under audit and the novelty requirement, and
+it is the criterion a synthetic chemist would actually apply.
+
+The per-scaffold representative rule replaces the missing per-parent cap and is
+stricter than one, since scaffold retention (filter F6) means every product shares
+its parent's scaffold.
+
+### What this does not change
+
+No filter, threshold or endpoint is altered. The surviving set of 793 structures is
+the same set under either ranking; only the order and the selection of the reported
+20 differ. Nothing in the confirmatory analysis is touched, and the primary verdict
+is unaffected.

@@ -1,0 +1,99 @@
+==============================================================================
+A1.2 DESIGN PROPOSALS
+==============================================================================
+EXPLORATORY. Post-dates registration 10.17605/OSF.IO/UQR62.
+Ranking per Amendment A2 (2026-11-21), which replaced the registered rule
+after that rule was found to select against novelty. Both are shown.
+
+These are compounds on which a BBB prediction can be defended. They are NOT
+predicted to be active, and no activity model was applied. No claim of
+permeability, activity or therapeutic potential is made or implied.
+
+novelty-filtered survivors : 793  (no exact ChEMBL/PubChem match as of 2026-11-21)
+distinct scaffolds         : 95
+distinct parents           : 177
+
+==============================================================================
+TOP 20 UNDER AMENDMENT A2 - one per scaffold, ranked by synthetic accessibility
+==============================================================================
+  #   tx    SA   Tani  p(BBB+)     MW  cLogP   TPSA  parent
+  1  T05  1.70  0.418    0.796  342.4   3.69   41.6  CHEMBL6144349
+  2  T05  1.75  0.351    0.737  356.4   3.33   58.6  CHEMBL5268019
+  3  T05  1.85  0.473    0.903  405.9   2.79   44.8  CHEMBL5169781
+  4  T06  1.87  0.353    0.919  356.9   3.90   49.4  CHEMBL3415558
+  5  T06  1.87  0.431    0.845  402.9   3.76   50.8  CHEMBL5177371
+  6  T06  1.88  0.406    0.686  416.9   3.53   67.9  CHEMBL4455013
+  7  T05  1.93  0.391    0.875  447.6   3.81   44.8  CHEMBL5204532
+  8  T05  1.96  0.368    0.904  244.3   3.67   16.1  CHEMBL1459962
+  9  T05  1.98  0.361    0.932  334.4   3.86   15.3  CHEMBL4443695
+ 10  T07  2.02  0.483    0.765  292.4   3.87   34.1  CHEMBL1995010
+ 11  T05  2.03  0.385    0.913  354.4   3.72   40.6  CHEMBL4091683
+ 12  T08  2.03  0.435    0.704  337.4   3.97   51.5  CHEMBL3586574
+ 13  T06  2.04  0.424    0.791  400.9   3.90   50.8  CHEMBL1720480
+ 14  T08  2.05  0.414    0.748  409.6   2.89   60.5  CHEMBL6120750
+ 15  T05  2.09  0.360    0.849  368.4   3.11   50.7  CHEMBL5557329
+ 16  T05  2.10  0.353    0.888  372.4   3.91   49.4  CHEMBL3415564
+ 17  T06  2.10  0.429    0.838  398.9   3.62   50.7  CHEMBL5517663
+ 18  T05  2.16  0.352    0.899  366.4   3.18   57.7  CHEMBL4085450
+ 19  T05  2.16  0.383    0.806  410.4   3.34   71.8  CHEMBL4290940
+ 20  T05  2.17  0.397    0.889  408.5   3.96   62.6  CHEMBL4286799
+
+  1  COc1ccc(F)cc1NC(=O)C1CCN(Cc2ccccc2)CC1
+  2  COc1ccc(NC(=O)C2CCN(C(=O)c3ccccc3)CC2)cc1F
+  3  O=C(COc1ccc(Cl)cc1)NCCN1CCN(Cc2ccc(F)cc2)CC1
+  4  O=C1c2ccccc2C(=O)N1CCCCCNCc1ccc(Cl)cc1
+  5  COc1ccc(OCC(=O)NCC2CCN(Cc3ccc(Cl)cc3)CC2)cc1
+  6  COc1ccc(CNC(=O)C2CCN(C(=O)c3ccccc3Cl)CC2)cc1OC
+  7  O=C(COc1ccc(-c2ccc(F)cc2)cc1)NCCN1CCN(Cc2ccccc2)CC1
+  8  Cc1cc(N2CCCCC2)nc2cc(F)ccc12
+  9  Fc1cc(F)c(CNC2CCN(Cc3ccccc3)CC2)cc1F
+ 10  CCc1ccc(S(=O)(=O)SCc2ccccc2)cc1
+ 11  CCN(CCCCN1C(=O)c2ccccc2C1=O)Cc1ccccc1F
+ 12  Cc1c(C)c2ccc(OCCCNCc3ccccc3)cc2oc1=O
+ 13  O=C(NC1CCN(Cc2ccc(Cl)cc2)CC1)c1ccc2c(c1)OCCCO2
+ 14  CNCCN1CCN(Cc2ccc(C(=O)Nc3nc4ccccc4s3)cc2)CC1
+ 15  COc1cc2ncnc(N3CCN(c4ccccc4F)CC3)c2cc1OC
+ 16  O=C1c2ccccc2C(=O)N1CCCCCCNCc1c(F)cccc1F
+ 17  COc1cc2ncnc(N3CCN(Cc4cccc(Cl)c4)CC3)c2cc1OC
+ 18  O=C1C(=O)N(C(=O)c2ccc(F)cc2)c2ccc(CN3CCCCC3)cc21
+ 19  COc1ccc2oc(C(=O)NC3CCN(Cc4ccc(F)cc4)CC3)cc(=O)c2c1
+ 20  O=C(NCCC1CCN(Cc2ccc(F)cc2)CC1)c1cc(=O)c2ccccc2o1
+
+==============================================================================
+TOP 20 UNDER THE ORIGINAL REGISTERED RULE, for comparison
+==============================================================================
+Retained so the effect of Amendment A2 is visible. Not the reported set.
+  #   tx   Tani    SA  parent
+  1  T05  0.818  3.18  CHEMBL74926
+  2  T05  0.817  3.43  CHEMBL1243298
+  3  T05  0.817  3.43  CHEMBL1243298
+  4  T05  0.807  3.23  CHEMBL74926
+  5  T05  0.778  3.48  CHEMBL1243298
+  6  T05  0.778  3.50  CHEMBL1243298
+  7  T05  0.759  3.22  CHEMBL74926
+  8  T05  0.730  3.49  CHEMBL1243298
+  9  T05  0.730  3.52  CHEMBL1243298
+ 10  T05  0.712  3.30  CHEMBL74926
+ 11  T05  0.712  3.33  CHEMBL74926
+ 12  T05  0.710  3.27  CHEMBL74950
+ 13  T08  0.698  3.41  CHEMBL433041
+ 14  T05  0.690  3.29  CHEMBL74950
+ 15  T06  0.690  3.30  CHEMBL74257
+ 16  T06  0.690  3.31  CHEMBL80221
+ 17  T05  0.683  3.37  CHEMBL80221
+ 18  T05  0.678  3.31  CHEMBL74257
+ 19  T05  0.678  3.32  CHEMBL80221
+ 20  T05  0.672  3.00  CHEMBL3910513
+
+distinct parents in the A2 top 20       : 20
+distinct parents in the original top 20 : 7
+distinct scaffolds, A2 / original       : 20 / 6
+
+CAVEATS that must accompany any use of this table:
+  - Novelty is an exact full-InChIKey match check as of 2026-11-21.
+    A stereoisomer, tautomer or salt of a known compound reads as unmatched.
+  - Close analogues exist by construction: each is a single edit of a known
+    active. No literature or patent search was performed.
+  - p(BBB+) comes from the model this paper audits. It is reported because
+    the compound is inside that model's domain, not because the model is
+    known to be correct out of it.

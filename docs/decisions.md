@@ -1097,3 +1097,56 @@ blockers to a proposal list are not computational:
   needs a dated amendment;
 - the **catalogue has not been reviewed** by the chemistry co-author, and 6 of 10
   transformations contribute nothing, so the surviving chemistry is narrow.
+
+## 2026-11-21 — Amendment A2 applied. 20 proposals, and a tradeoff it creates
+
+`scripts/design_rank.py`; outputs `results/design_proposals.{txt,csv,json,png}`.
+
+Amendment A2's ranking applied to the 793 novelty-filtered survivors: one
+representative per Bemis–Murcko scaffold (lowest SA, deterministic tie-breaks),
+representatives ranked by SA ascending, capped at 20. Output under the original
+registered rule is published alongside it so the amendment's effect is visible.
+
+**The amendment did what it was meant to.**
+
+| | distinct parents | distinct scaffolds |
+| --- | --- | --- |
+| A2 top 20 | **20** | **20** |
+| original rule top 20 | 7 | 6 |
+
+The original rule returned 20 rows drawn from 7 parents and 6 scaffolds — largely
+positional isomers of one edit. A2 returns 20 distinct chemotypes.
+
+### The tradeoff A2 creates, which must be reported
+
+Ranking by synthetic accessibility selects simpler molecules, and simpler molecules
+are less similar to the labelled reference set. Maximum Tanimoto across the
+reported set falls accordingly:
+
+- A2 top 20: 0.351 – 0.483
+- original rule top 20: 0.672 – 0.818
+
+The domain cutoff is 0.35. **The A2 set therefore sits just inside the
+applicability domain, several compounds within 0.01 of the boundary**, where the
+original rule returned compounds deep inside it.
+
+This is a real cost and it cuts at the component's own premise, which is that these
+are compounds on which a BBB prediction can be *defended*. A prediction at Tanimoto
+0.352 is defensible only in the narrow sense of clearing a threshold this study
+itself chose, and this study's confirmatory result found that performance at the
+boundary is not measurably different from matched controls — which supports the
+threshold's use but does not make a near-boundary prediction strong.
+
+Not resolved by re-ranking again. The honest handling is to report maximum Tanimoto
+as a prominent column, which the table does, and to say plainly that the reported
+set trades depth-in-domain for chemical diversity and synthetic accessibility.
+Readers wanting depth-in-domain can take the original-rule table, which is
+published for exactly that reason.
+
+### Scope of the claim
+
+The table is headed by the statement that these are compounds on which a BBB
+prediction can be defended, that they are **not** predicted to be active, and that
+no activity model was applied. The three novelty caveats travel with it. Still
+exploratory, still unreviewed by the chemistry co-author, and 6 of 10
+transformations still contribute nothing.

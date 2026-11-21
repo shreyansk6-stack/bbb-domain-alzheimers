@@ -12,3 +12,4 @@ __pycache__/
 # Snapshot export of a live doc; regenerate rather than version it
 docs/project-pitch.pdf
 results/figure_data.npz
+docs/manuscript.html

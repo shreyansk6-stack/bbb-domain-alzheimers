@@ -16,27 +16,32 @@ distinct parents           : 177
 ==============================================================================
 TOP 20 UNDER AMENDMENT A2 - one per scaffold, ranked by synthetic accessibility
 ==============================================================================
-  #   tx    SA   Tani  p(BBB+)     MW  cLogP   TPSA  parent
-  1  T05  1.70  0.418    0.796  342.4   3.69   41.6  CHEMBL6144349
-  2  T05  1.75  0.351    0.737  356.4   3.33   58.6  CHEMBL5268019
-  3  T05  1.85  0.473    0.903  405.9   2.79   44.8  CHEMBL5169781
-  4  T06  1.87  0.353    0.919  356.9   3.90   49.4  CHEMBL3415558
-  5  T06  1.87  0.431    0.845  402.9   3.76   50.8  CHEMBL5177371
-  6  T06  1.88  0.406    0.686  416.9   3.53   67.9  CHEMBL4455013
-  7  T05  1.93  0.391    0.875  447.6   3.81   44.8  CHEMBL5204532
-  8  T05  1.96  0.368    0.904  244.3   3.67   16.1  CHEMBL1459962
-  9  T05  1.98  0.361    0.932  334.4   3.86   15.3  CHEMBL4443695
- 10  T07  2.02  0.483    0.765  292.4   3.87   34.1  CHEMBL1995010
- 11  T05  2.03  0.385    0.913  354.4   3.72   40.6  CHEMBL4091683
- 12  T08  2.03  0.435    0.704  337.4   3.97   51.5  CHEMBL3586574
- 13  T06  2.04  0.424    0.791  400.9   3.90   50.8  CHEMBL1720480
- 14  T08  2.05  0.414    0.748  409.6   2.89   60.5  CHEMBL6120750
- 15  T05  2.09  0.360    0.849  368.4   3.11   50.7  CHEMBL5557329
- 16  T05  2.10  0.353    0.888  372.4   3.91   49.4  CHEMBL3415564
- 17  T06  2.10  0.429    0.838  398.9   3.62   50.7  CHEMBL5517663
- 18  T05  2.16  0.352    0.899  366.4   3.18   57.7  CHEMBL4085450
- 19  T05  2.16  0.383    0.806  410.4   3.34   71.8  CHEMBL4290940
- 20  T05  2.17  0.397    0.889  408.5   3.96   62.6  CHEMBL4286799
+  #   tx    SA   Tani  p(BBB+)     MW  cLogP   TPSA  HBD  parent         alert
+  1  T05  1.70  0.418    0.796  342.4   3.69   41.6    1  CHEMBL6144349  
+  2  T05  1.75  0.351    0.737  356.4   3.33   58.6    1  CHEMBL5268019  
+  3  T05  1.85  0.473    0.903  405.9   2.79   44.8    1  CHEMBL5169781  
+  4  T06  1.87  0.353    0.919  356.9   3.90   49.4    1  CHEMBL3415558  Aliphatic_long_chain
+  5  T06  1.87  0.431    0.845  402.9   3.76   50.8    1  CHEMBL5177371  
+  6  T06  1.88  0.406    0.686  416.9   3.53   67.9    1  CHEMBL4455013  
+  7  T05  1.93  0.391    0.875  447.6   3.81   44.8    1  CHEMBL5204532  
+  8  T05  1.96  0.368    0.904  244.3   3.67   16.1    0  CHEMBL1459962  
+  9  T05  1.98  0.361    0.932  334.4   3.86   15.3    1  CHEMBL4443695  halogenated_ring_1
+ 10  T07  2.02  0.483    0.765  292.4   3.87   34.1    0  CHEMBL1995010  disulphide
+ 11  T05  2.03  0.385    0.913  354.4   3.72   40.6    0  CHEMBL4091683  Aliphatic_long_chain
+ 12  T08  2.03  0.435    0.704  337.4   3.97   51.5    1  CHEMBL3586574  Aliphatic_long_chain
+ 13  T06  2.04  0.424    0.791  400.9   3.90   50.8    1  CHEMBL1720480  
+ 14  T08  2.05  0.414    0.748  409.6   2.89   60.5    2  CHEMBL6120750  
+ 15  T05  2.09  0.360    0.849  368.4   3.11   50.7    0  CHEMBL5557329  
+ 16  T05  2.10  0.353    0.888  372.4   3.91   49.4    1  CHEMBL3415564  Aliphatic_long_chain
+ 17  T06  2.10  0.429    0.838  398.9   3.62   50.7    0  CHEMBL5517663  
+ 18  T05  2.16  0.352    0.899  366.4   3.18   57.7    0  CHEMBL4085450  diketo_group
+ 19  T05  2.16  0.383    0.806  410.4   3.34   71.8    1  CHEMBL4290940  
+ 20  T05  2.17  0.397    0.889  408.5   3.96   62.6    1  CHEMBL4286799  
+
+7 of 20 carry a BRENK structural alert, inherited from the parent
+compound rather than created by the edit. PAINS (F8) matches none of them.
+Flagged, not removed: removing them would be a post hoc filter added after
+seeing the output. A reader should see the flag and judge.
 
   1  COc1ccc(F)cc1NC(=O)C1CCN(Cc2ccccc2)CC1
   2  COc1ccc(NC(=O)C2CCN(C(=O)c3ccccc3)CC2)cc1F

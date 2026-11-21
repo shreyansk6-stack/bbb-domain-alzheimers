@@ -10,7 +10,9 @@
     "A rejected transformation is left in the file, not deleted, so the catalogue",
     "records what was considered.",
     "",
-    "F6 INCOMPATIBILITY: entries flagged f6_strict_incompatible alter a ring atom, so the registered scaffold-retention filter (F6) rejects 100% of their products before any chemistry is considered. This is a defect in A1.2 as registered - the catalogue and the filter are mutually inconsistent - not a judgement about the chemistry. Quantified by the post hoc topology sensitivity; see docs/decisions.md 2026-11-21."
+    "F6 INCOMPATIBILITY: entries flagged f6_strict_incompatible alter a ring atom, so the registered scaffold-retention filter (F6) rejects 100% of their products before any chemistry is considered. This is a defect in A1.2 as registered - the catalogue and the filter are mutually inconsistent - not a judgement about the chemistry. Quantified by the post hoc topology sensitivity; see docs/decisions.md 2026-11-21.",
+    "",
+    "REVIEWED 2026-11-21. Statuses set from a literature-grounded assessment recorded in docs/catalogue-review.md, NOT by a practising medicinal chemist; the manuscript states this. Largest identified gap: the catalogue contains no HBD-reducing transformation (e.g. N-methylation of a secondary amide), and HBD count is among the strongest determinants of CNS exposure."
   ],
   "transformations": [
     {
@@ -19,8 +21,8 @@
       "smarts": "[C:1](=[O:2])[OX2H1]>>[C:1]1=[N][N]=[N][NH]1",
       "class": "acid isostere",
       "rationale": "Classical carboxylic acid bioisostere. Similar pKa, markedly lower polar surface area, routinely used to improve CNS exposure.",
-      "status": "proposed",
-      "review_note": "Adds a tetrazole ring, so the scaffold gains a ring and both the strict and the topology form of F6 reject it. Its 35 products never reach a chemistry judgement.",
+      "status": "rejected",
+      "review_note": "Rejected on CNS grounds: tetrazole pKa ~4.9 leaves the molecule anionic at physiological pH, so the charge obstructing passive diffusion is retained. A correct acid isostere in general, the wrong move for brain exposure. Its F6 block therefore costs nothing.",
       "f6_strict_incompatible": true
     },
     {
@@ -29,8 +31,8 @@
       "smarts": "[C:1](=[O:2])[OX2H1]>>[C:1](=[O:2])[NH2]",
       "class": "acid isostere",
       "rationale": "Removes the ionisable centre entirely. Lowers TPSA and removes the permanent negative charge that blocks passive diffusion at physiological pH.",
-      "status": "proposed",
-      "review_note": ""
+      "status": "approved",
+      "review_note": "Approved. Removes the ionisable centre, which is the substantive gain. Note a primary amide raises TPSA slightly and adds two HBDs; a secondary (N-methyl) amide would be the better CNS choice if the catalogue is revised."
     },
     {
       "id": "T03",
@@ -38,8 +40,8 @@
       "smarts": "[C:1](=[O:2])[OX2][CH3]>>[C:1](=[O:2])[NH2]",
       "class": "linker swap",
       "rationale": "Removes a metabolically labile ester. Standard stability fix; changes hydrogen-bonding without changing the scaffold.",
-      "status": "proposed",
-      "review_note": ""
+      "status": "approved",
+      "review_note": "Approved. Standard replacement of a metabolically labile ester. Same HBD caveat as T02."
     },
     {
       "id": "T04",
@@ -47,8 +49,8 @@
       "smarts": "[cH1:1]1[cH1:2][cH1:3][cH1:4][cH1:5][c:6]1>>[n:1]1[cH1:2][cH1:3][cH1:4][cH1:5][c:6]1",
       "class": "aromatic N-walk",
       "rationale": "Introduces a basic nitrogen into an unsubstituted phenyl. Lowers logP and adds a hydrogen-bond acceptor; the standard first move against excessive lipophilicity.",
-      "status": "proposed",
-      "review_note": "Substitutes a ring carbon for nitrogen, so the Bemis-Murcko scaffold changes and strict F6 rejects all 1,242 products. Recovered under the post hoc topology relaxation, where 62 survive.",
+      "status": "approved",
+      "review_note": "Approved, and the highest-value entry in the catalogue: lowers logP by roughly one unit, adds an acceptor, often reduces hERG liability. Blocked entirely by strict F6, which is a real quality loss, not merely a count loss.",
       "f6_strict_incompatible": true
     },
     {
@@ -57,8 +59,8 @@
       "smarts": "[cH1:1]>>[c:1][F]",
       "class": "fluorine scan",
       "rationale": "Single aromatic fluorination. Blocks metabolic oxidation at that position and modestly raises lipophilicity. Fires at every unsubstituted aromatic CH, so it is the highest-yield transformation in the catalogue and will dominate the raw product count.",
-      "status": "proposed",
-      "review_note": ""
+      "status": "approved",
+      "review_note": "Approved. Blocks metabolic oxidation with only a modest lipophilicity increase. Low information as a standalone proposal; see docs/catalogue-review.md Q3a."
     },
     {
       "id": "T06",
@@ -66,8 +68,8 @@
       "smarts": "[cH1:1]>>[c:1][Cl]",
       "class": "halogen",
       "rationale": "As the fluorine scan but larger and more lipophilic. Included so the property filter has something to reject; a catalogue whose every member passes is not testing anything.",
-      "status": "proposed",
-      "review_note": ""
+      "status": "approved",
+      "review_note": "Approved. An initial concern that chlorine raises lipophilicity too far was wrong: aryl chloride is common in marketed CNS drugs and the cLogP <= 4 filter already removes the products where the increase would matter."
     },
     {
       "id": "T07",
@@ -75,8 +77,8 @@
       "smarts": "[CX4H3:1][c:2]>>[CH2:1]([CH3])[c:2]",
       "class": "small alkyl",
       "rationale": "Single-carbon homologation on an aromatic methyl. Probes whether a lipophilic pocket tolerates one more carbon.",
-      "status": "proposed",
-      "review_note": ""
+      "status": "approved",
+      "review_note": "Approved. A legitimate SAR probe that tells one little without assay feedback."
     },
     {
       "id": "T08",
@@ -84,8 +86,8 @@
       "smarts": "[NX3:1]([CH3])([#6:2])[#6:3]>>[NX3:1]([H])([#6:2])[#6:3]",
       "class": "small alkyl",
       "rationale": "Removes an N-methyl. Lowers logP and molecular weight, converts a tertiary to a secondary amine, and adds a hydrogen-bond donor.",
-      "status": "proposed",
-      "review_note": ""
+      "status": "approved",
+      "review_note": "Approved with caveat. Lowers logP and MW but adds an HBD, and is a common metabolic route, so products are often known metabolites rather than novel designs. The weakest of the four that produced output."
     },
     {
       "id": "T09",
@@ -93,8 +95,8 @@
       "smarts": "[#6:1][NX3:2]1[CH2][CH2][OX2][CH2][CH2]1>>[#6:1][NX3:2]1[CH2][CH2][CH2][CH2][CH2]1",
       "class": "ring replacement",
       "rationale": "Removes the morpholine oxygen. Raises lipophilicity and basicity and lowers TPSA; a common move when a morpholine has made a series too polar to cross.",
-      "status": "proposed",
-      "review_note": "Ring-atom replacement; strict F6 rejects all 72 products. 4 survive under the topology relaxation.",
+      "status": "approved",
+      "review_note": "Approved. Removing the morpholine oxygen raises logP and basicity and lowers TPSA, the standard correction where a series is too polar to cross.",
       "f6_strict_incompatible": true
     },
     {
@@ -103,8 +105,8 @@
       "smarts": "[#6:1][NX3:2]1[CH2][CH2][CH2:3][CH2][CH2]1>>[#6:1][NX3:2]1[CH2][CH2][OX2][CH2][CH2]1",
       "class": "ring replacement",
       "rationale": "The reverse of T09, included deliberately. If the predictor rates both directions as improvements it is not tracking anything physical, which is worth knowing and is a check on the model rather than on the chemistry.",
-      "status": "proposed",
-      "review_note": "Ring-atom replacement; strict F6 rejects all 202 products. 20 survive under the topology relaxation.",
+      "status": "diagnostic",
+      "review_note": "Reclassified. T09 and T10 cannot both be proposed as improvements. T10 was included to test whether the model rates both directions as improvements, which would show it is not tracking anything physical. That is a model diagnostic, not a design proposal, and it is labelled as one.",
       "f6_strict_incompatible": true
     }
   ]

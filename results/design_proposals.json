@@ -17,7 +17,9 @@
       "sa": 1.7,
       "max_tanimoto": 0.418,
       "p_bbb": 0.796,
-      "scaffold": "O=C(Nc1ccccc1)C1CCN(Cc2ccccc2)CC1"
+      "scaffold": "O=C(Nc1ccccc1)C1CCN(Cc2ccccc2)CC1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "COc1ccc(NC(=O)C2CCN(C(=O)c3ccccc3)CC2)cc1F",
@@ -31,7 +33,9 @@
       "sa": 1.75,
       "max_tanimoto": 0.351,
       "p_bbb": 0.737,
-      "scaffold": "O=C(Nc1ccccc1)C1CCN(C(=O)c2ccccc2)CC1"
+      "scaffold": "O=C(Nc1ccccc1)C1CCN(C(=O)c2ccccc2)CC1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "O=C(COc1ccc(Cl)cc1)NCCN1CCN(Cc2ccc(F)cc2)CC1",
@@ -45,7 +49,9 @@
       "sa": 1.85,
       "max_tanimoto": 0.473,
       "p_bbb": 0.903,
-      "scaffold": "O=C(COc1ccccc1)NCCN1CCN(Cc2ccccc2)CC1"
+      "scaffold": "O=C(COc1ccccc1)NCCN1CCN(Cc2ccccc2)CC1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "O=C1c2ccccc2C(=O)N1CCCCCNCc1ccc(Cl)cc1",
@@ -59,7 +65,9 @@
       "sa": 1.87,
       "max_tanimoto": 0.353,
       "p_bbb": 0.919,
-      "scaffold": "O=C1c2ccccc2C(=O)N1CCCCCNCc1ccccc1"
+      "scaffold": "O=C1c2ccccc2C(=O)N1CCCCCNCc1ccccc1",
+      "brenk": "Aliphatic_long_chain",
+      "hbd": 1
     },
     {
       "smiles": "COc1ccc(OCC(=O)NCC2CCN(Cc3ccc(Cl)cc3)CC2)cc1",
@@ -73,7 +81,9 @@
       "sa": 1.87,
       "max_tanimoto": 0.431,
       "p_bbb": 0.845,
-      "scaffold": "O=C(COc1ccccc1)NCC1CCN(Cc2ccccc2)CC1"
+      "scaffold": "O=C(COc1ccccc1)NCC1CCN(Cc2ccccc2)CC1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "COc1ccc(CNC(=O)C2CCN(C(=O)c3ccccc3Cl)CC2)cc1OC",
@@ -87,7 +97,9 @@
       "sa": 1.88,
       "max_tanimoto": 0.406,
       "p_bbb": 0.686,
-      "scaffold": "O=C(NCc1ccccc1)C1CCN(C(=O)c2ccccc2)CC1"
+      "scaffold": "O=C(NCc1ccccc1)C1CCN(C(=O)c2ccccc2)CC1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "O=C(COc1ccc(-c2ccc(F)cc2)cc1)NCCN1CCN(Cc2ccccc2)CC1",
@@ -101,7 +113,9 @@
       "sa": 1.93,
       "max_tanimoto": 0.391,
       "p_bbb": 0.875,
-      "scaffold": "O=C(COc1ccc(-c2ccccc2)cc1)NCCN1CCN(Cc2ccccc2)CC1"
+      "scaffold": "O=C(COc1ccc(-c2ccccc2)cc1)NCCN1CCN(Cc2ccccc2)CC1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "Cc1cc(N2CCCCC2)nc2cc(F)ccc12",
@@ -115,7 +129,9 @@
       "sa": 1.96,
       "max_tanimoto": 0.368,
       "p_bbb": 0.904,
-      "scaffold": "c1ccc2nc(N3CCCCC3)ccc2c1"
+      "scaffold": "c1ccc2nc(N3CCCCC3)ccc2c1",
+      "brenk": "",
+      "hbd": 0
     },
     {
       "smiles": "Fc1cc(F)c(CNC2CCN(Cc3ccccc3)CC2)cc1F",
@@ -129,7 +145,9 @@
       "sa": 1.98,
       "max_tanimoto": 0.361,
       "p_bbb": 0.932,
-      "scaffold": "c1ccc(CNC2CCN(Cc3ccccc3)CC2)cc1"
+      "scaffold": "c1ccc(CNC2CCN(Cc3ccccc3)CC2)cc1",
+      "brenk": "halogenated_ring_1",
+      "hbd": 1
     },
     {
       "smiles": "CCc1ccc(S(=O)(=O)SCc2ccccc2)cc1",
@@ -143,7 +161,9 @@
       "sa": 2.02,
       "max_tanimoto": 0.483,
       "p_bbb": 0.765,
-      "scaffold": "O=S(=O)(SCc1ccccc1)c1ccccc1"
+      "scaffold": "O=S(=O)(SCc1ccccc1)c1ccccc1",
+      "brenk": "disulphide",
+      "hbd": 0
     },
     {
       "smiles": "CCN(CCCCN1C(=O)c2ccccc2C1=O)Cc1ccccc1F",
@@ -157,7 +177,9 @@
       "sa": 2.03,
       "max_tanimoto": 0.385,
       "p_bbb": 0.913,
-      "scaffold": "O=C1c2ccccc2C(=O)N1CCCCNCc1ccccc1"
+      "scaffold": "O=C1c2ccccc2C(=O)N1CCCCNCc1ccccc1",
+      "brenk": "Aliphatic_long_chain",
+      "hbd": 0
     },
     {
       "smiles": "Cc1c(C)c2ccc(OCCCNCc3ccccc3)cc2oc1=O",
@@ -171,7 +193,9 @@
       "sa": 2.03,
       "max_tanimoto": 0.435,
       "p_bbb": 0.704,
-      "scaffold": "O=c1ccc2ccc(OCCCNCc3ccccc3)cc2o1"
+      "scaffold": "O=c1ccc2ccc(OCCCNCc3ccccc3)cc2o1",
+      "brenk": "Aliphatic_long_chain",
+      "hbd": 1
     },
     {
       "smiles": "O=C(NC1CCN(Cc2ccc(Cl)cc2)CC1)c1ccc2c(c1)OCCCO2",
@@ -185,7 +209,9 @@
       "sa": 2.04,
       "max_tanimoto": 0.424,
       "p_bbb": 0.791,
-      "scaffold": "O=C(NC1CCN(Cc2ccccc2)CC1)c1ccc2c(c1)OCCCO2"
+      "scaffold": "O=C(NC1CCN(Cc2ccccc2)CC1)c1ccc2c(c1)OCCCO2",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CNCCN1CCN(Cc2ccc(C(=O)Nc3nc4ccccc4s3)cc2)CC1",
@@ -199,7 +225,9 @@
       "sa": 2.05,
       "max_tanimoto": 0.414,
       "p_bbb": 0.748,
-      "scaffold": "O=C(Nc1nc2ccccc2s1)c1ccc(CN2CCNCC2)cc1"
+      "scaffold": "O=C(Nc1nc2ccccc2s1)c1ccc(CN2CCNCC2)cc1",
+      "brenk": "",
+      "hbd": 2
     },
     {
       "smiles": "COc1cc2ncnc(N3CCN(c4ccccc4F)CC3)c2cc1OC",
@@ -213,7 +241,9 @@
       "sa": 2.09,
       "max_tanimoto": 0.36,
       "p_bbb": 0.849,
-      "scaffold": "c1ccc(N2CCN(c3ncnc4ccccc34)CC2)cc1"
+      "scaffold": "c1ccc(N2CCN(c3ncnc4ccccc34)CC2)cc1",
+      "brenk": "",
+      "hbd": 0
     },
     {
       "smiles": "O=C1c2ccccc2C(=O)N1CCCCCCNCc1c(F)cccc1F",
@@ -227,7 +257,9 @@
       "sa": 2.1,
       "max_tanimoto": 0.353,
       "p_bbb": 0.888,
-      "scaffold": "O=C1c2ccccc2C(=O)N1CCCCCCNCc1ccccc1"
+      "scaffold": "O=C1c2ccccc2C(=O)N1CCCCCCNCc1ccccc1",
+      "brenk": "Aliphatic_long_chain",
+      "hbd": 1
     },
     {
       "smiles": "COc1cc2ncnc(N3CCN(Cc4cccc(Cl)c4)CC3)c2cc1OC",
@@ -241,7 +273,9 @@
       "sa": 2.1,
       "max_tanimoto": 0.429,
       "p_bbb": 0.838,
-      "scaffold": "c1ccc(CN2CCN(c3ncnc4ccccc34)CC2)cc1"
+      "scaffold": "c1ccc(CN2CCN(c3ncnc4ccccc34)CC2)cc1",
+      "brenk": "",
+      "hbd": 0
     },
     {
       "smiles": "O=C1C(=O)N(C(=O)c2ccc(F)cc2)c2ccc(CN3CCCCC3)cc21",
@@ -255,7 +289,9 @@
       "sa": 2.16,
       "max_tanimoto": 0.352,
       "p_bbb": 0.899,
-      "scaffold": "O=C1C(=O)N(C(=O)c2ccccc2)c2ccc(CN3CCCCC3)cc21"
+      "scaffold": "O=C1C(=O)N(C(=O)c2ccccc2)c2ccc(CN3CCCCC3)cc21",
+      "brenk": "diketo_group",
+      "hbd": 0
     },
     {
       "smiles": "COc1ccc2oc(C(=O)NC3CCN(Cc4ccc(F)cc4)CC3)cc(=O)c2c1",
@@ -269,7 +305,9 @@
       "sa": 2.16,
       "max_tanimoto": 0.383,
       "p_bbb": 0.806,
-      "scaffold": "O=C(NC1CCN(Cc2ccccc2)CC1)c1cc(=O)c2ccccc2o1"
+      "scaffold": "O=C(NC1CCN(Cc2ccccc2)CC1)c1cc(=O)c2ccccc2o1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "O=C(NCCC1CCN(Cc2ccc(F)cc2)CC1)c1cc(=O)c2ccccc2o1",
@@ -283,7 +321,9 @@
       "sa": 2.17,
       "max_tanimoto": 0.397,
       "p_bbb": 0.889,
-      "scaffold": "O=C(NCCC1CCN(Cc2ccccc2)CC1)c1cc(=O)c2ccccc2o1"
+      "scaffold": "O=C(NCCC1CCN(Cc2ccccc2)CC1)c1cc(=O)c2ccccc2o1",
+      "brenk": "",
+      "hbd": 1
     }
   ],
   "top_original_rule": [
@@ -299,7 +339,9 @@
       "sa": 3.18,
       "max_tanimoto": 0.818,
       "p_bbb": 0.871,
-      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2"
+      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5cc(F)ccc5C4)ccc3N(C)[C@@H]12",
@@ -313,7 +355,9 @@
       "sa": 3.43,
       "max_tanimoto": 0.817,
       "p_bbb": 0.83,
-      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1"
+      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1",
+      "brenk": "",
+      "hbd": 0
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5ccc(F)cc5C4)ccc3N(C)[C@@H]12",
@@ -327,7 +371,9 @@
       "sa": 3.43,
       "max_tanimoto": 0.817,
       "p_bbb": 0.819,
-      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1"
+      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1",
+      "brenk": "",
+      "hbd": 0
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)Nc4cccc(F)c4)ccc3N(C)[C@@H]12",
@@ -341,7 +387,9 @@
       "sa": 3.23,
       "max_tanimoto": 0.807,
       "p_bbb": 0.848,
-      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2"
+      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5cccc(F)c5C4)ccc3N(C)[C@@H]12",
@@ -355,7 +403,9 @@
       "sa": 3.48,
       "max_tanimoto": 0.778,
       "p_bbb": 0.803,
-      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1"
+      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1",
+      "brenk": "",
+      "hbd": 0
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5c(F)cccc5C4)ccc3N(C)[C@@H]12",
@@ -369,7 +419,9 @@
       "sa": 3.5,
       "max_tanimoto": 0.778,
       "p_bbb": 0.808,
-      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1"
+      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1",
+      "brenk": "",
+      "hbd": 0
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)Nc4ccccc4F)ccc3N(C)[C@@H]12",
@@ -383,7 +435,9 @@
       "sa": 3.22,
       "max_tanimoto": 0.759,
       "p_bbb": 0.818,
-      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2"
+      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5ccccc5C4)c(F)cc3N(C)[C@@H]12",
@@ -397,7 +451,9 @@
       "sa": 3.49,
       "max_tanimoto": 0.73,
       "p_bbb": 0.837,
-      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1"
+      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1",
+      "brenk": "",
+      "hbd": 0
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5ccccc5C4)cc(F)c3N(C)[C@@H]12",
@@ -411,7 +467,9 @@
       "sa": 3.52,
       "max_tanimoto": 0.73,
       "p_bbb": 0.813,
-      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1"
+      "scaffold": "O=C(Oc1ccc2c(c1)C1CCNC1N2)N1CCc2ccccc2C1",
+      "brenk": "",
+      "hbd": 0
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)Nc4ccccc4)c(F)cc3N(C)[C@@H]12",
@@ -425,7 +483,9 @@
       "sa": 3.3,
       "max_tanimoto": 0.712,
       "p_bbb": 0.854,
-      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2"
+      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CN1CC[C@@]2(C)c3cc(OC(=O)Nc4ccccc4)cc(F)c3N(C)[C@@H]12",
@@ -439,7 +499,9 @@
       "sa": 3.33,
       "max_tanimoto": 0.712,
       "p_bbb": 0.847,
-      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2"
+      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "COc1ccc(NC(=O)Oc2ccc3c(c2)[C@]2(C)CCN(C)[C@@H]2N3C)cc1F",
@@ -453,7 +515,9 @@
       "sa": 3.27,
       "max_tanimoto": 0.71,
       "p_bbb": 0.824,
-      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2"
+      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CCCCCCCNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN[C@@H]1N2C",
@@ -467,7 +531,9 @@
       "sa": 3.41,
       "max_tanimoto": 0.698,
       "p_bbb": 0.817,
-      "scaffold": "c1ccc2c(c1)NC1NCCC21"
+      "scaffold": "c1ccc2c(c1)NC1NCCC21",
+      "brenk": "Aliphatic_long_chain",
+      "hbd": 2
     },
     {
       "smiles": "COc1ccc(NC(=O)Oc2ccc3c(c2)[C@]2(C)CCN(C)[C@@H]2N3C)c(F)c1",
@@ -481,7 +547,9 @@
       "sa": 3.29,
       "max_tanimoto": 0.69,
       "p_bbb": 0.791,
-      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2"
+      "scaffold": "O=C(Nc1ccccc1)Oc1ccc2c(c1)C1CCNC1N2",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(Cc3ccc(Cl)cc3)[C@@H]1N2C",
@@ -495,7 +563,9 @@
       "sa": 3.3,
       "max_tanimoto": 0.69,
       "p_bbb": 0.897,
-      "scaffold": "c1ccc(CN2CCC3c4ccccc4NC32)cc1"
+      "scaffold": "c1ccc(CN2CCC3c4ccccc4NC32)cc1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)C1N2Cc1ccc(Cl)cc1",
@@ -509,7 +579,9 @@
       "sa": 3.31,
       "max_tanimoto": 0.69,
       "p_bbb": 0.884,
-      "scaffold": "c1ccc(CN2c3ccccc3C3CCNC32)cc1"
+      "scaffold": "c1ccc(CN2c3ccccc3C3CCNC32)cc1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)C1N2Cc1ccccc1F",
@@ -523,7 +595,9 @@
       "sa": 3.37,
       "max_tanimoto": 0.683,
       "p_bbb": 0.822,
-      "scaffold": "c1ccc(CN2c3ccccc3C3CCNC32)cc1"
+      "scaffold": "c1ccc(CN2c3ccccc3C3CCNC32)cc1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(Cc3ccc(F)cc3)[C@@H]1N2C",
@@ -537,7 +611,9 @@
       "sa": 3.31,
       "max_tanimoto": 0.678,
       "p_bbb": 0.897,
-      "scaffold": "c1ccc(CN2CCC3c4ccccc4NC32)cc1"
+      "scaffold": "c1ccc(CN2CCC3c4ccccc4NC32)cc1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)C1N2Cc1ccc(F)cc1",
@@ -551,7 +627,9 @@
       "sa": 3.32,
       "max_tanimoto": 0.678,
       "p_bbb": 0.878,
-      "scaffold": "c1ccc(CN2c3ccccc3C3CCNC32)cc1"
+      "scaffold": "c1ccc(CN2c3ccccc3C3CCNC32)cc1",
+      "brenk": "",
+      "hbd": 1
     },
     {
       "smiles": "COc1cc2c(cc1OC)C(=O)C(CC1CCN(Cc3ncccc3F)CC1)C2",
@@ -565,7 +643,9 @@
       "sa": 3.0,
       "max_tanimoto": 0.672,
       "p_bbb": 0.81,
-      "scaffold": "O=C1c2ccccc2CC1CC1CCN(Cc2ccccn2)CC1"
+      "scaffold": "O=C1c2ccccc2CC1CC1CCN(Cc2ccccn2)CC1",
+      "brenk": "",
+      "hbd": 0
     }
   ]
 }

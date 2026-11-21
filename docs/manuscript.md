@@ -421,7 +421,9 @@ and it is invisible to AUC. Secondary, no decision rule, no p-value.
 
 ### 3.9 Domain-constrained design
 
-**[AUTHORS: confirm this component belongs in the main text rather than SI.]**
+**[AUTHORS: on review this component is recommended for supplementary, with this
+section reduced to a short main-text paragraph. Retained here in full pending that
+decision.]**
 
 Exploratory. Specified in Amendment A1 before execution, with ranking subsequently
 replaced by Amendment A2 (§4.3). A fixed catalogue of ten single medicinal-chemistry
@@ -447,7 +449,15 @@ for chemical diversity and makeability. Readers wanting depth-in-domain should u
 the alternative table, published for that purpose.
 
 These are compounds on which a BBB prediction can be *defended*. They are not
-predicted to be active, and no activity model was applied. Novelty is exact
+predicted to be active, and no activity model was applied.
+
+**They are also, mostly, minimal perturbations.** 93% of the surviving set is a
+single aromatic fluorination or chlorination. Halogen scanning is real medicinal
+chemistry, but it is optimisation performed iteratively against assay feedback, not
+hypothesis-generating design; proposed cold it is the smallest edit that keeps a
+molecule inside the predictor's domain. The honest description of this component is
+that it demonstrates the constraint and shows what domain-constrained enumeration
+mostly yields, rather than that it contributes drug design. Novelty is exact
 full-InChIKey matching, so a stereoisomer, tautomer or salt of a known compound
 reads as unmatched; close analogues exist by construction; and no literature or
 patent search was performed.
@@ -518,7 +528,11 @@ design itself, each discoverable only by execution:
    the four transformations that alter a ring atom — 1,551 products — before any
    chemistry is considered. We did not relax it. A labelled post hoc sensitivity
    quantifies the cost at **86 compounds** (905 → 991), because the extra products
-   mostly fail the property window specified in the same amendment.
+   mostly fail the property window specified in the same amendment. **The count
+   understates the cost in quality terms**: 62 of the 86 are the aromatic N-walk,
+   which the chemistry review judged the single most valuable entry in the catalogue
+   (lowers logP by roughly one unit, adds an acceptor, commonly reduces hERG
+   liability). The filter blocked the catalogue's best transformation entirely.
 
 Similarly, H2 conflated cutoff strictness with training-set size and could not have
 answered its own question (§3.6).
@@ -544,6 +558,19 @@ the design, not only the analysis.
   49% confound estimate is conservative.
 - **The design component claims nothing about activity.** No activity model was
   applied and no compound was synthesised or assayed.
+- **No independent medicinal-chemistry review.** The transformation catalogue and
+  the curation criteria were assessed from the literature rather than by a
+  practising medicinal chemist (`docs/catalogue-review.md`). The assessment rejected
+  one transformation, reclassified another as a model diagnostic, and identified the
+  absence of any hydrogen-bond-donor-reducing edit as the catalogue's largest gap —
+  but it is reasoning from precedent, not bench judgement.
+- **Structural alerts inherited from parents.** 200 of the 793 survivors, and 7 of
+  the reported 20, carry a BRENK structural alert — long aliphatic chains, Michael
+  acceptors, nitro groups, aldehydes. These come from the parent ChEMBL actives, not
+  from the edits. They are flagged in the output rather than removed, since removing
+  them would mean adding a filter after seeing the result. Notably **PAINS, which
+  filter F8 applies, matches none of them**, which is a useful caution against
+  treating a PAINS pass as sufficient screening hygiene.
 - **Deviation.** RDKit descriptors substituted for Mordred (§2.4).
 
 ### 4.5 Conclusion

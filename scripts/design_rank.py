@@ -24,7 +24,7 @@ import json
 import sys
 
 from rdkit import Chem, RDLogger
-from rdkit.Chem import Draw, rdFMCS
+from rdkit.Chem import Descriptors, Draw, FilterCatalog, rdFMCS
 from rdkit.Chem.Draw import rdMolDraw2D
 from rdkit.Chem.Scaffolds import MurckoScaffold
 
@@ -34,6 +34,24 @@ RDLogger.DisableLog("rdApp.*")
 
 CAP = 20
 N_FIGURE = 6
+
+_bp = FilterCatalog.FilterCatalogParams()
+_bp.AddCatalog(FilterCatalog.FilterCatalogParams.FilterCatalogs.BRENK)
+BRENK = FilterCatalog.FilterCatalog(_bp)
+
+
+def alert(mol):
+    """BRENK structural alert, if any.
+
+    PAINS (filter F8) is already applied and matches nothing here. BRENK is a
+    broader set covering reactive and otherwise unsuitable groups. These alerts
+    are inherited from the PARENT compounds - real ChEMBL actives - not created
+    by the single edits, but a proposal list should surface them rather than
+    leave a reader to find them.
+    """
+    m = BRENK.GetFirstMatch(mol)
+    return m.GetDescription() if m else ""
+
 
 nov = json.load(open("results/novelty.json"))
 novel = nov["novel"]
@@ -47,8 +65,10 @@ def say(line=""):
 
 
 for p in novel:
-    p["scaffold"] = MurckoScaffold.MurckoScaffoldSmiles(
-        mol=Chem.MolFromSmiles(p["smiles"]))
+    _m = Chem.MolFromSmiles(p["smiles"])
+    p["scaffold"] = MurckoScaffold.MurckoScaffoldSmiles(mol=_m)
+    p["brenk"] = alert(_m)
+    p["hbd"] = Descriptors.NumHDonors(_m)
 
 # ---------------------------------------------------- Amendment A2 ranking
 by_scaffold = {}
@@ -81,11 +101,17 @@ say("=" * 78)
 say(f"TOP {CAP} UNDER AMENDMENT A2 - one per scaffold, ranked by synthetic accessibility")
 say("=" * 78)
 say(f"{'#':>3} {'tx':>4} {'SA':>5} {'Tani':>6} {'p(BBB+)':>8} {'MW':>6} {'cLogP':>6} "
-    f"{'TPSA':>6}  parent")
+    f"{'TPSA':>6} {'HBD':>4}  {'parent':<14} alert")
 for i, p in enumerate(a2, 1):
     say(f"{i:>3} {p['transformation']:>4} {p['sa']:>5.2f} {p['max_tanimoto']:>6.3f} "
-        f"{p['p_bbb']:>8.3f} {p['mw']:>6.1f} {p['clogp']:>6.2f} {p['tpsa']:>6.1f}  "
-        f"{p['parent_chembl']}")
+        f"{p['p_bbb']:>8.3f} {p['mw']:>6.1f} {p['clogp']:>6.2f} {p['tpsa']:>6.1f} "
+        f"{p['hbd']:>4}  {p['parent_chembl']:<14} {p['brenk']}")
+n_al = sum(1 for p in a2 if p["brenk"])
+say()
+say(f"{n_al} of {len(a2)} carry a BRENK structural alert, inherited from the parent")
+say("compound rather than created by the edit. PAINS (F8) matches none of them.")
+say("Flagged, not removed: removing them would be a post hoc filter added after")
+say("seeing the output. A reader should see the flag and judge.")
 say()
 for i, p in enumerate(a2, 1):
     say(f"{i:>3}  {p['smiles']}")
@@ -121,14 +147,14 @@ with open("results/design_proposals.csv", "w", newline="") as fh:
     w = csv.writer(fh)
     w.writerow(["rank_a2", "smiles", "parent_smiles", "parent_chembl",
                 "transformation", "transformation_name", "scaffold",
-                "max_tanimoto", "p_bbb", "sa", "mw", "clogp", "tpsa",
-                "novelty_checked"])
+                "max_tanimoto", "p_bbb", "sa", "mw", "clogp", "tpsa", "hbd",
+                "brenk_alert", "novelty_checked"])
     order = {p["smiles"]: i + 1 for i, p in enumerate(a2)}
     for p in sorted(novel, key=lambda d: (order.get(d["smiles"], 10**6), d["sa"])):
         w.writerow([order.get(p["smiles"], ""), p["smiles"], p["parent"],
                     p["parent_chembl"], p["transformation"], p["tname"],
                     p["scaffold"], p["max_tanimoto"], p["p_bbb"], p["sa"],
-                    p["mw"], p["clogp"], p["tpsa"], checked])
+                    p["mw"], p["clogp"], p["tpsa"], p["hbd"], p["brenk"], checked])
 
 # ----------------------------------------------------------------- figure
 pairs, legends, highlights = [], [], []

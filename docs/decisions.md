@@ -1218,3 +1218,72 @@ with the counts each loses. Their `status` is deliberately left `proposed`: they
 were never rejected on chemistry, and whether they are good medicinal-chemistry
 moves remains the co-author's call, independent of the filter that happens to
 exclude them.
+
+## 2026-11-21 — Chemistry review settled from the literature, not by a chemist
+
+The co-author declined the review questions in `docs/catalogue-review.md` and asked
+that they be settled from existing literature, with reasoning where the literature
+is silent. Answers and their basis are recorded in that file; catalogue statuses in
+`config/transformations.json` are set accordingly.
+
+**This is a research-integrity point, not a procedural one.** The review was not
+performed by a practising medicinal chemist. Two consequences follow and both are
+now in the manuscript: the limitations section states it, and the
+author-contributions statement cannot claim medicinal-chemistry judgement that did
+not occur. The wording of the latter is for the authors to settle.
+
+### Outcomes
+
+- **T01 acid → tetrazole: rejected.** Tetrazole pKa ~4.9 leaves the molecule anionic
+  at physiological pH, so the charge obstructing passive diffusion is retained. A
+  correct acid isostere in general; the wrong move for brain exposure. Its F6 block
+  therefore costs nothing.
+- **T10 piperidine → morpholine: reclassified as a model diagnostic.** T09 and T10
+  cannot both be design improvements; T10's purpose was to test whether the model
+  rates both directions as improvements.
+- **T06 aromatic chlorination: approved**, reversing an initial inclination to
+  reject. Aryl chloride is common in marketed CNS drugs and the cLogP ≤ 4 filter
+  already removes the products where the lipophilicity increase would matter.
+- Everything else approved, T08 with a caveat (adds an HBD; a common metabolic
+  route, so products are often known metabolites).
+- **Curation criteria all agreed**, including confidence score 9 excluding
+  *Torpedo* and *Electrophorus*, which differ from human AChE in gorge-lining
+  residues with poorly transferable inhibitor SAR.
+
+### Three substantive findings from the review
+
+1. **The catalogue has no HBD-reducing transformation**, and HBD count is among the
+   strongest determinants of CNS exposure. N-methylation of a secondary amide — the
+   inverse of T08, which *is* present — is absent. This is the catalogue's largest
+   gap and is now stated in the paper.
+2. **The F6 defect costs more than its count suggests.** 62 of the 86 recovered
+   compounds are the aromatic N-walk, judged the catalogue's most valuable entry. The
+   filter blocked the best transformation entirely. The manuscript no longer leans on
+   the raw count to make the defect sound minor.
+3. **PAINS is insufficient screening hygiene, demonstrated on our own output.**
+   Inspecting the reported structures found compound #10 to be an aryl thiosulfonate
+   — a thiol-reactive electrophile used deliberately as a cysteine-modifying reagent.
+   A BRENK scan over all 793 survivors found **200 flagged** (long aliphatic chains
+   61, Michael acceptors 24, nitro 21, aldehyde 17), and **7 of the reported 20**,
+   while **PAINS matches none**. The liabilities are inherited from the parent ChEMBL
+   actives rather than created by the edits.
+
+   **Flagged, not removed.** `results/design_proposals.{txt,csv}` now carry BRENK and
+   HBD columns. Removing flagged compounds would mean adding a filter after seeing
+   the output, which this project has declined to do three times already.
+
+### Also settled
+
+- **Property window**: defensible but incomplete; it omits HBD. Checked rather than
+  assumed — HBD across the reported 20 is 0/1/2 in 6/13/1 compounds, so the omission
+  did not bite. Reported as a column and as a limitation; the filter is not added
+  now, which would be a post hoc change made after seeing it was unnecessary.
+- **cLogP ≥ 1 bound kept**, though it is what removes the T02/T03 amide products.
+  Removing it to recover compounds would be loosening a filter after seeing what it
+  excluded.
+- **Reported table**: Amendment A2 in the main text with the Tanimoto column
+  prominent; the original-rule table to supplementary.
+- **§3.9 recommended for supplementary** with a short main-text paragraph, and the
+  component reframed from "proposed structures" to compounds demonstrating the
+  domain constraint — 93% of the set is a single halogenation, which is optimisation
+  chemistry rather than design.

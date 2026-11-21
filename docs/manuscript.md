@@ -9,10 +9,13 @@
 `134ab60`. Analysis code, decision log, literature search and all results:
 <https://github.com/shreyansk6-stack/bbb-domain-alzheimers>
 
-> **DRAFT.** Numbers are final and traceable to `results/`. Every reference DOI was
-> verified against Crossref on 2026-11-21; the list is in Vancouver-ish form and
-> needs reformatting to the target journal's style. One passage needing author input
-> is marked **[AUTHORS]**.
+> **DRAFT — formatted for *Journal of Cheminformatics*.** Section order, unstructured
+> abstract and the Declarations block follow the journal's current article structure.
+> Numbers are final and traceable to `results/`. Every reference DOI was verified
+> against Crossref on 2026-11-21. In-text citations are author–year and the reference
+> list is numbered; Springer Nature accepts format-free initial submission, so
+> conversion to numbered in-text citations can wait for revision. One passage needing
+> author input is marked **[AUTHORS]**.
 
 ---
 
@@ -594,7 +597,9 @@ the design, not only the analysis.
   treating a PAINS pass as sufficient screening hygiene.
 - **Deviation.** RDKit descriptors substituted for Mordred (§2.4).
 
-### 4.5 Conclusion
+---
+
+## 5. Conclusion
 
 A pre-registered audit of BBB predictors on Alzheimer's target chemistry returns an
 inconclusive primary result: no degradation larger than approximately 0.06 AUC. The
@@ -608,47 +613,6 @@ off-the-shelf BBB model rests on validation that the public data cannot currentl
 supply.
 
 ---
-
-## Data and code availability
-
-All code, the full pre-registration with amendments, the dated decision log, the
-systematic literature search record and every result file are at
-<https://github.com/shreyansk6-stack/bbb-domain-alzheimers>, registered against
-commit `134ab60`.
-
-`data/` is not redistributed: ChEMBL is CC BY-SA 3.0 and share-alike would propagate
-to the repository. `docs/data-manifest.sha256` pins the exact registered snapshot.
-B3DB is CC0 and available from the authors' repository.
-
-## Registration
-
-OSF Registries, 2026-11-19, [10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62).
-Foreknowledge declared as "authors have observed the data, but have not performed the
-proposed analyses". Amendments A1 (2026-11-19) and A2 (2026-11-21) are in
-`docs/preregistration.md`; A2 is post hoc and labelled wherever reported.
-
-## Author contributions
-
-**[AUTHORS: confirm S.S.'s contributions; the statement below reflects only what is
-documented in the repository and may understate them.]**
-
-S.K. conceived the study, wrote the pre-registration, implemented the analysis and
-drafted the manuscript. S.S. contributed to study conception and to review of the
-manuscript.
-
-The assessment of the transformation catalogue, the curation criteria and the
-property window was made from the published literature rather than by a practising
-medicinal chemist, and is documented in full in the project repository
-(`docs/catalogue-review.md`). It is reported as a limitation in §4.4.
-
-## AI use disclosure
-
-Claude Code (Anthropic) was used for exploratory and sensitivity analyses, the
-systematic literature search, drafting the pre-registration and this manuscript, the
-analysis code, and proposing ChEMBL curation decisions together with the published
-basis for each. All numerical results are produced by scripts in the repository and
-are reproducible from the recorded data versions. No AI system is an author; the
-authors are responsible for all decisions.
 
 ## Figures
 
@@ -673,6 +637,68 @@ supplementary with S1.
 - **S4. Curation sensitivity.** Ten variants and the resulting out-of-domain ranges.
 - **S5. Literature search record.** Queries, counts, and screening decisions.
 - **S6. Per-transformation funnel and the scaffold-filter sensitivity.**
+
+## Author contributions
+
+**[AUTHORS: confirm S.S.'s contributions; the statement below reflects only what is
+documented in the repository and may understate them.]**
+
+S.K. conceived the study, wrote the pre-registration, implemented the analysis and
+drafted the manuscript. S.S. contributed to study conception and to review of the
+manuscript.
+
+The assessment of the transformation catalogue, the curation criteria and the
+property window was made from the published literature rather than by a practising
+medicinal chemist, and is documented in full in the project repository
+(`docs/catalogue-review.md`). It is reported as a limitation in §4.4.
+
+## Data and code availability
+
+All code, the full pre-registration with amendments, the dated decision log, the
+systematic literature search record and every result file are at
+<https://github.com/shreyansk6-stack/bbb-domain-alzheimers>, registered against
+commit `134ab60`.
+
+`data/` is not redistributed: ChEMBL is CC BY-SA 3.0 and share-alike would propagate
+to the repository. `docs/data-manifest.sha256` pins the exact registered snapshot.
+B3DB is CC0 and available from the authors' repository.
+
+### Registration
+
+OSF Registries, 2026-11-19, [10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62).
+Foreknowledge declared as "authors have observed the data, but have not performed the
+proposed analyses". Amendments A1 (2026-11-19) and A2 (2026-11-21) are in
+`docs/preregistration.md`; A2 is post hoc and labelled wherever reported.
+
+## Declarations
+
+### Ethics approval and consent to participate
+
+Not applicable. This study analysed only publicly available chemical and
+bioactivity data. No human participants, human data, or animals were involved.
+
+### Consent for publication
+
+Not applicable.
+
+### Competing interests
+
+The authors declare that they have no competing interests.
+
+### Funding
+
+This research received no specific grant from any funding agency in the public,
+commercial or not-for-profit sectors. No compound reported here was synthesised or
+assayed; all costs were computational.
+
+### Use of generative AI
+
+Claude Code (Anthropic) was used for exploratory and sensitivity analyses, the
+systematic literature search, drafting the pre-registration and this manuscript, the
+analysis code, and proposing ChEMBL curation decisions together with the published
+basis for each. All numerical results are produced by scripts in the repository and
+are reproducible from the recorded data versions. No AI system is an author; the
+authors are responsible for all decisions.
 
 ## References
 

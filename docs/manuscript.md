@@ -2,16 +2,17 @@
 
 **Shreyan Kancharla¹, Samuel Siyanbola¹**
 
-¹ _[affiliation — to be completed]_
+¹ Davidson College, Davidson, North Carolina, USA
 
 **Pre-registered** on OSF Registries, 2026-11-19, DOI
 [10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62), against commit
 `134ab60`. Analysis code, decision log, literature search and all results:
 <https://github.com/shreyansk6-stack/bbb-domain-alzheimers>
 
-> **DRAFT.** Numbers are final and traceable to `results/`. Passages needing author
-> input are marked **[AUTHORS]**. Reference list is in author-year placeholder form
-> and needs formatting to the target journal **[AUTHORS]**.
+> **DRAFT.** Numbers are final and traceable to `results/`. Every reference DOI was
+> verified against Crossref on 2026-11-21; the list is in Vancouver-ish form and
+> needs reformatting to the target journal's style. One passage needing author input
+> is marked **[AUTHORS]**.
 
 ---
 
@@ -24,7 +25,7 @@ predictors are trained on literature-derived data dominated by approved and
 CNS-active drugs, while target inhibitor series are narrow, heavily optimised
 medicinal chemistry. Published BBB models report applicability-domain (AD) coverage
 on their own held-out test sets and therefore report high coverage — 93.9%, 94.8%
-and "complete structural coverage" in three 2026 reports. Because a held-out split
+and "complete structural coverage" in three 2026 reports from two groups. Because a held-out split
 is drawn from the training distribution, that figure is near-guaranteed by
 construction and carries no information about deployment.
 
@@ -90,16 +91,17 @@ OECD validation principles for (Q)SAR models (OECD 2007).
 In practice, however, AD coverage is almost always computed on the model's own
 held-out test set — and a held-out split is drawn from the training distribution, so
 high coverage follows by construction rather than by evidence. Three 2026 reports
-illustrate the pattern: 93.9% coverage on a 212-compound internal test set
-(Pharmaceutics 2026a), 94.8% on an internal B3DB split (Pharmaceutics 2026b), and
-"complete structural coverage" (Comput Biol Chem 2026). Each figure is correct and
-none is informative about deployment, because none measures coverage against the
-target-directed chemistry on which the filter is actually used.
+illustrate the pattern: 93.9% coverage on a 212-compound internal test set and 94.8%
+on an internal B3DB split, both from one group (Tiwari et al. 2026a, 2026b), and
+"complete structural coverage" from another (Prabhakar et al. 2026). Each figure is
+correct and none is informative about deployment, because none measures coverage
+against the target-directed chemistry on which the filter is actually used. We note
+that these are three reports from two groups, not three independent
+confirmations.
 
 The question is sharpened by a result that cuts against the intuitive expectation.
 A 2026 QSAR ADMET study reported a 0.32–0.39 AUC generalisation gap while its own
-applicability-domain analysis showed complete structural coverage (Comput Biol Chem
-2026) — domain membership and predictive reliability came apart. If that
+applicability-domain analysis showed complete structural coverage (Prabhakar et al. 2026) — domain membership and predictive reliability came apart. If that
 generalises, structural domain distance may not predict BBB prediction error at all,
 and we pre-specified a null result as a publishable outcome for that reason.
 
@@ -310,6 +312,11 @@ existing public data.** The ground truth does not exist in sufficient quantity.
 
 † bootstrap CI on the proximal AUC itself.
 
+**Figure 1** places this estimate alongside every other ΔAUC comparison in the
+study — both control arms, the cutoff sensitivity, the four domain definitions and
+the secondary model — against the pre-registered support threshold and refutation
+band. No comparison resolves the effect.
+
 **Verdict: INCONCLUSIVE.** ΔAUC is neither ≥ 0.06 with an interval excluding zero,
 nor contained within ±0.03. Against a minimum detectable effect of 0.061 and a point
 estimate of 0.028, this study cannot resolve an effect of the size it observes.
@@ -486,7 +493,7 @@ It does not establish that BBB predictors fail on target-proximal chemistry. The
 primary endpoint is inconclusive and the honest statement is bounded: no degradation
 larger than approximately 0.06 AUC. A study powered for the effect sizes reported in
 comparable work — R² 0.641 versus 0.164 for in- versus out-of-domain logBB
-(Pharmaceutics 2026a), AUC gaps of 0.32–0.39 (Comput Biol Chem 2026) — would have
+(Tiwari et al. 2026a), AUC gaps of 0.32–0.39 (Prabhakar et al. 2026) — would have
 detected those easily. We detected nothing of that magnitude, which is itself
 informative about effect size in this setting.
 
@@ -643,6 +650,16 @@ basis for each. All numerical results are produced by scripts in the repository 
 are reproducible from the recorded data versions. No AI system is an author; the
 authors are responsible for all decisions.
 
+## Figures
+
+**Figure 1.** Forest plot of every ΔROC-AUC estimate (`results/forest.png`).
+Primary endpoint in black; the grey band is the pre-registered refutation region
+(±0.03) and the dashed line the support threshold (0.06).
+
+**Figure 2.** Representative domain-constrained design products beside their parent
+compounds, changed atom highlighted (`results/design_proposals.png`). To
+supplementary with S1.
+
 ## Supplementary Information
 
 - **S1. Domain-constrained design, full treatment.** Catalogue with per-entry
@@ -659,22 +676,24 @@ authors are responsible for all decisions.
 
 ## References
 
-**[AUTHORS: format to target journal.]**
-
-1. Meng F, et al. A curated diverse molecular database of blood-brain barrier
-   permeability with chemical descriptors. *Sci Data* 2021. doi:10.1038/s41597-021-01069-5
-2. Pharmaceutics 2026a. doi:10.3390/pharmaceutics18060670
-3. Pharmaceutics 2026b. doi:10.3390/pharmaceutics18081018
-4. Comput Biol Chem 2026. doi:10.1016/j.compbiolchem.2026.109356
-5. Kalliokoski T, et al. Comparability of mixed IC50 data. *PLoS One* 2013.
-   doi:10.1371/journal.pone.0061007
-6. Landrum GA, Riniker S. Combining IC50 or Ki values from different sources.
-   *J Chem Inf Model* 2024. doi:10.1021/acs.jcim.4c00049
-7. Jia & Sosso. *Mol Syst Des Eng* 2026. doi:10.1039/d6me00041j
-8. Ertl P, Schuffenhauer A. Estimation of synthetic accessibility score. *J Cheminform* 2009.
-9. Bemis GW, Murcko MA. The properties of known drugs. 1. Molecular frameworks.
-   *J Med Chem* 1996.
-10. Hanley JA, McNeil BJ. The meaning and use of the area under a ROC curve.
-    *Radiology* 1982.
-11. OECD. Guidance Document on the Validation of (Q)SAR Models. 2007.
-12. ChEMBL_37, released 2026-05-01.
+1. Meng F, Xi Y, Huang J, et al. A curated diverse molecular database of blood-brain barrier permeability with chemical descriptors. *Scientific Data*. 2021;8(1). doi:10.1038/s41597-021-01069-5
+2. Zdrazil B, Felix E, Hunter F, et al. The ChEMBL Database in 2023: a drug discovery platform spanning multiple bioactivity data types and time periods. *Nucleic Acids Research*. 2023;52(D1):D1180-D1192. doi:10.1093/nar/gkad1004
+3. Rogers D, Hahn M. Extended-Connectivity Fingerprints. *Journal of Chemical Information and Modeling*. 2010;50(5):742-754. doi:10.1021/ci100050t
+4. Bemis GW, Murcko MA. The Properties of Known Drugs. 1. Molecular Frameworks. *Journal of Medicinal Chemistry*. 1996;39(15):2887-2893. doi:10.1021/jm9602928
+5. Ertl P, Schuffenhauer A. Estimation of synthetic accessibility score of drug-like molecules based on molecular complexity and fragment contributions. *Journal of Cheminformatics*. 2009;1(1). doi:10.1186/1758-2946-1-8
+6. Baell JB, Holloway GA. New Substructure Filters for Removal of Pan Assay Interference Compounds (PAINS) from Screening Libraries and for Their Exclusion in Bioassays. *Journal of Medicinal Chemistry*. 2010;53(7):2719-2740. doi:10.1021/jm901137j
+7. Brenk R, Schipani A, James D, et al. Lessons Learnt from Assembling Screening Libraries for Drug Discovery for Neglected Diseases. *ChemMedChem*. 2008;3(3):435-444. doi:10.1002/cmdc.200700139
+8. Hanley JA, McNeil BJ. The meaning and use of the area under a receiver operating characteristic (ROC) curve.. *Radiology*. 1982;143(1):29-36. doi:10.1148/radiology.143.1.7063747
+9. Tiwari S, Mądra-Gackowska K, Gackowski M, et al. Predicting Blood–Brain Barrier Permeability from Experimental Data: An Interpretable and Externally Validated Machine Learning Framework. *Pharmaceutics*. 2026;18(6):670. doi:10.3390/pharmaceutics18060670
+10. Tiwari S, Mądra-Gackowska K, Gackowski M, et al. Evaluating the Incremental Value of Three-Dimensional Conformer Descriptors for Blood–Brain Barrier Permeability Prediction Using the B3DB Benchmark Dataset. *Pharmaceutics*. 2026;18(8):1018. doi:10.3390/pharmaceutics18081018
+11. Prabhakar S, Jayagopal P, Blessy JJ. Rule-based labels versus experimental endpoints: A systematic assessment of generalisation in QSAR models for ADMET prediction using fruit phytochemicals. *Computational Biology and Chemistry*. 2026;125:109356. doi:10.1016/j.compbiolchem.2026.109356
+12. Jia H, Sosso GC. Fast, lightweight BBB permeability predictions for molecular design. *Molecular Systems Design & Engineering*. 2026. doi:10.1039/d6me00041j
+13. Kalliokoski T, Kramer C, Vulpetti A, et al. Comparability of Mixed IC50 Data – A Statistical Analysis. *PLoS ONE*. 2013;8(4):e61007. doi:10.1371/journal.pone.0061007
+14. Landrum GA, Riniker S. Combining IC 50 or K i Values from Different Sources Is a Source of Significant Noise. *Journal of Chemical Information and Modeling*. 2024;64(5):1560-1567. doi:10.1021/acs.jcim.4c00049
+15. Wager TT, Hou X, Verhoest PR, et al. Moving beyond Rules: The Development of a Central Nervous System Multiparameter Optimization (CNS MPO) Approach To Enable Alignment of Druglike Properties. *ACS Chemical Neuroscience*. 2010;1(6):435-449. doi:10.1021/cn100008c
+16. Pajouhesh H, Lenz GR. Medicinal chemical properties of successful central nervous system drugs. *NeuroRX*. 2005;2(4):541-553. doi:10.1602/neurorx.2.4.541
+17. Ballatore C, Huryn DM, Smith AB. Carboxylic Acid (Bio)Isosteres in Drug Design. *ChemMedChem*. 2013;8(3):385-395. doi:10.1002/cmdc.201200585
+18. Pennington LD, Moustakas DT. The Necessary Nitrogen Atom: A Versatile High-Impact Design Element for Multiparameter Optimization. *Journal of Medicinal Chemistry*. 2017;60(9):3552-3579. doi:10.1021/acs.jmedchem.6b01807
+19. Pedregosa F, Varoquaux G, Gramfort A, et al. Scikit-learn: machine learning in Python. *J Mach Learn Res*. 2011;12:2825-2830.
+20. RDKit: open-source cheminformatics. https://www.rdkit.org
+21. OECD. *Guidance Document on the Validation of (Q)SAR Models*. OECD Series on Testing and Assessment No. 69. Paris: OECD Publishing; 2007.

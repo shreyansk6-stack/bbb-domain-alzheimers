@@ -990,3 +990,62 @@ Model 3, the off-the-shelf published BBB tool, is still unrun. Section 8 provide
 for dropping it if none can be executed reproducibly with a recorded version, and
 requires the omission be reported rather than a substitute chosen after seeing
 results.
+
+## 2026-11-21 — Model 3 (off-the-shelf BBB tool) dropped. The omission is itself a finding
+
+Section 8 provides for dropping model 3 "if none can be executed reproducibly with
+a recorded version", requires the omission be reported, and forbids replacing it
+with a substitute chosen after seeing results. It is dropped. Two independent
+reasons, the second of which matters far more than the first.
+
+### 1. Practical: nothing installs reproducibly with a recorded version
+
+- **B3clf** (theochem, the B3DB authors) has no versioned package install. Its
+  README directs you to clone the repository, build a conda environment on Python
+  3.7 and run `pip install .` from the working tree. A clone is not a recorded
+  version, and Python 3.7 is incompatible with this project's pinned 3.9
+  environment. Its describing preprint was still unrefereed as of August 2025.
+- **LightBBB** is distributed as a prediction web server with a downloadable
+  dataset. No package, no pinnable version, and sending compounds to a third-party
+  server is neither reproducible nor a recorded version.
+
+### 2. Structural: the tools are trained on the only available ground truth
+
+This is the dispositive reason, and it would hold even if the install were trivial.
+
+**B3clf is trained on B3DB.** B3DB is this study's entire labelled reference set.
+Every compound in the 492-compound proximal holdout is plausibly in B3clf's
+training data, so its "prediction" on that holdout would be partly recall. The
+resulting number would not measure generalisation to target-proximal chemistry; it
+would measure memorisation, and it would be biased in the direction that makes BBB
+filters look good.
+
+This is not a quirk of one tool. B3DB was compiled from 50 published sources, which
+are the same sources any public BBB model draws on. There is no large public BBB
+dataset that is independent of B3DB, so **there is no off-the-shelf BBB predictor
+that can be evaluated against B3DB without contamination, and no uncontaminated
+public ground truth to evaluate one against instead.**
+
+### Why this is a result rather than a gap
+
+The paper's thesis is that published BBB models report applicability-domain
+coverage on their own held-out test sets and therefore report coverage that is
+near-guaranteed by construction. Model 3 fails for the same underlying reason: the
+field's tools and the field's only public ground truth come from one literature
+pool, so the tools cannot be independently validated at all — not by us, and not by
+the papers that deploy them as screening filters.
+
+That belongs in the discussion alongside the BACE1 unmeasurability finding. Both
+say the same thing from different directions: the public data cannot support the
+validation claims routinely made of it.
+
+### Scope of the check, stated honestly
+
+This was a documentation assessment of the tools we could identify, not an
+exhaustive survey and not an attempted installation. An install was not attempted
+because contamination is dispositive regardless of whether the software runs — a
+successfully executed contaminated evaluation would be worse than no evaluation,
+since it would produce a publishable-looking number that means nothing. If a
+reviewer names a BBB tool with a pinnable version and a training set demonstrably
+disjoint from B3DB, running it would be worthwhile and the result reported as post
+hoc.

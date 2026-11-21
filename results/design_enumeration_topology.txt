@@ -1,0 +1,100 @@
+==============================================================================
+AMENDMENT A1.2 - DOMAIN-CONSTRAINED DESIGN PROPOSALS
+==============================================================================
+EXPLORATORY. Post-dates registration 10.17605/OSF.IO/UQR62.
+No activity prediction. No claim of activity, permeability or therapeutic use.
+commit 6d809bf7cb0104a0cc85d03301fbff43ea71054b   catalogue config/transformations.json
+F6 scaffold mode: topology   POST HOC SENSITIVITY - not the registered rule
+
+curated AChE actives (identical recipe to the confirmatory run): 2391
+labelled B3DB reference: 3892 skeletons
+BBB model: ECFP4 random forest, registered hyperparameters {'class_weight': None, 'max_features': 0.03}
+trained on all 3892 labelled compounds; threshold 0.68 from out-of-fold predictions. This is a NEW fit for design triage, not the confirmatory model.
+
+transformations in catalogue: 10   not rejected: 10
+NOTE: entries are still 'proposed'. The chemistry co-author has not yet
+signed off on the catalogue; treat the output as provisional.
+
+raw products generated          : 40534
+F1 valid and different          : 40534
+F6 scaffold retained            : 40460
+F7 inside property window       : 4858
+F8 PAINS-free                   : 4474
+F4 SA <= 4.0                    : 4358
+unique structures               : 3185
+
+F2 in domain (max Tanimoto >= 0.35) : 1221
+F3 predicted BBB+ (p >= 0.68)        : 991
+
+==============================================================================
+F5 NOVELTY - NOT APPLIED, AND WHY
+==============================================================================
+A1.2 specifies novelty against ChEMBL and PubChem. Neither can be checked
+offline: the local snapshot holds only AChE actives, not either database in
+full, and there is no bulk structure-lookup that avoids one network call per
+structure. Applying it to every enumerated product was never feasible. It is
+feasible on the survivors, which is why it is ordered last here. Run it as a
+separate, rate-limited step and record the date, because both databases are
+live and a novelty claim is only true as of a given day.
+
+==============================================================================
+SURVIVORS BY TRANSFORMATION
+==============================================================================
+  T01       0   Carboxylic acid to tetrazole
+  T02       0   Carboxylic acid to primary amide
+  T03       0   Methyl ester to primary amide
+  T04      62   Benzene to pyridine (aromatic N-walk)
+  T05     529   Aromatic fluorine scan
+  T06     303   Aromatic chlorination
+  T07      12   Methyl to ethyl homologation
+  T08      61   Tertiary amine N-demethylation
+  T09       4   Morpholine to piperidine
+  T10      20   Piperidine to morpholine
+
+==============================================================================
+TOP 20 BY THE PRE-REGISTERED RANKING (Tanimoto desc, then SA asc)
+==============================================================================
+  #   tx   Tani  p(BBB+)    SA     MW  cLogP   TPSA  parent
+  1  T06  1.000    0.755  1.97  269.8   1.99   58.4  CHEMBL640
+  2  T08  1.000    0.888  3.13  337.4   3.67   44.8  CHEMBL131825
+  3  T08  1.000    0.921  3.44  275.4   1.77   44.8  CHEMBL308043
+  4  T05  0.818    0.871  3.18  355.4   3.81   44.8  CHEMBL74926
+  5  T05  0.817    0.830  3.43  395.5   3.75   36.0  CHEMBL1243298
+  6  T05  0.817    0.819  3.43  395.5   3.75   36.0  CHEMBL1243298
+  7  T05  0.807    0.848  3.23  355.4   3.81   44.8  CHEMBL74926
+  8  T05  0.778    0.803  3.48  395.5   3.75   36.0  CHEMBL1243298
+  9  T05  0.778    0.808  3.50  395.5   3.75   36.0  CHEMBL1243298
+ 10  T05  0.759    0.818  3.22  355.4   3.81   44.8  CHEMBL74926
+ 11  T04  0.746    0.762  3.33  338.4   3.06   57.7  CHEMBL74926
+ 12  T04  0.737    0.912  2.85  380.5   3.76   51.7  CHEMBL502
+ 13  T05  0.730    0.837  3.49  395.5   3.75   36.0  CHEMBL1243298
+ 14  T05  0.730    0.813  3.52  395.5   3.75   36.0  CHEMBL1243298
+ 15  T08  0.714    0.856  3.43  363.5   3.27   44.8  CHEMBL1243298
+ 16  T05  0.712    0.854  3.30  355.4   3.81   44.8  CHEMBL74926
+ 17  T05  0.712    0.847  3.33  355.4   3.81   44.8  CHEMBL74926
+ 18  T05  0.710    0.824  3.27  385.4   3.81   54.0  CHEMBL74950
+ 19  T08  0.698    0.817  3.41  345.5   3.77   53.6  CHEMBL433041
+ 20  T05  0.690    0.791  3.29  385.4   3.81   54.0  CHEMBL74950
+
+  1  CCN(CC)CCNC(=O)c1ccc(N)c(Cl)c1
+  2  CN1CC[C@@]2(C)c3cc(OC(=O)Nc4ccccc4)ccc3N(C)[C@@H]12
+  3  CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)[C@@H]1N2C
+  4  CN1CC[C@@]2(C)c3cc(OC(=O)Nc4ccc(F)cc4)ccc3N(C)[C@@H]12
+  5  CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5cc(F)ccc5C4)ccc3N(C)[C@@H]12
+  6  CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5ccc(F)cc5C4)ccc3N(C)[C@@H]12
+  7  CN1CC[C@@]2(C)c3cc(OC(=O)Nc4cccc(F)c4)ccc3N(C)[C@@H]12
+  8  CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5cccc(F)c5C4)ccc3N(C)[C@@H]12
+  9  CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5c(F)cccc5C4)ccc3N(C)[C@@H]12
+ 10  CN1CC[C@@]2(C)c3cc(OC(=O)Nc4ccccc4F)ccc3N(C)[C@@H]12
+ 11  CN1CC[C@@]2(C)c3cc(OC(=O)Nc4ccccn4)ccc3N(C)[C@@H]12
+ 12  COc1cc2c(cc1OC)C(=O)C(CC1CCN(Cc3ccccn3)CC1)C2
+ 13  CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5ccccc5C4)c(F)cc3N(C)[C@@H]12
+ 14  CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5ccccc5C4)cc(F)c3N(C)[C@@H]12
+ 15  CN1c2ccc(OC(=O)N3CCc4ccccc4C3)cc2[C@]2(C)CCN[C@H]12
+ 16  CN1CC[C@@]2(C)c3cc(OC(=O)Nc4ccccc4)c(F)cc3N(C)[C@@H]12
+ 17  CN1CC[C@@]2(C)c3cc(OC(=O)Nc4ccccc4)cc(F)c3N(C)[C@@H]12
+ 18  COc1ccc(NC(=O)Oc2ccc3c(c2)[C@]2(C)CCN(C)[C@@H]2N3C)cc1F
+ 19  CCCCCCCNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN[C@@H]1N2C
+ 20  COc1ccc(NC(=O)Oc2ccc3c(c2)[C@]2(C)CCN(C)[C@@H]2N3C)c(F)c1
+
+elapsed 41s

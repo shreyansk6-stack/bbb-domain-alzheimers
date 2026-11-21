@@ -20,7 +20,23 @@ Filters, applied cheapest first so the expensive ones see few molecules:
   F3 predicted BBB+      the audited ECFP4 random forest, registered hyperparameters
   F5 novelty             NOT APPLIED HERE - see the note it prints
 
-Usage: ./env/bin/python -I scripts/design_enumerate.py data
+Scaffold modes:
+  strict    (default, REGISTERED) F6 requires an identical Bemis-Murcko
+            scaffold. This is the rule A1.2 specifies and the one whose output
+            is reported.
+  topology  (POST HOC SENSITIVITY, not the registered rule) F6 requires only
+            that the scaffold's ring topology be preserved, so substituting one
+            ring atom for another counts as retention.
+
+            The strict rule rejects 100% of four of the ten catalogue
+            transformations - acid-to-tetrazole, benzene-to-pyridine and both
+            ring replacements - because each necessarily alters a ring atom and
+            therefore the scaffold. A1.2 as registered contains a filter that
+            forbids 40% of its own catalogue by construction. The topology mode
+            exists to quantify what that costs. Its output is labelled post hoc
+            and is NOT the reported set.
+
+Usage: ./env/bin/python -I scripts/design_enumerate.py data [strict|topology]
 """
 import json
 import os
@@ -47,6 +63,26 @@ MAX_SA = 4.0
 DOMAIN_CUTOFF = C.CUTOFF
 
 data_dir = sys.argv[1] if len(sys.argv) > 1 else "data"
+MODE = sys.argv[2] if len(sys.argv) > 2 else "strict"
+assert MODE in ("strict", "topology"), f"unknown scaffold mode {MODE}"
+SUFFIX = "" if MODE == "strict" else "_topology"
+
+
+def scaffold_key(mol):
+    """Identity under the active F6 rule.
+
+    strict:   the Bemis-Murcko scaffold itself.
+    topology: the scaffold with every atom made carbon and every bond single,
+              so a ring-atom substitution preserves the key while a change in
+              ring count, size or connectivity does not.
+    """
+    scaf = MurckoScaffold.GetScaffoldForMol(mol)
+    if MODE == "strict":
+        return Chem.MolToSmiles(scaf)
+    try:
+        return Chem.MolToSmiles(MurckoScaffold.MakeScaffoldGeneric(scaf))
+    except Exception:
+        return Chem.MolToSmiles(scaf)
 t0 = time.time()
 out = []
 
@@ -62,6 +98,8 @@ say("=" * 78)
 say("EXPLORATORY. Post-dates registration 10.17605/OSF.IO/UQR62.")
 say("No activity prediction. No claim of activity, permeability or therapeutic use.")
 say(f"commit {C.current_commit()}   catalogue config/transformations.json")
+say(f"F6 scaffold mode: {MODE}"
+    + ("" if MODE == "strict" else "   POST HOC SENSITIVITY - not the registered rule"))
 say()
 
 # ------------------------------------------------------------------ parents
@@ -122,7 +160,7 @@ for t in approved:
             outs = rxn.RunReactants((pm,))
         except Exception:
             continue
-        p_scaf = MurckoScaffold.MurckoScaffoldSmiles(mol=pm)
+        p_scaf = scaffold_key(pm)
         for o in outs:
             prod = o[0]
             counts["raw"] += 1
@@ -139,7 +177,7 @@ for t in approved:
                 continue
             counts["F1_valid"] += 1
             mol = Chem.MolFromSmiles(smi)
-            if MurckoScaffold.MurckoScaffoldSmiles(mol=mol) != p_scaf:
+            if scaffold_key(mol) != p_scaf:
                 continue
             counts["F6_scaffold"] += 1
             mw, logp = Descriptors.MolWt(mol), Crippen.MolLogP(mol)
@@ -234,11 +272,11 @@ say()
 say(f"elapsed {time.time() - t0:.0f}s")
 
 os.makedirs("results", exist_ok=True)
-open("results/design_enumeration.txt", "w").write("\n".join(out) + "\n")
+open(f"results/design_enumeration{SUFFIX}.txt", "w").write("\n".join(out) + "\n")
 json.dump(dict(exploratory=True, registration="10.17605/OSF.IO/UQR62",
                commit=C.current_commit(), threshold=thr, counts=dict(counts),
                n_survivors=len(survivors),
                novelty_checked=False,
                ranked=[products[s] for s in ranked]),
-          open("results/design_enumeration.json", "w"), indent=2)
-print("wrote results/design_enumeration.txt")
+          open(f"results/design_enumeration{SUFFIX}.json", "w"), indent=2)
+print(f"wrote results/design_enumeration{SUFFIX}.txt")

@@ -8,7 +8,9 @@
     "REVIEW STATUS: every entry is 'proposed' until the chemistry co-author reviews it.",
     "Sam: change 'status' to 'approved' or 'rejected' and write why in 'review_note'.",
     "A rejected transformation is left in the file, not deleted, so the catalogue",
-    "records what was considered."
+    "records what was considered.",
+    "",
+    "F6 INCOMPATIBILITY: entries flagged f6_strict_incompatible alter a ring atom, so the registered scaffold-retention filter (F6) rejects 100% of their products before any chemistry is considered. This is a defect in A1.2 as registered - the catalogue and the filter are mutually inconsistent - not a judgement about the chemistry. Quantified by the post hoc topology sensitivity; see docs/decisions.md 2026-11-21."
   ],
   "transformations": [
     {
@@ -18,7 +20,8 @@
       "class": "acid isostere",
       "rationale": "Classical carboxylic acid bioisostere. Similar pKa, markedly lower polar surface area, routinely used to improve CNS exposure.",
       "status": "proposed",
-      "review_note": ""
+      "review_note": "Adds a tetrazole ring, so the scaffold gains a ring and both the strict and the topology form of F6 reject it. Its 35 products never reach a chemistry judgement.",
+      "f6_strict_incompatible": true
     },
     {
       "id": "T02",
@@ -45,7 +48,8 @@
       "class": "aromatic N-walk",
       "rationale": "Introduces a basic nitrogen into an unsubstituted phenyl. Lowers logP and adds a hydrogen-bond acceptor; the standard first move against excessive lipophilicity.",
       "status": "proposed",
-      "review_note": ""
+      "review_note": "Substitutes a ring carbon for nitrogen, so the Bemis-Murcko scaffold changes and strict F6 rejects all 1,242 products. Recovered under the post hoc topology relaxation, where 62 survive.",
+      "f6_strict_incompatible": true
     },
     {
       "id": "T05",
@@ -90,7 +94,8 @@
       "class": "ring replacement",
       "rationale": "Removes the morpholine oxygen. Raises lipophilicity and basicity and lowers TPSA; a common move when a morpholine has made a series too polar to cross.",
       "status": "proposed",
-      "review_note": ""
+      "review_note": "Ring-atom replacement; strict F6 rejects all 72 products. 4 survive under the topology relaxation.",
+      "f6_strict_incompatible": true
     },
     {
       "id": "T10",
@@ -99,7 +104,8 @@
       "class": "ring replacement",
       "rationale": "The reverse of T09, included deliberately. If the predictor rates both directions as improvements it is not tracking anything physical, which is worth knowing and is a check on the model rather than on the chemistry.",
       "status": "proposed",
-      "review_note": ""
+      "review_note": "Ring-atom replacement; strict F6 rejects all 202 products. 20 survive under the topology relaxation.",
+      "f6_strict_incompatible": true
     }
   ]
 }

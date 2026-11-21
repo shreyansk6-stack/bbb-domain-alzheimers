@@ -1150,3 +1150,71 @@ prediction can be defended, that they are **not** predicted to be active, and th
 no activity model was applied. The three novelty caveats travel with it. Still
 exploratory, still unreviewed by the chemistry co-author, and 6 of 10
 transformations still contribute nothing.
+
+## 2026-11-21 — F6 forbids four of the catalogue's own ten transformations. Cost quantified
+
+Per-transformation funnel (`scripts/design_enumerate.py`, both modes):
+
+| id | transformation | raw | passes strict F6 | final survivors |
+| --- | --- | --- | --- | --- |
+| T01 | acid → tetrazole | 35 | **0** | 0 |
+| T04 | benzene → pyridine | 1242 | **0** | 0 → **62** under topology |
+| T09 | morpholine → piperidine | 72 | **0** | 0 → 4 |
+| T10 | piperidine → morpholine | 202 | **0** | 0 → 20 |
+
+**A1.2 as registered contains a filter that forbids 40% of its own catalogue by
+construction.** Every one of these four alters a ring atom, so the Bemis–Murcko
+scaffold necessarily changes, so scaffold retention necessarily rejects it. No
+chemistry is ever considered. The catalogue and the filter were written into the
+same amendment and are mutually inconsistent.
+
+T02 and T03 are a different case: they clear F6 and die later, at the domain or
+BBB+ filters, because carboxylic acids and methyl esters are rare among AChE
+actives (35 and 30 raw products respectively).
+
+### Decision: keep the registered rule, quantify what it costs
+
+The reported set remains the strict, registered one — 905 survivors, 793 after
+novelty, top 20 under Amendment A2. **F6 is not relaxed.** Loosening a filter after
+discovering it is restrictive is the move this project exists to avoid, and the
+defect is worth more as a documented finding than the extra compounds are worth as
+output.
+
+A post hoc sensitivity run quantifies the cost. `scripts/design_enumerate.py data
+topology` relaxes F6 to require only that ring *topology* be preserved, so a
+ring-atom substitution counts as retention. It is labelled post hoc in its own
+output and is not the reported set.
+
+| stage | strict (registered) | topology (post hoc) |
+| --- | --- | --- |
+| raw products | 40,534 | 40,534 |
+| F6 scaffold retained | 38,944 | 40,460 |
+| F7 property window | 4,336 | 4,858 |
+| F8 PAINS-free | 3,974 | 4,474 |
+| F4 SA ≤ 4.0 | 3,860 | 4,358 |
+| unique | 2,943 | 3,185 |
+| F2 in domain | 1,116 | 1,221 |
+| F3 predicted BBB+ | **905** | **991** |
+
+### The honest reading
+
+The headline "F6 forbids 40% of the catalogue" is true at the filter, but **the
+downstream cost is 86 compounds, not 1,551.** The 1,516 extra products that clear
+the relaxed F6 overwhelmingly fail the property window afterwards: substituting a
+ring carbon for nitrogen lowers cLogP, which pushes many products out of the 1–4
+window the same amendment specifies.
+
+So the defect is real, reportable, and modest in effect. It should be written up
+that way rather than as something that gutted the component. Of the 86 recovered,
+62 are the aromatic N-walk — the one genuinely useful CNS move among the four.
+
+The topology set has **not** been novelty-checked; that filter was run only on the
+registered set. Any use of the sensitivity figures must say so.
+
+### Catalogue annotated
+
+`config/transformations.json` now flags the four entries `f6_strict_incompatible`
+with the counts each loses. Their `status` is deliberately left `proposed`: they
+were never rejected on chemistry, and whether they are good medicinal-chemistry
+moves remains the co-author's call, independent of the filter that happens to
+exclude them.

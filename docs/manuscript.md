@@ -81,6 +81,18 @@ predicted brain penetration using a published blood–brain barrier model. Scree
 this form now routinely operate at scale; one 2026 study screened approximately 117
 million compounds through such a cascade (Jia & Sosso 2026).
 
+The two targets are not interchangeable, and the difference between them shapes
+what can be established about either. Acetylcholinesterase inhibition is the older,
+symptomatic approach, and it has produced approved drugs: donepezil, rivastigmine
+and galantamine are marketed CNS agents. BACE1 inhibition is the disease-modifying
+approach, aimed at reducing amyloid-β production; it has produced no approved drug,
+and its most advanced candidate failed in Phase 3 trials in both mild-to-moderate
+and prodromal disease (Egan et al. 2018, 2019). That asymmetry propagates directly
+into the data available for auditing a BBB model, because compounds with measured
+human brain penetration are disproportionately approved drugs. AChE chemistry is
+therefore represented in BBB reference sets in a way BACE1 chemistry is not, and
+§3.2 reports the consequence: for BACE1 the audit cannot be performed at all.
+
 The first stage is the object of intense methodological scrutiny. The second is
 treated as a commodity: a model is selected, applied, and its output used as a gate
 that decides which compounds advance. A compound filtered out at this stage is not
@@ -301,6 +313,12 @@ corrected in advance.
 Against the labelled B3DB reference, **81.8–89.4% of BACE1 actives and 21.7–36.4% of
 AChE actives fall outside the applicability domain** at Tanimoto 0.35, across all
 ten curation variants.
+
+**The gap between the two targets is not noise.** AChE inhibition has produced
+marketed CNS drugs, which by construction appear in a reference set assembled from
+compounds with measured brain penetration; BACE1 inhibition has produced none. The
+target a BBB model can best assess is thus the one whose chemistry is already best
+characterised, and the one that least needs new chemistry proposed for it.
 
 **Figure 1a** shows the two distributions directly: the bulk of both sets sits below
 the 0.35 cutoff, and only 12.6% of the labelled BBB reference (492 compounds) is
@@ -763,6 +781,8 @@ authors are responsible for all decisions.
 16. Pajouhesh H, Lenz GR. Medicinal chemical properties of successful central nervous system drugs. *NeuroRX*. 2005;2(4):541-553. doi:10.1602/neurorx.2.4.541
 17. Ballatore C, Huryn DM, Smith AB. Carboxylic Acid (Bio)Isosteres in Drug Design. *ChemMedChem*. 2013;8(3):385-395. doi:10.1002/cmdc.201200585
 18. Pennington LD, Moustakas DT. The Necessary Nitrogen Atom: A Versatile High-Impact Design Element for Multiparameter Optimization. *Journal of Medicinal Chemistry*. 2017;60(9):3552-3579. doi:10.1021/acs.jmedchem.6b01807
-19. Pedregosa F, Varoquaux G, Gramfort A, et al. Scikit-learn: machine learning in Python. *J Mach Learn Res*. 2011;12:2825-2830.
-20. RDKit: open-source cheminformatics. https://www.rdkit.org
-21. OECD. *Guidance Document on the Validation of (Q)SAR Models*. OECD Series on Testing and Assessment No. 69. Paris: OECD Publishing; 2007.
+19. Egan MF, Kost J, Tariot PN, et al. Randomized Trial of Verubecestat for Mild-to-Moderate Alzheimer's Disease. *New England Journal of Medicine*. 2018;378(18):1691-1703. doi:10.1056/NEJMoa1706441
+20. Egan MF, Kost J, Voss T, et al. Randomized Trial of Verubecestat for Prodromal Alzheimer's Disease. *New England Journal of Medicine*. 2019;380(15):1408-1420. doi:10.1056/NEJMoa1812840
+21. Pedregosa F, Varoquaux G, Gramfort A, et al. Scikit-learn: machine learning in Python. *J Mach Learn Res*. 2011;12:2825-2830.
+22. RDKit: open-source cheminformatics. https://www.rdkit.org
+23. OECD. *Guidance Document on the Validation of (Q)SAR Models*. OECD Series on Testing and Assessment No. 69. Paris: OECD Publishing; 2007.

@@ -781,12 +781,13 @@ Not applicable.
 
 ### Use of generative AI
 
-Claude Code (Anthropic) was used for exploratory and sensitivity analyses, the
-systematic literature search, drafting the pre-registration and this manuscript, the
-analysis code, and proposing ChEMBL curation decisions together with the published
-basis for each. All numerical results are produced by scripts in the repository and
-are reproducible from the recorded data versions. No AI system is an author; the
-author is responsible for all decisions.
+Claude Code (Anthropic) was used to help draft the pre-registration and this
+manuscript, to run exploratory and sensitivity analyses, to write the analysis code,
+to conduct the systematic literature search, and to propose ChEMBL curation
+decisions together with the published basis for each. All numerical results are
+produced by scripts in the repository and are reproducible from the recorded data
+versions. No AI system is an author; the author directed the work, made every
+judgement call recorded in the decision log, and is responsible for all decisions.
 
 ## References
 

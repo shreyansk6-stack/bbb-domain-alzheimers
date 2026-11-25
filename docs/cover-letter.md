@@ -1,8 +1,7 @@
 # Cover letter — *Journal of Cheminformatics*
 
 > Draft. One decision left: suggested reviewers. Everything else is ready to paste
-> into the submission system. Confirm the postal address before sending — the
-> college's general address is used below.
+> into the submission system.
 
 ---
 
@@ -88,8 +87,7 @@ Thank you for your consideration.
 Sincerely,
 
 **Shreyan Kancharla**, corresponding author
-Davidson College
-405 N. Main Street, Davidson, NC 28035, USA
+Davidson College, Davidson, NC 28035, USA
 shkancharla@davidson.edu
 ORCID: [0009-0009-8654-110X](https://orcid.org/0009-0009-8654-110X)
 

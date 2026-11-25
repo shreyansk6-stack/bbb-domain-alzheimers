@@ -56,7 +56,6 @@ Thank you for considering this request.
 Sincerely,
 
 **Shreyan Kancharla**
-Davidson College
-405 N. Main Street, Davidson, NC 28035, USA
+Davidson College, Davidson, NC 28035, USA
 shkancharla@davidson.edu
 ORCID: 0009-0009-8654-110X

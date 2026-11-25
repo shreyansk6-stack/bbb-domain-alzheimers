@@ -32,7 +32,6 @@ recorded result files and fails loudly on leftover placeholders.
 | --- | --- | --- |
 | ⬜ | **Sam reads and approves the manuscript** — the contributions statement says he critically revised it, which is not yet true | S.S. |
 | ⬜ | **Suggested reviewers**, 3–4 with institution and email | S.K. |
-| ⬜ | Confirm postal address / campus box | S.K. |
 
 ## Do at submission, in this order
 

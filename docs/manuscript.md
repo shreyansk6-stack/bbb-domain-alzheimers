@@ -14,8 +14,12 @@
 > Numbers are final and traceable to `results/`. Every reference DOI was verified
 > against Crossref on 2026-11-21. In-text citations are author–year and the reference
 > list is numbered; Springer Nature accepts format-free initial submission, so
-> conversion to numbered in-text citations can wait for revision. One passage needing
-> author input is marked **[AUTHORS]**.
+> conversion to numbered in-text citations can wait for revision.
+>
+> **No passages are left for author input.** Two things in the
+> author-contributions statement must become true before submission: S.S. has not
+> yet critically revised this draft, and no final version has been approved.
+> Delete this note before submitting.
 
 ---
 

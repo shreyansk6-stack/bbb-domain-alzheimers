@@ -402,7 +402,7 @@ is unaffected.
 | 2026-11-16 | Systematic literature search done; scoop risk closed |
 | 2026-11-16 | Skeleton-level curation applied; headline holds, gate tightens |
 | 2026-11-16 | Pre-registration v1.0 written |
-| 2026-11-16 | Curation decided from literature, not from a co-author |
+| 2026-11-16 | Curation decided from literature, not from a collaborator |
 | 2026-11-16 | OSF submission package prepared |
 | 2026-11-16 | Confirmatory pipeline written, label-permuted validation running |
 | 2026-11-16 | Two pipeline corrections found by running the permuted validation |
@@ -424,7 +424,7 @@ is unaffected.
 | 2026-11-21 | Manuscript figures 1 and 3 |
 | 2026-11-24 | Submission package finalised |
 | 2026-11-24 | Full read-through: one real error, and missing context added |
-| 2026-11-25 | Final read-through: approval in hand, ten uncited references |
+| 2026-11-25 | Sole authorship, and a final read-through |
 
 ---
 

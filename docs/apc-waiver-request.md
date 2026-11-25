@@ -28,9 +28,9 @@ computational: no compound reported in it was synthesised or assayed, and it dre
 only on public data (ChEMBL, B3DB, PubChem) and open-source software. There was no
 project budget from which a publication charge could be met.
 
-**The authors are undergraduates.** This is student-led research carried out
-without research funding or a departmental publication allowance. Absent a waiver,
-the charge would fall on the authors personally.
+**I am an undergraduate and the sole author.** This is student-led research
+carried out without research funding or a departmental publication allowance.
+Absent a waiver, the charge would fall on me personally.
 
 **No institutional route covers this journal.** Davidson College participates in a
 Springer Nature Read & Publish agreement through the Carolina Consortium, but that

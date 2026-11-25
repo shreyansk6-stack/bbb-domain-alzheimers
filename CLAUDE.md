@@ -1,8 +1,9 @@
 # bbb-domain-alzheimers
 
 Pre-registered methods audit: applicability domain of BBB predictors in Alzheimer's
-target chemical space. Manuscript is **finalised, approved by both authors
-(2026-11-25) and formatted for *Journal of Cheminformatics***. Nothing is
+target chemical space. **Single-author paper** (S.K.); the prospective second
+author withdrew on 2026-11-25 having made no contribution. Manuscript is
+**finalised and formatted for *Journal of Cheminformatics***. Nothing is
 outstanding before submission;
 `docs/submission-checklist.md` holds the order of operations.
 
@@ -17,7 +18,9 @@ that content here.
   `results/confirmatory_real.{json,txt}`. Anything needing those internals parses the
   recorded text.
 - **`docs/preregistration.md` is frozen.** Amendments are appended and labelled post
-  hoc; the registered text is never altered.
+  hoc; the registered text is never altered. One exception, made deliberately on
+  2026-11-25 at the author's instruction: the authorship lines and section 13 were
+  edited to match the OSF contributor removal, each labelled "Amended 2026-11-25".
 - **`data/` stays gitignored.** ChEMBL is CC BY-SA; redistribution would trigger
   share-alike.
 - **Run anything touching downloaded data with `python3 -I`** and pass data paths as

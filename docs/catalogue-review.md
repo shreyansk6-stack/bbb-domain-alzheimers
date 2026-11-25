@@ -1,8 +1,9 @@
 # Chemistry review — answers
 
-**Reviewed 2026-11-21.** The co-author declined to answer and asked that the
-questions be settled from the literature, with reasoning where the literature is
-silent.
+**Reviewed 2026-11-21.** The questions were settled from the literature, with
+reasoning where the literature is silent. They had been intended for a chemistry
+collaborator, who declined them and then made no contribution to the work; the
+paper is single-author as of 2026-11-25.
 
 > **This review was not performed by a practising medicinal chemist.** It is
 > literature-grounded reasoning, not bench judgement. The manuscript's limitations

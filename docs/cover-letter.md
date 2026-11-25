@@ -6,26 +6,26 @@
 
 Dear Editors,
 
-We submit for your consideration **"Applicability domain of blood–brain barrier
+I submit for your consideration **"Applicability domain of blood–brain barrier
 predictors in Alzheimer's target chemical space: a methods audit and
 domain-constrained design."**
 
 A standard Alzheimer's virtual-screening pipeline ranks compounds for predicted
 target activity and then filters the hits through a published blood–brain barrier
 model. The first stage receives intense methodological scrutiny; the second is
-treated as a commodity. We asked whether that BBB filter is being applied inside its
+treated as a commodity. I asked whether that BBB filter is being applied inside its
 own applicability domain, and found the question had not been asked: a systematic
 Europe PMC search (five queries, 35 candidate records, all abstracts read, recorded
 in full in the repository) returned no study measuring BBB-model domain coverage
 against target inhibitor chemistry.
 
-**We should state plainly that our pre-registered primary endpoint is inconclusive.**
+**I should state plainly that my pre-registered primary endpoint is inconclusive.**
 Prediction degradation on target-proximal chemistry was ΔAUC +0.028, 95% CI
 [−0.016, +0.075], against a registered support threshold of 0.06 and a minimum
-detectable effect of 0.061. We report it as "no degradation larger than
+detectable effect of 0.061. I report it as "no degradation larger than
 approximately 0.06 AUC," never as no degradation.
 
-We submit the paper because the surrounding analyses are, we think, the more
+I submit the paper because the surrounding analyses are, I think, the more
 consequential result, and because each is a finding about *method* rather than about
 effect size:
 
@@ -46,7 +46,7 @@ effect size:
 - **For BACE1 the question cannot be asked at all**, and **no off-the-shelf BBB tool
   can be independently evaluated**, because the available tools are trained on the
   only available public ground truth. These are limits on what public data can
-  currently support, and we think the field should know them.
+  currently support, and I think the field should know them.
 
 The study was pre-registered on OSF Registries before analysis
 ([10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62)), with the analysis
@@ -55,27 +55,27 @@ label-permutation validation standing in for blinding. All code, the registratio
 with its amendments, a dated decision log and every result file are public.
 
 One section may interest you beyond the cheminformatics. **Pre-registration
-constrained our analytic flexibility as intended, but did not prevent us from
+constrained my analytic flexibility as intended, but did not prevent me from
 registering a design protocol that was internally inconsistent.** Execution revealed
 three defects invisible at registration: a ranking rule that selected *against* the
 novelty it was meant to ensure, a novelty filter not executable as written, and a
 structural filter that forbade 40% of its own transformation catalogue — including
-the single most valuable transformation in it. We report all three, with their
-downstream costs quantified, rather than silently repairing them. We are not aware
-of this failure mode being documented in cheminformatics, and we think registered
+the single most valuable transformation in it. I report all three, with their
+downstream costs quantified, rather than silently repairing them. I am not aware
+of this failure mode being documented in cheminformatics, and I think registered
 computational protocols need a dry-run requirement that registered clinical
 protocols effectively get for free.
 
 The work fits the journal's stated interest in detailed evaluations of computational
 tools and benchmarking frameworks. It is original, is not under consideration
-elsewhere, and all authors have approved the submission. We declare no competing
+elsewhere. It is a single-author paper. I declare no competing
 interests.
 
 **Funding and APC.** This research received no specific grant from any funding
 agency in the public, commercial or not-for-profit sectors; no compound reported was
-synthesised or assayed, and all costs were computational. The work was conducted by
-undergraduate authors without grant support or an institutional open-access fund
-covering fully open-access BMC titles. **We therefore request an article processing
+synthesised or assayed, and all costs were computational. The work was conducted by an
+undergraduate author without grant support or an institutional open-access fund
+covering fully open-access BMC titles. **I therefore request an article processing
 charge waiver on grounds of financial need, and make this request at submission as
 your policy requires.**
 
@@ -83,12 +83,11 @@ Thank you for your consideration.
 
 Sincerely,
 
-**Shreyan Kancharla**, corresponding author
+**Shreyan Kancharla**, corresponding and sole author
 Davidson College, Davidson, NC 28035, USA
 shkancharla@davidson.edu
 ORCID: [0009-0009-8654-110X](https://orcid.org/0009-0009-8654-110X)
 
-on behalf of the authors: Shreyan Kancharla and Samuel Siyanbola.
 
 ---
 

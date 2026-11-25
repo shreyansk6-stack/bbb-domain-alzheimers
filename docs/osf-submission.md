@@ -51,7 +51,8 @@ synthetic data to assess performance of a model… demonstration of methods".
 > Applicability domain of blood–brain barrier predictors in Alzheimer's target chemical
 > space: a methods audit and domain-constrained design
 
-**Contributors.** Shreyan Kancharla, Samuel Siyanbola.
+**Contributors.** Shreyan Kancharla (sole author). The second contributor named
+at registration was removed on 2026-11-25; he made no contribution to the work.
 
 **Licence.** CC-By Attribution 4.0 International.
 
@@ -691,7 +692,7 @@ because arm assignments are known to the analyst.
 > pre-registration document, the analysis code in scripts/, and proposing the ChEMBL
 > curation decisions together with the published basis for each. All numerical results are
 > produced by scripts in the repository and are reproducible from the recorded data
-> versions. No AI system is an author; the authors are responsible for all decisions.
+> versions. No AI system is an author; the author is responsible for all decisions.
 >
 > DEVIATIONS. Any deviation from this registration will be recorded in the repository's
 > decision log with its date and reason, and stated in the manuscript, distinguishing

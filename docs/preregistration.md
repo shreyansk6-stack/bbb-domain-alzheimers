@@ -3,15 +3,14 @@
 **Title.** Applicability domain of blood–brain barrier predictors in Alzheimer's
 target chemical space: a methods audit
 
-**Authors.** Shreyan Kancharla, Davidson College (first author). Sam [surname to be
-filled in], Davidson College (second author; physicochemical interpretation,
-synthetic accessibility, target-chemistry literature context).
+**Author.** Shreyan Kancharla, Davidson College (sole author).
 
-**Authorship order fixed 2026-11-19: first and second, not co-first.** An earlier
-co-first arrangement with an equal-contribution footnote was considered and is not
-adopted. The division of work in section 13 is a first/second split rather than an
-equal one, and an equal-contribution note that the work does not support would be a
-misstatement on the paper itself.
+**Authorship amended 2026-11-25: single author.** This document was registered
+naming a second author, who was to contribute physicochemical interpretation,
+synthetic accessibility and target-chemistry literature context. He performed none
+of that work and asked not to be on the paper, and was removed from the
+registration's contributor list on 2026-11-25. Section 13 is amended to match. The
+earlier first/second ordering question is moot.
 
 **REGISTERED 2026-11-19 on OSF Registries.** DOI `10.17605/OSF.IO/UQR62`
 (<https://osf.io/uqr62>), public and not embargoed, against commit
@@ -258,8 +257,9 @@ the analysis is added as a dated amendment, not slipped in.
 ## 11. Second component: AChE candidate shortlist
 
 A shortlist of AChE-directed candidate compounds produced using **only in-domain
-BBB predictions**, with synthetic accessibility assessed by the chemistry
-co-author. This demonstrates the audit's constructive use.
+BBB predictions**, with synthetic accessibility assessed from the published
+literature (registered as a chemistry co-author's role; amended 2026-11-25).
+This demonstrates the audit's constructive use.
 
 **Declared exploratory and hypothesis-generating.** No claim of activity, no claim
 of brain penetration, no claim of therapeutic potential. Compounds are described as
@@ -276,17 +276,17 @@ trail, and the repository is public.
 
 ## 13. Roles and disclosure
 
-**First author (Shreyan Kancharla):** the question; the pre-registration; ChEMBL and
+**Sole author (Shreyan Kancharla):** the question; the pre-registration; ChEMBL and
 B3DB curation decisions; the domain and error analysis; the confirmatory pipeline
-and its validation; the design-proposal enumeration; the manuscript.
+and its validation; the design-proposal enumeration; the manuscript. Also the
+physicochemical interpretation, the synthetic-accessibility assessment and the
+target-chemistry literature context that were to have been a second author's.
 
-**Second author (Sam):** physicochemical interpretation; synthetic accessibility
-assessment of the shortlist and of the design proposals; literature context for the
-target chemistry; corresponding manuscript sections.
-
-**Order is first/second, not co-first** (fixed 2026-11-19). The split above is not
-an equal one, and an equal-contribution footnote the work does not support would
-misstate the record.
+**Amended 2026-11-25.** This section registered a second author holding that
+chemistry role. He made no contribution and is not an author. The assessment was
+instead made from the published literature by the sole author, is documented in
+`docs/catalogue-review.md`, and is reported as a limitation in the manuscript
+because it is not the judgement of a practising medicinal chemist.
 
 **Changed from v1.0.** Curation and assay-comparability decisions were originally
 assigned to the second author. They were instead made from published curation

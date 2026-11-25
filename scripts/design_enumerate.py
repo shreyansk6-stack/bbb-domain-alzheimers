@@ -139,8 +139,8 @@ catalogue = json.load(open("config/transformations.json"))["transformations"]
 approved = [t for t in catalogue if t["status"] != "rejected"]
 say(f"transformations in catalogue: {len(catalogue)}   not rejected: {len(approved)}")
 if any(t["status"] == "proposed" for t in approved):
-    say("NOTE: entries are still 'proposed'. The chemistry co-author has not yet")
-    say("signed off on the catalogue; treat the output as provisional.")
+    say("NOTE: entries are still 'proposed'. No chemist has signed off on the")
+    say("catalogue; treat the output as provisional.")
 say()
 
 pains_params = FilterCatalog.FilterCatalogParams()

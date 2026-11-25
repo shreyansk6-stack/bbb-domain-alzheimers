@@ -6,7 +6,7 @@
     "survive the filters would make the catalogue a tuned parameter; it is not one.",
     "",
     "REVIEW STATUS: every entry is 'proposed' until the chemistry co-author reviews it.",
-    "Sam: change 'status' to 'approved' or 'rejected' and write why in 'review_note'.",
+    "Reviewer: change 'status' to 'approved' or 'rejected' and write why in 'review_note'.",
     "A rejected transformation is left in the file, not deleted, so the catalogue",
     "records what was considered.",
     "",

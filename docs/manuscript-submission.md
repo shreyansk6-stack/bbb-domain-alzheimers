@@ -1,12 +1,11 @@
 # Applicability domain of blood–brain barrier predictors in Alzheimer's target chemical space: a methods audit and domain-constrained design
 
-**Shreyan Kancharla¹**, **Samuel Siyanbola¹**
+**Shreyan Kancharla¹**
 
 ¹ Davidson College, Davidson, North Carolina, USA
 
 Shreyan Kancharla — ORCID [0009-0009-8654-110X](https://orcid.org/0009-0009-8654-110X)
 (corresponding author, shkancharla@davidson.edu)
-Samuel Siyanbola — ORCID [0009-0002-0657-1528](https://orcid.org/0009-0002-0657-1528)
 
 **Pre-registered** on OSF Registries, 2026-11-19, DOI
 [10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62), against commit
@@ -712,14 +711,14 @@ record of every judgement call made during the study.
 
 ## Author contributions
 
-S.K. conceived the study, wrote the pre-registration, implemented the analysis,
-produced the figures and drafted the manuscript. S.S. contributed to study
-conception and critically revised the manuscript. Both authors read and approved
-the final manuscript and accept accountability for all aspects of the work.
+S.K. is the sole author. S.K. conceived the study, wrote the pre-registration,
+implemented the analysis, produced the figures, drafted the manuscript, and read
+and approved the final version, and accepts accountability for all aspects of the
+work.
 
 The assessment of the transformation catalogue, the curation criteria and the
-property window was made from the published literature rather than by a practising
-medicinal chemist, and is documented in full in the project repository
+property window was made by the author from the published literature rather than by
+a practising medicinal chemist, and is documented in full in the project repository
 (`docs/catalogue-review.md`). It is reported as a limitation in §4.4.
 
 ## Data and code availability
@@ -753,7 +752,7 @@ Not applicable.
 
 ### Competing interests
 
-The authors declare that they have no competing interests.
+The author declares no competing interests.
 
 ### Funding
 
@@ -768,7 +767,7 @@ systematic literature search, drafting the pre-registration and this manuscript,
 analysis code, and proposing ChEMBL curation decisions together with the published
 basis for each. All numerical results are produced by scripts in the repository and
 are reproducible from the recorded data versions. No AI system is an author; the
-authors are responsible for all decisions.
+author is responsible for all decisions.
 
 ## References
 

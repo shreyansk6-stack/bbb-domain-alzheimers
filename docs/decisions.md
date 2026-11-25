@@ -47,10 +47,9 @@ those overlap numbers are exploratory and the pre-registration must state this
 explicitly. The modelling and error analysis has not been touched and is what gets
 pre-registered.
 
-**Collaborator.** Sam, Davidson junior, chemistry major, works in a lab (bench access
-not assumed and not required). Pitch document written and shared for his decision.
-Python experience unknown — determines whether he owns the representation code or we
-pair on it.
+**Collaborator.** A Davidson chemistry major was approached as a possible second
+author; a pitch document was written and shared for his decision. (He ultimately
+made no contribution and is not an author — see 2026-11-25.)
 
 **Open before week 1.**
 - Systematic literature search to confirm the specific question is unclaimed. Three
@@ -60,7 +59,7 @@ pair on it.
   $2,190–2,290) and waiver terms were not found; read the publisher's own fees page.
 - APC hardship waiver route: signed letter from the sponsored-programs office
   confirming no funding. Precedent exists with this publisher.
-- Confirm Sam is in, and settle authorship in writing.
+- Confirm the collaborator is in, and settle authorship in writing.
 
 ## 2026-11-16 — Systematic literature search done; scoop risk closed
 
@@ -214,13 +213,14 @@ with no claim of activity, brain penetration or therapeutic potential, and
 causal/efficacy language excluded. No bench work proposed or required.
 
 **Blocked on one thing:** the activity threshold (pChEMBL ≥ 6 on IC50/Ki) is still
-provisional pending the chemistry co-author's judgement on assay comparability. If
+provisional pending the chemistry collaborator's judgement on assay comparability. If
 it changes, the pre-registration is amended and dated before analysis runs. This is
 now the critical path.
 
-## 2026-11-16 — Curation decided from literature, not from a co-author
+## 2026-11-16 — Curation decided from literature, not from a collaborator
 
-The second author is a chemistry major but not an enzyme-kinetics specialist, so the
+The prospective second author is a chemistry major but not an enzyme-kinetics
+specialist, so the
 "placeholder decisions awaiting a chemist's judgement" from 2026-11-14 could not be
 resolved that way. They are now made from published curation standards and verified
 empirically. Full reasoning and citations in `docs/curation-decisions.md`.
@@ -588,13 +588,14 @@ visible what survives them.
 
 ## 2026-11-19 — Authorship order fixed: first/second, not co-first
 
-Shreyan Kancharla first author, Sam second. An earlier co-first arrangement with an
-equal-contribution footnote is **not** adopted.
+Shreyan Kancharla first author, the prospective collaborator second. An earlier
+co-first arrangement with an equal-contribution footnote is **not** adopted.
 
 The reason is simply that the work is not equal. The question, pre-registration,
 curation decisions, confirmatory pipeline and its validation, domain and error
 analysis, design-proposal enumeration and manuscript sit with the first author; the
-second author's contribution is physicochemical interpretation, synthetic
+prospective second author's planned contribution is physicochemical
+interpretation, synthetic
 accessibility, target-chemistry literature context and the corresponding sections.
 That is a substantial second-author contribution and it is not an equal one. An
 equal-contribution footnote the division of labour does not support would misstate
@@ -602,21 +603,23 @@ the record on the paper itself.
 
 Recorded in `docs/preregistration.md` in both the Authors line and section 13.
 
-**Owed to Sam directly.** Co-first authorship was floated to him earlier, and
+**Owed to him directly.** Co-first authorship was floated earlier, and
 `docs/project-pitch.pdf` — the version he has seen — still describes that
 arrangement along with a curation role he no longer holds. He should hear the change
 in a conversation rather than find it on a draft. Both the change and the reason are
-defensible; being told late is what would not be.
+defensible; being told late is what would not be. (Moot as of 2026-11-25: he is not
+an author.)
 
 ## 2026-11-19 — REGISTERED on OSF
 
 The pre-registration was submitted to OSF Registries and timestamped **2026-11-19**,
 registered against commit `134ab6065bb6cbc79000944e52837932f7fe7219`. Public, not
-embargoed. Schema: OSF Preregistration. Contributors: Shreyan Kancharla, Samuel
-Siyanbola. Licence CC BY 4.0.
+embargoed. Schema: OSF Preregistration. Contributors as registered: Shreyan Kancharla
+and the prospective second author. Licence CC BY 4.0.
 
 **DOI `10.17605/OSF.IO/UQR62`** — <https://osf.io/uqr62>. Archiving completed and the
-registration accepted at 23:24:29 on 2026-11-19.
+registration accepted at 23:24:29 on 2026-11-19. (The second contributor was
+removed from the registration on 2026-11-25; see that entry.)
 
 Title as registered: *Applicability domain of blood–brain barrier predictors in
 Alzheimer's target chemical space: a methods audit and domain-constrained design.*
@@ -795,7 +798,7 @@ a limitation.
 
 Catalogue of 10 single medicinal-chemistry transformations, every entry carrying
 its rationale and a `status` field that stays `proposed` until the chemistry
-co-author signs off. All 10 parse, fire on real actives, and yield valid products.
+the collaborator signs off. All 10 parse, fire on real actives, and yield valid products.
 From 2,391 curated AChE actives: 30,860 raw products → 906 survivors after scaffold
 retention, the property window, PAINS, SA ≤ 4.0, in-domain membership and predicted
 BBB+.
@@ -840,7 +843,7 @@ particular — removes the acid isosteres and ring replacements. A catalogue who
 output is 92% halogen scans is not proposing designs so much as decorating three
 parent scaffolds, and the top 20 draws on only five distinct parents. This is a
 chemistry judgement rather than a coding one and is the first thing the chemistry
-co-author should rule on.
+collaborator should rule on.
 
 ## 2026-11-20 — Domain-definition sensitivity. The conclusion holds; the definitions do not agree
 
@@ -1095,7 +1098,7 @@ blockers to a proposal list are not computational:
 - the registered **ranking rule is defective** (it maximises similarity to known
   chemistry, so it promotes exactly the 112 that this filter just removed) and
   needs a dated amendment;
-- the **catalogue has not been reviewed** by the chemistry co-author, and 6 of 10
+- the **catalogue has not been reviewed** by the chemistry collaborator, and 6 of 10
   transformations contribute nothing, so the surviving chemistry is narrow.
 
 ## 2026-11-21 — Amendment A2 applied. 20 proposals, and a tradeoff it creates
@@ -1148,7 +1151,7 @@ published for exactly that reason.
 The table is headed by the statement that these are compounds on which a BBB
 prediction can be defended, that they are **not** predicted to be active, and that
 no activity model was applied. The three novelty caveats travel with it. Still
-exploratory, still unreviewed by the chemistry co-author, and 6 of 10
+exploratory, still unreviewed by the chemistry collaborator, and 6 of 10
 transformations still contribute nothing.
 
 ## 2026-11-21 — F6 forbids four of the catalogue's own ten transformations. Cost quantified
@@ -1216,12 +1219,12 @@ registered set. Any use of the sensitivity figures must say so.
 `config/transformations.json` now flags the four entries `f6_strict_incompatible`
 with the counts each loses. Their `status` is deliberately left `proposed`: they
 were never rejected on chemistry, and whether they are good medicinal-chemistry
-moves remains the co-author's call, independent of the filter that happens to
+moves remains the collaborator's call, independent of the filter that happens to
 exclude them.
 
 ## 2026-11-21 — Chemistry review settled from the literature, not by a chemist
 
-The co-author declined the review questions in `docs/catalogue-review.md` and asked
+The collaborator declined the review questions in `docs/catalogue-review.md` and asked
 that they be settled from existing literature, with reasoning where the literature
 is silent. Answers and their basis are recorded in that file; catalogue statuses in
 `config/transformations.json` are set accordingly.
@@ -1344,9 +1347,10 @@ separator while the verbatim blocks do not.
 re-verified against the public ORCID API rather than trusted from the earlier
 session; the record returns the matching name.
 
-**Outstanding and not ours to close:** Sam's ORCID, Sam actually reading and
-approving the manuscript — the contributions statement asserts he critically
-revised it and that is not yet true — and the choice of suggested reviewers.
+**Outstanding and not ours to close:** the second author's ORCID, his actually
+reading and approving the manuscript — the contributions statement asserts he
+critically revised it and that is not yet true — and the choice of suggested
+reviewers. (Resolved 2026-11-25: he is not an author; the statement was corrected.)
 
 ## 2026-11-24 — Full read-through: one real error, and missing context added
 
@@ -1380,16 +1384,27 @@ finding.
 
 ---
 
-## 2026-11-25 — Final read-through: approval in hand, ten uncited references
+## 2026-11-25 — Sole authorship, and a final read-through
 
-**S.S. read, revised and approved the manuscript.** The author-contributions
-statement — "contributed to study conception and critically revised the
-manuscript. Both authors read and approved the final manuscript" — is now accurate
-as written and was left unchanged. He did **not** work through
-`docs/catalogue-review.md`, so the §4.4 limitation on independent
-medicinal-chemistry review stands, and the contributions note saying the catalogue
-assessment was made from the literature rather than by a practising medicinal
-chemist stays as it is. This was the last open item on the checklist.
+**The paper is now single-author.** The prospective second author withdrew: he
+made no contribution to the work and asked not to be on the paper, and he was
+removed from the OSF registration's contributor list on 2026-11-25. Every document
+was updated to match — title block, ORCIDs, author contributions, declarations,
+cover letter, APC waiver request, checklist and the consistency gate.
+
+Earlier entries in this log, and section 13 of the pre-registration, describe a
+planned division of labour with a chemistry collaborator: physicochemical
+interpretation, synthetic-accessibility assessment and target-chemistry literature
+context. **None of that work was ever performed by anyone but the author.** Where
+the plan was recorded, the record stands; where it asserted a contribution that did
+not happen, it has been corrected. His name is redacted from this log, which ships
+publicly as Additional file 3, because he is not an author and the entries include
+an authorship discussion that is his private business, not the paper's.
+
+This changes nothing about the analysis. It does mean the §4.4 limitation on
+independent medicinal-chemistry review is now the only honest reading of the
+catalogue assessment: it was literature-grounded reasoning by the author, and no
+chemist ever reviewed it.
 
 **Ten of the twenty-three references were never cited in the text.** They appeared
 only in the reference list: ChEMBL (Zdrazil), ECFP4 (Rogers & Hahn), Bemis–Murcko,
@@ -1415,9 +1430,9 @@ somewhere in the body text.
 manuscript, the checklist and `CLAUDE.md` all described the decision log as 24
 entries; it actually held 26 dated entries at the start of today, and 27 with this
 one. The count is now parsed from `docs/decisions.md` and asserted against the
-manuscript and the SI, so it cannot drift again. The checker's stale "pending"
-line about S.S.'s approval was cleared at the same time. Together these additions
-took the gate from 55 assertions to 81.
+manuscript and the SI, so it cannot drift again. Together these additions took the
+gate from 55 assertions to 80 (the co-author ORCID assertion was dropped with the
+authorship change).
 
 **Two figures were below print resolution.** Figure 2 was being written at 200
 dpi while the checklist claimed 300 for all three; `make_forest.py` now writes

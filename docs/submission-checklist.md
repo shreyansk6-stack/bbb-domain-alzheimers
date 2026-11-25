@@ -23,16 +23,18 @@ recorded result files and fails loudly on leftover placeholders.
 | ✅ | Keywords (8) | in manuscript |
 | ✅ | References, all DOIs Crossref-verified 2026-11-21; every one cited in text, gated by `check_consistency.py` | in manuscript |
 | ✅ | Corresponding author + ORCID `0009-0009-8654-110X` (verified) | cover letter |
-| ✅ | Both ORCIDs on the title block, each verified against the public record | in manuscript |
+| ✅ | ORCID on the title block, verified against the public record | in manuscript |
 | ✅ | Pre-registration public | [10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62) |
 | ✅ | Code and data manifests public | GitHub repo |
 
 ## Waiting on
 
-Nothing. **S.S. read, revised and approved the manuscript on 2026-11-25**, so the
-author-contributions statement is accurate as written. The §4.4 limitation on
-medicinal-chemistry review stands: he did not work through `docs/catalogue-review.md`,
-and that assessment remains literature-grounded reasoning rather than bench judgement.
+Nothing. **The paper is single-author as of 2026-11-25** — the prospective second
+author made no contribution and asked not to be included, and was removed from the
+OSF contributor list. The contributions statement, declarations, cover letter and
+waiver request were all rewritten to match. The §4.4 limitation on
+medicinal-chemistry review stands and is now the only honest reading: the catalogue
+assessment is literature-grounded reasoning by the author, not bench judgement.
 
 ## Do at submission, in this order
 
@@ -45,7 +47,7 @@ and that assessment remains literature-grounded reasoning rather than bench judg
 3. **Submit the APC waiver request in the waiver field.** BMC will not consider
    a request made during review or after acceptance. This is the one step that
    cannot be undone later.
-4. Enter both ORCIDs.
+4. Enter the ORCID `0009-0009-8654-110X`. Single author — add no co-author.
 5. Paste the cover letter.
 
 ## Notes
@@ -55,9 +57,9 @@ and that assessment remains literature-grounded reasoning rather than bench judg
   revision rather than now.
 - **§3.9 is a summary**; the full design component is in SI S1. If a reviewer asks
   for it in the main text, the material is written and can be moved back.
-- **The §4.4 limitation on medicinal-chemistry review** can be softened only if
-  Sam genuinely works through `docs/catalogue-review.md`. If he does, tell Claude
-  and both that limitation and the contributions line should be revised.
+- **The §4.4 limitation on medicinal-chemistry review is permanent.** No chemist
+  reviewed the catalogue; `docs/catalogue-review.md` is literature-grounded
+  reasoning by the author. Do not soften it.
 - Two working copies exist: `~/Documents/bbb-domain-alzheimers` (original, was
   TCC-blocked) and `~/Desktop/bbb-domain-alzheimers` (clone, current). Everything
   is pushed to GitHub; `git pull` in the original once file access is restored,

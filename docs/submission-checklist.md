@@ -15,7 +15,7 @@ recorded result files and fails loudly on leftover placeholders.
 | ✅ | Figure 4 (structures, → SI) | `results/design_proposals.png` |
 | ✅ | Additional file 1 — Supplementary Information S1–S6 | `docs/supplementary.md` |
 | ✅ | Additional file 2 — all 793 structures | `results/design_proposals.csv` |
-| ✅ | Additional file 3 — decision log, 24 entries | `docs/decisions.md` |
+| ✅ | Additional file 3 — decision log, 27 entries | `docs/decisions.md` |
 | ✅ | Cover letter | `docs/cover-letter.md` |
 | ✅ | APC waiver request | `docs/apc-waiver-request.md` |
 | ✅ | Suggested reviewers — deliberately none; reasoning in the cover letter | — |

@@ -53,7 +53,7 @@ consistency check fails or a placeholder survives.
 
 ## Conventions
 
-- Decisions get a dated entry appended to `docs/decisions.md`. 24 entries so far; it
+- Decisions get a dated entry appended to `docs/decisions.md`. 27 entries so far; it
   ships as an additional file.
 - Git identity is local to this repo: Shreyan Kancharla <shkancharla@davidson.edu>.
 - Two working copies exist: `~/Desktop/bbb-domain-alzheimers` (current) and

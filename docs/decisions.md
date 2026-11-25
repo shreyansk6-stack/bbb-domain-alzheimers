@@ -1380,7 +1380,7 @@ finding.
 
 ---
 
-## 25. Final pre-submission read-through (2026-11-25)
+## 2026-11-25 — Final read-through: approval in hand, ten uncited references
 
 **S.S. read, revised and approved the manuscript.** The author-contributions
 statement — "contributed to study conception and critically revised the
@@ -1409,7 +1409,15 @@ rejected and why.
 **The gate now covers both failure modes.** `check_consistency.py` asserts the F7
 window against the bounds in `scripts/design_enumerate.py` — another number that
 lived only in prose — and asserts that every surname in the reference list appears
-somewhere in the body text. 55 assertions became 79.
+somewhere in the body text.
+
+**A third number had already drifted, unnoticed and unrelated to the above.** The
+manuscript, the checklist and `CLAUDE.md` all described the decision log as 24
+entries; it actually held 26 dated entries at the start of today, and 27 with this
+one. The count is now parsed from `docs/decisions.md` and asserted against the
+manuscript and the SI, so it cannot drift again. The checker's stale "pending"
+line about S.S.'s approval was cleared at the same time. Together these additions
+took the gate from 55 assertions to 81.
 
 Nothing in `results/` was touched and no analysis was re-run; `confirmatory.py`
 remains hash-gated and closed.

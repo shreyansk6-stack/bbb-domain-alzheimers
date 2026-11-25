@@ -123,6 +123,11 @@ mw, lo, hi, tpsa = win.groups()
 want("F7 property window", f"MW ≤ {mw}, cLogP {lo}–{hi}, TPSA ≤ {tpsa}",
      ["manuscript"])
 
+# decision-log entry count: quoted in prose, and it had drifted (24 -> 27)
+n_entries = len(re.findall(r"^## (\d{4}-\d{2}-\d{2}) \u2014 ",
+                           open("docs/decisions.md").read(), re.M))
+want("decision-log entries", n_entries, ["manuscript", "supplementary"])
+
 # every listed reference must be cited in the body: an uncited reference is a
 # desk-reject-grade defect, and ten of them survived to the final read-through
 body, reflist = text["manuscript"].split("## References", 1)
@@ -158,7 +163,7 @@ print()
 print("PENDING (expected, not failures):")
 print("  - suggested reviewers not yet chosen" if pending else
       "  - none; reviewers chosen")
-print("  - S.S. has not yet read and approved the manuscript")
+print("  - none; S.S. read, revised and approved the manuscript 2026-11-25")
 
 # ------------------------------------------------------------------ report
 width = max(len(c[1]) for c in checks) + 2

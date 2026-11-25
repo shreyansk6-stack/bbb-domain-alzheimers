@@ -693,7 +693,7 @@ A single document containing:
   reported 20 with properties, HBD and BRENK alerts; the superseded ranking; and
   the structural-alert scan.
 - **S2. Registration, amendments and decision log.** Amendments A1 and A2 in full,
-  with a dated index of all 24 decision-log entries.
+  with a dated index of all 27 decision-log entries.
 - **S3. Label-permuted validation.** Eight permutations, the summary statistics and
   the code-enforced gate.
 - **S4. Curation sensitivity.** Ten variants, both targets, with the out-of-domain

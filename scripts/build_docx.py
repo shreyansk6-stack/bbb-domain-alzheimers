@@ -31,6 +31,28 @@ JOBS = [
     ("docs/decisions.md", "Additional_file_3_decision_log.docx", []),
 ]
 
+# Letters carry notes written for us, not for an editor: the cover letter ends
+# with our reasoning about suggesting no reviewers, which names the authors this
+# manuscript criticises. Those are stripped before anything is uploaded.
+LETTERS = [
+    ("docs/cover-letter.md", "cover-letter.docx",
+     "## Note on suggested reviewers"),
+    ("docs/apc-waiver-request.md", "APC-waiver-request.docx", None),
+]
+
+
+def clean_letter(text, cut_from):
+    if cut_from:
+        if cut_from not in text:
+            sys.exit(f"expected to strip {cut_from!r} but it is not there")
+        text = text.split(cut_from)[0]
+    # drop the leading note-to-self blockquote and its rule
+    text = re.sub(r"^> .*?(?:\n>.*?)*\n\n(?:---\n\n)?", "", text,
+                  flags=re.M)
+    text = re.sub(r"\n---\s*\n\s*$", "\n", text)
+    return text.strip() + "\n"
+
+
 
 def embed_figures(text, figures):
     """Put each image above its caption and drop the path from the prose."""
@@ -70,6 +92,20 @@ def main():
         tmp.unlink()
         kb = dst.stat().st_size // 1024
         print(f"wrote {dst}  ({kb} KB)")
+
+    for src, out, cut in LETTERS:
+        text = clean_letter(Path(src).read_text(), cut)
+        for bad in ["Note on suggested reviewers", "Ready to paste",
+                    "dedicated waiver field in the submission system"]:
+            if bad in text:
+                sys.exit(f"internal note survived into {out}: {bad!r}")
+        tmp = OUT / (Path(src).stem + ".pandoc.md")
+        tmp.write_text(text)
+        dst = OUT / out
+        subprocess.run(["pandoc", str(tmp), "-f", "gfm", "-t", "docx",
+                        "--standalone", "-o", str(dst)], check=True)
+        tmp.unlink()
+        print(f"wrote {dst}  ({dst.stat().st_size // 1024} KB)")
 
     print()
     print(f"Upload the files in {OUT}/. The Markdown stays the source of truth.")

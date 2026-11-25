@@ -645,17 +645,31 @@ supplementary with S1.
 
 ## Supplementary Information
 
+**Additional file 1 — Supplementary Information** (`docs/supplementary.md`).
+A single document containing:
+
 - **S1. Domain-constrained design, full treatment.** Catalogue with per-entry
-  rationale and review status; the eight filters and the funnel; the Amendment A2
-  ranking and the superseded rule; the reported 20 with structures, properties, HBD
-  and BRENK alerts; and the full table of 793 structures with SMILES, parent, and
-  novelty query date.
-- **S2. Pre-registration and amendments**, with the dated decision log.
-- **S3. Label-permuted validation.** Eight permutations, the two null checks, and
+  status and the two post-enumeration review changes; the eight filters and the
+  funnel; survivors by transformation; the novelty check and its caveats; the
+  reported 20 with properties, HBD and BRENK alerts; the superseded ranking; and
+  the structural-alert scan.
+- **S2. Registration, amendments and decision log.** Amendments A1 and A2 in full,
+  with a dated index of all 24 decision-log entries.
+- **S3. Label-permuted validation.** Eight permutations, the summary statistics and
   the code-enforced gate.
-- **S4. Curation sensitivity.** Ten variants and the resulting out-of-domain ranges.
-- **S5. Literature search record.** Queries, counts, and screening decisions.
-- **S6. Per-transformation funnel and the scaffold-filter sensitivity.**
+- **S4. Curation sensitivity.** Ten variants, both targets, with the out-of-domain
+  ranges the main text quotes.
+- **S5. Literature search record.** Queries, counts and screening decisions.
+- **S6. Scaffold-filter sensitivity.** The registered strict F6 against the post hoc
+  topology relaxation, stage by stage.
+
+**Additional file 2 — Design proposals** (`results/design_proposals.csv`). All 793
+novel survivors with SMILES, parent SMILES and ChEMBL id, transformation, scaffold,
+maximum Tanimoto, predicted p(BBB+), Ertl SA, MW, cLogP, TPSA, HBD, BRENK alert and
+novelty query date.
+
+**Additional file 3 — Decision log** (`docs/decisions.md`). The complete dated
+record of every judgement call made during the study.
 
 ## Author contributions
 

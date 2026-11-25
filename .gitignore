@@ -13,3 +13,5 @@ __pycache__/
 docs/project-pitch.pdf
 results/figure_data.npz
 docs/manuscript.html
+docs/supplementary.html
+env/

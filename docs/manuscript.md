@@ -677,12 +677,10 @@ record of every judgement call made during the study.
 
 ## Author contributions
 
-**[AUTHORS: confirm S.S.'s contributions; the statement below reflects only what is
-documented in the repository and may understate them.]**
-
-S.K. conceived the study, wrote the pre-registration, implemented the analysis and
-drafted the manuscript. S.S. contributed to study conception and to review of the
-manuscript.
+S.K. conceived the study, wrote the pre-registration, implemented the analysis,
+produced the figures and drafted the manuscript. S.S. contributed to study
+conception and critically revised the manuscript. Both authors read and approved
+the final manuscript and accept accountability for all aspects of the work.
 
 The assessment of the transformation catalogue, the curation criteria and the
 property window was made from the published literature rather than by a practising

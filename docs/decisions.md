@@ -1377,3 +1377,39 @@ Jaccard 0.13–0.14, which is the overlap with the primary definition only; the
 alternatives overlap *each other* at as little as 0.010. The abstract now gives
 both, since the lower figure is the more striking one and omitting it undersold the
 finding.
+
+---
+
+## 25. Final pre-submission read-through (2026-11-25)
+
+**S.S. read, revised and approved the manuscript.** The author-contributions
+statement — "contributed to study conception and critically revised the
+manuscript. Both authors read and approved the final manuscript" — is now accurate
+as written and was left unchanged. He did **not** work through
+`docs/catalogue-review.md`, so the §4.4 limitation on independent
+medicinal-chemistry review stands, and the contributions note saying the catalogue
+assessment was made from the literature rather than by a practising medicinal
+chemist stays as it is. This was the last open item on the checklist.
+
+**Ten of the twenty-three references were never cited in the text.** They appeared
+only in the reference list: ChEMBL (Zdrazil), ECFP4 (Rogers & Hahn), Bemis–Murcko,
+PAINS (Baell & Holloway), BRENK (Brenk et al.), ROC-AUC (Hanley & McNeil), the two
+CNS-property references (Pajouhesh & Lenz, Wager et al.), acid bioisosteres
+(Ballatore et al.), the necessary-nitrogen review (Pennington & Moustakas) and
+scikit-learn (Pedregosa et al.). Methods named the methods — Morgan fingerprints,
+Bemis–Murcko scaffolds, Ertl SA, PAINS — without attaching the citation that was
+sitting in the list. An uncited reference list is a desk-check failure, so each was
+anchored at its natural point in §2.1, §2.2, §2.4, §2.5, §3.9, §4.3 and §4.4.
+
+Two additions carry content rather than only a citation: §3.9 now states the F7
+property window explicitly (MW ≤ 450, cLogP 1–4, TPSA ≤ 90) with the CNS-exposure
+precedent behind it, and §4.4 now says which transformation the chemistry review
+rejected and why.
+
+**The gate now covers both failure modes.** `check_consistency.py` asserts the F7
+window against the bounds in `scripts/design_enumerate.py` — another number that
+lived only in prose — and asserts that every surname in the reference list appears
+somewhere in the body text. 55 assertions became 79.
+
+Nothing in `results/` was touched and no analysis was re-run; `confirmatory.py`
+remains hash-gated and closed.

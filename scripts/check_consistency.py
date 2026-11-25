@@ -116,6 +116,25 @@ want("Jaccard C/D identical", "1.000", ["supplementary", "manuscript"],
      pattern=r"1\.000")
 want("scaffold Jaccard", "0.010", ["manuscript"], pattern=r"0\.010")
 
+# F7 property window: quoted in §3.9 prose, defined only in the enumeration code
+win = re.search(r"F7 property window\s+MW <= (\d+), cLogP (\d+)-(\d+), "
+                r"TPSA <= (\d+)", open("scripts/design_enumerate.py").read())
+mw, lo, hi, tpsa = win.groups()
+want("F7 property window", f"MW ≤ {mw}, cLogP {lo}–{hi}, TPSA ≤ {tpsa}",
+     ["manuscript"])
+
+# every listed reference must be cited in the body: an uncited reference is a
+# desk-reject-grade defect, and ten of them survived to the final read-through
+body, reflist = text["manuscript"].split("## References", 1)
+cited = body + text["supplementary"]
+for num, surname in re.findall(r"^(\d+)\. ([A-Z][A-Za-z–-]+)", reflist,
+                               flags=re.M):
+    ok = re.search(r"\b" + re.escape(surname) + r"\b", cited) is not None
+    checks.append((ok, f"reference {num} ({surname}) is cited in text",
+                   "manuscript"))
+    if not ok:
+        failures.append(f"reference {num} ({surname}) is never cited in text")
+
 # ------------------------------------------------------- hygiene / leftovers
 for name, body in text.items():
     for pat, why in [(r"\[AUTHORS(?!: suggested reviewers)",

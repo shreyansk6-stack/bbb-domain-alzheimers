@@ -1,8 +1,10 @@
 # bbb-domain-alzheimers
 
 Pre-registered methods audit: applicability domain of BBB predictors in Alzheimer's
-target chemical space. Manuscript is **finalised and formatted for *Journal of
-Cheminformatics***. The only open item is human: S.S. must read and approve it.
+target chemical space. Manuscript is **finalised, approved by both authors
+(2026-11-25) and formatted for *Journal of Cheminformatics***. Nothing is
+outstanding before submission;
+`docs/submission-checklist.md` holds the order of operations.
 
 Start by reading `docs/submission-checklist.md` — it holds current state, what is
 ready, what is waiting, and the order of operations at submission. Do not duplicate
@@ -26,13 +28,14 @@ that content here.
 ## Before any commit or submission
 
 ```
-./env/bin/python -I scripts/check_consistency.py     # 55 assertions, must be 55/55
+./env/bin/python -I scripts/check_consistency.py     # 79 assertions, must be 79/79
 ```
 
 It checks every headline number in the manuscript, SI and cover letter against the
 result file that produced it, and fails on leftover placeholders. It exists because a
 prose-only number drifted once (§4.3 read 1,551 where the funnels give 1,516). **Any
-new number that appears only in prose gets an assertion added here.**
+new number that appears only in prose gets an assertion added here.** It also
+asserts that every listed reference is cited in the text.
 
 ## Regenerating artifacts
 

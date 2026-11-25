@@ -21,7 +21,7 @@ recorded result files and fails loudly on leftover placeholders.
 | ✅ | Suggested reviewers — deliberately none; reasoning in the cover letter | — |
 | ✅ | Declarations block (ethics, consent, competing interests, funding, AI use) | in manuscript |
 | ✅ | Keywords (8) | in manuscript |
-| ✅ | References, all DOIs Crossref-verified 2026-11-21 | in manuscript |
+| ✅ | References, all DOIs Crossref-verified 2026-11-21; every one cited in text, gated by `check_consistency.py` | in manuscript |
 | ✅ | Corresponding author + ORCID `0009-0009-8654-110X` (verified) | cover letter |
 | ✅ | Both ORCIDs on the title block, each verified against the public record | in manuscript |
 | ✅ | Pre-registration public | [10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62) |
@@ -29,9 +29,10 @@ recorded result files and fails loudly on leftover placeholders.
 
 ## Waiting on
 
-| | Item | Who |
-| --- | --- | --- |
-| ⬜ | **Sam reads and approves the manuscript** — the contributions statement says he critically revised it, which is not yet true | S.S. |
+Nothing. **S.S. read, revised and approved the manuscript on 2026-11-25**, so the
+author-contributions statement is accurate as written. The §4.4 limitation on
+medicinal-chemistry review stands: he did not work through `docs/catalogue-review.md`,
+and that assessment remains literature-grounded reasoning rather than bench judgement.
 
 ## Do at submission, in this order
 

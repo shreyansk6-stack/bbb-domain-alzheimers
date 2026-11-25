@@ -20,10 +20,9 @@ Samuel Siyanbola — ORCID [0009-0002-0657-1528](https://orcid.org/0009-0002-065
 > list is numbered; Springer Nature accepts format-free initial submission, so
 > conversion to numbered in-text citations can wait for revision.
 >
-> **No passages are left for author input.** Two things in the
-> author-contributions statement must become true before submission: S.S. has not
-> yet critically revised this draft, and no final version has been approved.
-> Delete this note before submitting.
+> **No passages are left for author input.** S.S. read, revised and approved this
+> version on 2026-11-25, so the author-contributions statement is accurate as
+> written. Delete this note before submitting.
 
 ---
 
@@ -176,8 +175,8 @@ here cannot distinguish the stereoisomers it preserves. 7,805 records reduced to
 excluded as unusable ground truth, retained only for structural geometry. **Labelled
 reference set: 3,892 compounds (2,472 BBB+, 1,420 BBB−).**
 
-**Target actives.** ChEMBL_37 (released 2026-05-01, CC BY-SA 3.0) queried 2026-11-16
-for human BACE1 (CHEMBL4822) and human AChE (CHEMBL220). Inclusion fixed in advance:
+**Target actives.** ChEMBL_37 (Zdrazil et al. 2023; released 2026-05-01, CC BY-SA
+3.0) queried 2026-11-16 for human BACE1 (CHEMBL4822) and human AChE (CHEMBL220). Inclusion fixed in advance:
 IC50 or Ki, standard relation "=", no data-validity comment, units nM, assay type B,
 **assay confidence score 9**, replicates aggregated by median pChEMBL, threshold
 pChEMBL ≥ 6. Yield: **5,157 BACE1 actives, 2,391 AChE actives.**
@@ -202,7 +201,7 @@ No data were refetched after registration.
 ### 2.2 Domain definition
 
 Primary: **maximum Tanimoto similarity ≥ 0.35** to the target active set, on Morgan
-fingerprints (radius 2, 2048 bits). The cutoff was fixed before the resulting class
+fingerprints (radius 2, 2048 bits; Rogers & Hahn 2010). The cutoff was fixed before the resulting class
 counts were known.
 
 For readers not used to reading these values: 0.35 on ECFP4 is a permissive bar. A
@@ -218,7 +217,8 @@ on Morgan fingerprints is a weak claim of chemical similarity and that buying po
 by loosening the definition of "in domain" would undercut the study's own argument.
 
 Pre-specified alternatives, reported whatever they showed: Bemis–Murcko scaffold
-membership, Mahalanobis distance and leverage over an 11-descriptor space (§3.5).
+membership (Bemis & Murcko 1996), Mahalanobis distance and leverage over an
+11-descriptor space (§3.5).
 
 ### 2.3 Design
 
@@ -265,6 +265,9 @@ Probabilities were calibrated by per-fold Platt scaling with fold models average
 Decision thresholds were chosen by maximising MCC on held-out training-fold
 predictions within each arm's own training partition, never on its evaluation set.
 
+Fingerprints and descriptors were computed with RDKit; all models were fitted with
+scikit-learn (Pedregosa et al. 2011).
+
 **ROC-AUC is computed on the uncalibrated score.** Platt scaling is monotone in
 expectation but can fit a negative slope when there is no signal, inverting the
 ranking and reflecting AUC about 0.5. We observed this during label-permuted
@@ -272,7 +275,8 @@ validation and corrected it before any real-label run.
 
 ### 2.5 Endpoints and decision rules
 
-Primary: **ΔROC-AUC = AUC(arm C) − AUC(arm A)**, positive meaning worse on proximal
+Primary: **ΔROC-AUC = AUC(arm C) − AUC(arm A)** (Hanley & McNeil 1982), positive
+meaning worse on proximal
 chemistry. Interval estimation pairs a class-stratified bootstrap of the proximal
 AUC (2,000 resamples) with a randomly drawn control AUC, carrying both the proximal
 arm's sampling error and the controls' draw-to-draw variability.
@@ -518,7 +522,9 @@ of ten single medicinal-chemistry transformations was applied to the 2,391 curat
 AChE actives, with no generative model and deliberately no activity prediction —
 predicting activity on novel chemistry without auditing that model's own domain is
 the error this paper documents. 40,534 raw products reduce to 905 after validity,
-scaffold retention, a property window, PAINS, Ertl SA ≤ 4.0, in-domain membership
+scaffold retention, a property window (MW ≤ 450, cLogP 1–4, TPSA ≤ 90, following
+CNS-exposure precedent; Pajouhesh & Lenz 2005; Wager et al. 2010), PAINS (Baell &
+Holloway 2010), Ertl SA ≤ 4.0 (Ertl & Schuffenhauer 2009), in-domain membership
 and predicted BBB+, and to **793 with no exact structure match in ChEMBL or PubChem
 as of 2026-11-21**, spanning 177 parents and 95 scaffolds.
 
@@ -607,7 +613,7 @@ design itself, each discoverable only by execution:
    understates the cost in quality terms**: 62 of the 86 are the aromatic N-walk,
    which the chemistry review judged the single most valuable entry in the catalogue
    (lowers logP by roughly one unit, adds an acceptor, commonly reduces hERG
-   liability). The filter blocked the catalogue's best transformation entirely.
+   liability; Pennington & Moustakas 2017). The filter blocked the catalogue's best transformation entirely.
 
 Similarly, H2 conflated cutoff strictness with training-set size and could not have
 answered its own question (§3.6).
@@ -636,11 +642,13 @@ the design, not only the analysis.
 - **No independent medicinal-chemistry review.** The transformation catalogue and
   the curation criteria were assessed from the literature rather than by a
   practising medicinal chemist (`docs/catalogue-review.md`). The assessment rejected
-  one transformation, reclassified another as a model diagnostic, and identified the
+  one transformation — a carboxylic-acid-to-tetrazole isostere, correct in general
+  (Ballatore et al. 2013) but retaining the anionic charge that obstructs passive
+  diffusion — reclassified another as a model diagnostic, and identified the
   absence of any hydrogen-bond-donor-reducing edit as the catalogue's largest gap —
   but it is reasoning from precedent, not bench judgement.
 - **Structural alerts inherited from parents.** 200 of the 793 survivors, and 7 of
-  the reported 20, carry a BRENK structural alert — long aliphatic chains, Michael
+  the reported 20, carry a BRENK structural alert (Brenk et al. 2008) — long aliphatic chains, Michael
   acceptors, nitro groups, aldehydes. These come from the parent ChEMBL actives, not
   from the edits. They are flagged in the output rather than removed, since removing
   them would mean adding a filter after seeing the result. Notably **PAINS, which

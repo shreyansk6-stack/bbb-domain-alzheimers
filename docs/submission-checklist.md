@@ -18,6 +18,7 @@ recorded result files and fails loudly on leftover placeholders.
 | ✅ | Additional file 3 — decision log, 24 entries | `docs/decisions.md` |
 | ✅ | Cover letter | `docs/cover-letter.md` |
 | ✅ | APC waiver request | `docs/apc-waiver-request.md` |
+| ✅ | Suggested reviewers — deliberately none; reasoning in the cover letter | — |
 | ✅ | Declarations block (ethics, consent, competing interests, funding, AI use) | in manuscript |
 | ✅ | Keywords (8) | in manuscript |
 | ✅ | References, all DOIs Crossref-verified 2026-11-21 | in manuscript |
@@ -31,7 +32,6 @@ recorded result files and fails loudly on leftover placeholders.
 | | Item | Who |
 | --- | --- | --- |
 | ⬜ | **Sam reads and approves the manuscript** — the contributions statement says he critically revised it, which is not yet true | S.S. |
-| ⬜ | **Suggested reviewers**, 3–4 with institution and email | S.K. |
 
 ## Do at submission, in this order
 

@@ -1,7 +1,6 @@
 # Cover letter — *Journal of Cheminformatics*
 
-> Draft. One decision left: suggested reviewers. Everything else is ready to paste
-> into the submission system.
+> Ready to paste into the submission system.
 
 ---
 
@@ -80,8 +79,6 @@ covering fully open-access BMC titles. **We therefore request an article process
 charge waiver on grounds of financial need, and make this request at submission as
 your policy requires.**
 
-**[AUTHORS: suggested reviewers — see the note at the end of this file.]**
-
 Thank you for your consideration.
 
 Sincerely,
@@ -97,28 +94,15 @@ on behalf of the authors: Shreyan Kancharla and Samuel Siyanbola.
 
 ## Note on suggested reviewers
 
-Most submission systems ask for three or four, with name, institution and email.
-They are suggestions only; the editor is free to ignore them, and naming someone
-does not mean they will be asked.
+**Deliberately none.** Springer Nature's editor-facing guidance strongly advises
+against using unsolicited reviewer suggestions from authors, and directs editors to
+invite them only when their own routes fail; BMC journals prefer to use at most one
+author-suggested reviewer. *Journal of Cheminformatics* is a specialist venue whose
+editors know this area, and the only people with close topical expertise are the
+authors of the three coverage papers this manuscript criticises — the suggestion
+most likely to be read as self-serving or to draw a defensive review.
 
-Reasonable sources for this paper:
-
-- **Applicability-domain methodology.** Authors of recent AD or model-validation
-  work in *J Cheminform* or *JCIM*. This is the closest fit to what the paper
-  argues.
-- **BBB permeability modelling.** Authors of B3DB-based models — but note the paper
-  argues such models cannot currently be evaluated without contamination, so expect
-  a sharp review.
-- **Benchmarking and reproducibility in cheminformatics**, which is where the
-  pre-registration argument in §4.3 would be judged most fairly.
-
-**The authors of the three coverage papers we cite (Tiwari et al. 2026a, 2026b;
-Prabhakar et al. 2026) are a judgement call.** They know the specific literature
-better than anyone, and the paper's point is that their coverage figures are
-measured on the training distribution — which is a methodological criticism, not an
-attack on their work. Some editors welcome the suggestion; some authors would
-review it fairly and some would not. We have not named them.
-
-Whoever is chosen, verify the current affiliation and institutional email on the
-publisher's page for their most recent paper — stale contact details are a common
-reason suggestions are dropped.
+If the submission form makes the field mandatory, reasonable starting points are
+authors of recent applicability-domain or model-validation work in this journal or
+*JCIM*. Verify the current affiliation and institutional email from the publisher's
+page of their most recent paper before entering anything.

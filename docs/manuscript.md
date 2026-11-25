@@ -306,8 +306,8 @@ functional equivalent was implemented. The pipeline was written and validated
 entirely on **label-permuted data** before any real-label run: across eight
 independent permutations of 200 draws each, the primary endpoint returned mean ΔAUC
 +0.0075 (sd 0.0317, t = +0.67), with all eight intervals covering zero. Two further
-null checks confirmed the harness is unbiased rather than lucky (`results/
-harness_validation.txt`).
+null checks confirmed the harness is unbiased rather than lucky
+(`results/harness_validation.txt`).
 
 **The ordering constraint is enforced by code, not asserted.** The real-label mode
 refuses to execute unless a registration identifier is supplied, at least six
@@ -689,8 +689,8 @@ pre-registered refutation region (±0.03) and the dashed line the support thresh
 exceeds 0.15.
 
 **Figure 4.** Representative domain-constrained design products beside their parent
-compounds, changed atom highlighted (`results/design_proposals.png`). To
-supplementary with S1.
+compounds, changed atom highlighted. Presented with S1 in Additional file 1, whose
+S1.5 table it draws from.
 
 ## Supplementary Information
 

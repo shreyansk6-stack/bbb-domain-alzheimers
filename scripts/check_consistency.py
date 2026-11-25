@@ -139,6 +139,40 @@ for num, surname in re.findall(r"^(\d+)\. ([A-Z][A-Za-z–-]+)", reflist,
     if not ok:
         failures.append(f"reference {num} ({surname}) is never cited in text")
 
+# ---------------------------------------------- Journal of Cheminformatics rules
+# Abstract: <=350 words, and it must carry a Scientific contribution statement of
+# at most three sentences (jcheminform author guidelines; editorial
+# doi:10.1186/s13321-023-00798-6). Both are desk-check items.
+abstract = text["manuscript"].split("## Abstract", 1)[1].split("**Keywords:**")[0]
+plain = re.sub(r"\*\*|\*|`", "", abstract)
+n_words = len(plain.split())
+ok = n_words <= 350
+checks.append((ok, f"abstract {n_words} words (<=350)", "manuscript"))
+if not ok:
+    failures.append(f"abstract is {n_words} words, over the journal's 350 limit")
+
+ok = "**Scientific contribution:**" in abstract
+checks.append((ok, "abstract has a Scientific contribution statement", "manuscript"))
+if not ok:
+    failures.append("abstract has no Scientific contribution statement")
+else:
+    stmt = plain.split("Scientific contribution:")[1].strip()
+    n_sent = len([x for x in re.split(r"(?<=[.!?])\s+", stmt) if x.strip()])
+    ok = n_sent <= 3
+    checks.append((ok, f"Scientific contribution {n_sent} sentences (<=3)",
+                   "manuscript"))
+    if not ok:
+        failures.append(f"Scientific contribution is {n_sent} sentences, max 3")
+
+for head in ["Ethics approval and consent to participate",
+             "Consent for publication", "Availability of data and materials",
+             "Competing interests", "Funding", "Authors' contributions",
+             "Acknowledgements"]:
+    ok = f"### {head}" in text["manuscript"]
+    checks.append((ok, f"declaration: {head}", "manuscript"))
+    if not ok:
+        failures.append(f"missing required declaration section: {head}")
+
 # ------------------------------------------------------- hygiene / leftovers
 for name, body in text.items():
     for pat, why in [(r"\[AUTHORS(?!: suggested reviewers)",

@@ -5,9 +5,8 @@ LaTeX — with figures and tables in the body of the text. The project writes
 Markdown, so this converts it, rather than anyone hand-editing a .docx that
 would then drift from the gated source.
 
-Figures are embedded under their captions: 1-3 in the manuscript, 4 in the
-supplementary file, which is where the manuscript says it belongs. The image
-paths are stripped from the caption text once the image itself is in place.
+Figures are embedded under their captions, all four in the manuscript. The
+image paths are stripped from the caption text once the image is in place.
 
 Refuses to run unless scripts/check_consistency.py passes, for the same reason
 finalize_submission.py does: nothing leaves this repo unverified.
@@ -26,22 +25,11 @@ JOBS = [
     ("docs/manuscript-submission.md", "manuscript.docx",
      ["results/fig1_chemical_space.png",
       "results/fig2_forest.png",
-      "results/fig3_domain_definitions.png"]),
+      "results/fig3_domain_definitions.png",
+      "results/design_proposals.png"]),
     ("docs/supplementary.md", "Additional_file_1_supplementary.docx", []),
     ("docs/decisions.md", "Additional_file_3_decision_log.docx", []),
 ]
-
-
-# Figure 4 belongs with S1 per the manuscript, and S1.5 is the table whose first
-# six rows it draws. The SI text never names the image, so it is placed here.
-FIG4_ANCHOR = "### S1.6 The superseded ranking"
-FIG4 = """![](results/design_proposals.png)
-
-**Figure 4.** Representative domain-constrained design products beside their
-parent compounds, changed atom highlighted. The six pairs are rows 1-6 of the
-table above, in the same order.
-
-"""
 
 
 def embed_figures(text, figures):
@@ -72,10 +60,6 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for src, out, figures in JOBS:
         text = embed_figures(Path(src).read_text(), figures)
-        if src.endswith("supplementary.md"):
-            if FIG4_ANCHOR not in text:
-                sys.exit(f"could not place Figure 4: {FIG4_ANCHOR!r} not found")
-            text = text.replace(FIG4_ANCHOR, FIG4 + FIG4_ANCHOR, 1)
         tmp = OUT / (Path(src).stem + ".pandoc.md")
         tmp.write_text(text)
         dst = OUT / out

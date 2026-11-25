@@ -186,6 +186,8 @@ w("**A tradeoff we report rather than hide.** Ranking by synthetic "
   "trades depth-in-domain for chemical diversity and makeability; readers "
   "wanting depth-in-domain should use S1.6.")
 w()
+w("The six most accessible of these — rows 1-6 — are drawn beside their parent\n  compounds in Figure 4 of the main text.")
+w()
 w("### S1.6 The superseded ranking")
 w()
 w("Amendment A1.2 as registered ranked by Tanimoto descending, then synthetic "

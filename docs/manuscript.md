@@ -27,42 +27,43 @@ Shreyan Kancharla — ORCID [0009-0009-8654-110X](https://orcid.org/0009-0009-86
 
 ## Abstract
 
-Alzheimer's virtual-screening pipelines routinely rank compounds for activity
-against a target such as BACE1 or acetylcholinesterase (AChE), then pass the hits
-through an off-the-shelf blood–brain barrier (BBB) permeability predictor. Those
-predictors are trained on literature-derived data dominated by approved and
-CNS-active drugs, while target inhibitor series are narrow, heavily optimised
-medicinal chemistry. Published BBB models report applicability-domain (AD) coverage
-on their own held-out test sets and therefore report high coverage — 93.9%, 94.8%
-and "complete structural coverage" in three 2026 reports from two groups. Because a
-held-out split is drawn from the training distribution, that figure is near-guaranteed by
-construction and carries no information about deployment.
+Alzheimer's virtual-screening pipelines rank compounds for activity against a target
+such as BACE1 or acetylcholinesterase (AChE), then filter the hits through an
+off-the-shelf blood–brain barrier (BBB) permeability predictor. Those predictors are
+trained on literature data dominated by approved CNS-active drugs; target inhibitor
+series are narrow, heavily optimised medicinal chemistry. Published BBB
+models report applicability-domain (AD) coverage on their own held-out test sets —
+93.9%, 94.8% and "complete structural coverage" — but that split is drawn from the
+training distribution, so such coverage is near-guaranteed and uninformative.
 
-We pre-registered a three-arm audit measuring whether a B3DB-trained BBB classifier
-degrades on compounds structurally proximal to AChE inhibitor chemistry, against
-controls matched on size, class balance and physicochemical properties. The primary
-endpoint was ΔROC-AUC with a pre-specified support threshold of 0.06.
+We pre-registered a three-arm audit of whether a B3DB-trained BBB classifier degrades
+on compounds structurally proximal to AChE chemistry, against controls matched on
+size, class balance and physicochemical properties. The primary endpoint was ΔROC-AUC
+with a pre-specified support threshold of 0.06.
 
 The result is **inconclusive**: ΔAUC +0.028, 95% CI [−0.016, +0.075], against a
-minimum detectable effect of 0.061. We report this as "no degradation larger than
-approximately 0.06 AUC", not as evidence of no degradation.
+minimum detectable effect of 0.061 — no degradation larger than about 0.06 AUC, not
+evidence of none.
 
-Four findings are more consequential than the primary endpoint. First, **about half
-the apparent domain effect is physicochemical confounding**: against an unmatched
-random control the gap is +0.055 with an interval excluding zero, and
-property-matching halves it. Second, **BACE1 chemistry cannot be audited at all** —
-only 89 labelled compounds fall within Tanimoto 0.35 of it, failing a pre-specified
-sufficiency criterion, so BBB filters applied to BACE1 hits in the literature cannot
-be validated with public data. Third, **standard AD definitions disagree about which
-compounds they include** — the three alternatives we tested overlap the primary
-definition at Jaccard 0.13–0.14 and each other at as little as 0.01 — and two of
-those three turn out to be the same statistic. Fourth, **no off-the-shelf BBB tool can be evaluated
-without contamination**, because the available tools are trained on the only
-available public ground truth.
+Four findings matter more. **About half the apparent domain effect is
+physicochemical confounding**: an unmatched control gives +0.055 with an interval
+excluding zero, and property-matching halves it. **BACE1 cannot be audited at all** —
+only 89 labelled compounds fall within Tanimoto 0.35 of it — so published BBB filters
+on BACE1 hits cannot be validated with public data. **Standard AD definitions select
+largely disjoint compounds**, overlapping the primary definition at Jaccard
+0.13–0.14 and each other at as little as 0.010, and two of the three are the same
+statistic. **No off-the-shelf BBB tool can be evaluated without contamination**: the
+available tools are trained on the only public ground truth.
 
-We also report a domain-constrained design exercise producing 793 structures with no
-exact match in ChEMBL or PubChem, and three internal inconsistencies in our own
-pre-registered design that only execution revealed.
+A domain-constrained design exercise produced 793 novel structures; execution also
+revealed three inconsistencies in our own registered design.
+
+**Scientific contribution:** This is the first measurement of a BBB model's
+applicability-domain coverage against the target chemistry such models are deployed
+on, rather than against their own held-out splits. It establishes that half of a
+naively measured domain effect is physicochemical confounding, that two standard AD
+definitions are one statistic, and that neither BACE1 filters nor off-the-shelf BBB
+tools can be validated with existing public data.
 
 **Keywords:** Applicability domain · Blood–brain barrier · Model validation ·
 Pre-registration · Virtual screening · Alzheimer's disease · Acetylcholinesterase ·
@@ -538,6 +539,10 @@ the 793, and 7 of the reported 20, carry a BRENK alert inherited from their pare
 ChEMBL actives — including an aryl thiosulfonate, a thiol-reactive electrophile —
 while PAINS, which the pipeline applies, matches none of them.
 
+**Figure 4** shows the six most synthetically accessible survivors beside the parent
+compounds they derive from, with the changed atom highlighted; it is the clearest
+view of how small these edits are.
+
 These are compounds on which a BBB prediction can be defended. They are not
 predicted to be active, no activity model was applied, and none has been
 synthesised or assayed.
@@ -689,8 +694,8 @@ pre-registered refutation region (±0.03) and the dashed line the support thresh
 exceeds 0.15.
 
 **Figure 4.** Representative domain-constrained design products beside their parent
-compounds, changed atom highlighted. Presented with S1 in Additional file 1, whose
-S1.5 table it draws from.
+compounds, changed atom highlighted (`results/design_proposals.png`). The six pairs
+are the six most synthetically accessible survivors, rows 1–6 of the S1.5 table.
 
 ## Supplementary Information
 
@@ -720,36 +725,6 @@ novelty query date.
 **Additional file 3 — Decision log** (`docs/decisions.md`). The complete dated
 record of every judgement call made during the study.
 
-## Author contributions
-
-S.K. is the sole author. S.K. conceived the study, wrote the pre-registration,
-implemented the analysis, produced the figures, drafted the manuscript, and read
-and approved the final version, and accepts accountability for all aspects of the
-work.
-
-The assessment of the transformation catalogue, the curation criteria and the
-property window was made by the author from the published literature rather than by
-a practising medicinal chemist, and is documented in full in the project repository
-(`docs/catalogue-review.md`). It is reported as a limitation in §4.4.
-
-## Data and code availability
-
-All code, the full pre-registration with amendments, the dated decision log, the
-systematic literature search record and every result file are at
-<https://github.com/shreyansk6-stack/bbb-domain-alzheimers>, registered against
-commit `134ab60`.
-
-`data/` is not redistributed: ChEMBL is CC BY-SA 3.0 and share-alike would propagate
-to the repository. `docs/data-manifest.sha256` pins the exact registered snapshot.
-B3DB is CC0 and available from the authors' repository.
-
-### Registration
-
-OSF Registries, 2026-11-19, [10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62).
-Foreknowledge declared as "authors have observed the data, but have not performed the
-proposed analyses". Amendments A1 (2026-11-19) and A2 (2026-11-21) are in
-`docs/preregistration.md`; A2 is post hoc and labelled wherever reported.
-
 ## Declarations
 
 ### Ethics approval and consent to participate
@@ -761,6 +736,23 @@ bioactivity data. No human participants, human data, or animals were involved.
 
 Not applicable.
 
+### Availability of data and materials
+
+All code, the full pre-registration with amendments, the dated decision log, the
+systematic literature search record and every result file are at
+<https://github.com/shreyansk6-stack/bbb-domain-alzheimers>, registered against
+commit `134ab60`.
+
+`data/` is not redistributed: ChEMBL is CC BY-SA 3.0 and share-alike would propagate
+to the repository. `docs/data-manifest.sha256` pins the exact registered snapshot.
+B3DB is CC0 and available from the authors' repository.
+
+**Registration.** OSF Registries, 2026-11-19,
+[10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62). Foreknowledge
+declared as "authors have observed the data, but have not performed the proposed
+analyses". Amendments A1 (2026-11-19) and A2 (2026-11-21) are in
+`docs/preregistration.md`; A2 is post hoc and labelled wherever reported.
+
 ### Competing interests
 
 The author declares no competing interests.
@@ -770,6 +762,22 @@ The author declares no competing interests.
 This research received no specific grant from any funding agency in the public,
 commercial or not-for-profit sectors. No compound reported here was synthesised or
 assayed; all costs were computational.
+
+### Authors' contributions
+
+S.K. is the sole author. S.K. conceived the study, wrote the pre-registration,
+implemented the analysis, produced the figures, drafted the manuscript, and read
+and approved the final version, and accepts accountability for all aspects of the
+work.
+
+The assessment of the transformation catalogue, the curation criteria and the
+property window was made by the author from the published literature rather than by
+a practising medicinal chemist, and is documented in full in the project repository
+(`docs/catalogue-review.md`). It is reported as a limitation in §4.4.
+
+### Acknowledgements
+
+Not applicable.
 
 ### Use of generative AI
 

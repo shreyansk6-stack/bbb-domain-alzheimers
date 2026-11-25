@@ -141,6 +141,9 @@ SMILES for each, with parent SMILES and scaffold, are in the machine-readable ta
 
 **A tradeoff we report rather than hide.** Ranking by synthetic accessibility selects simpler molecules, which are less similar to the reference set. Maximum Tanimoto across these 20 is 0.351–0.483 against a 0.35 cutoff — several compounds sit within 0.01 of the applicability-domain boundary. The superseded rule (S1.6) returned 0.672–0.818. The reported set trades depth-in-domain for chemical diversity and makeability; readers wanting depth-in-domain should use S1.6.
 
+The six most accessible of these — rows 1-6 — are drawn beside their parent
+  compounds in Figure 4 of the main text.
+
 ### S1.6 The superseded ranking
 
 Amendment A1.2 as registered ranked by Tanimoto descending, then synthetic accessibility ascending. Executing it revealed that the rule **selected against the novelty it was meant to ensure**: the three highest-ranked products were at Tanimoto 1.000 to a B3DB compound — already-known structures — and the 20 collapsed onto 7 parents and 6 scaffolds, largely positional isomers of one another. Amendment A2 replaced it. Both rankings are published; this is the original.

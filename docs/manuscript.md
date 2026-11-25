@@ -57,6 +57,10 @@ We also report a domain-constrained design exercise producing 793 structures wit
 exact match in ChEMBL or PubChem, and three internal inconsistencies in our own
 pre-registered design that only execution revealed.
 
+**Keywords:** Applicability domain · Blood–brain barrier · Model validation ·
+Pre-registration · Virtual screening · Alzheimer's disease · Acetylcholinesterase ·
+Chemical space
+
 ---
 
 ## 1. Introduction

@@ -11,8 +11,8 @@ recorded result files and fails loudly on leftover placeholders.
 | | Item | File |
 | --- | --- | --- |
 | ✅ | Manuscript, formatted to the journal's structure | `docs/manuscript.md` |
-| ✅ | Figures 1–3, 300 dpi | `results/fig{1,2,3}_*.png` |
-| ✅ | Figure 4 (structures, → SI) | `results/design_proposals.png` |
+| ✅ | Figures 1–3, verified 300 dpi | `results/fig{1,2,3}_*.png` |
+| ✅ | Figure 4 (structures, → SI), 300 dpi via `scripts/make_fig4.py` | `results/design_proposals.png` |
 | ✅ | Additional file 1 — Supplementary Information S1–S6 | `docs/supplementary.md` |
 | ✅ | Additional file 2 — all 793 structures | `results/design_proposals.csv` |
 | ✅ | Additional file 3 — decision log, 27 entries | `docs/decisions.md` |

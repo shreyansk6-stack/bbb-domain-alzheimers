@@ -1419,5 +1419,15 @@ manuscript and the SI, so it cannot drift again. The checker's stale "pending"
 line about S.S.'s approval was cleared at the same time. Together these additions
 took the gate from 55 assertions to 81.
 
-Nothing in `results/` was touched and no analysis was re-run; `confirmatory.py`
-remains hash-gated and closed.
+**Two figures were below print resolution.** Figure 2 was being written at 200
+dpi while the checklist claimed 300 for all three; `make_forest.py` now writes
+300. Figure 4 was a 840x1920 RDKit grid with no dpi tag, which prints at 2.8
+inches. Re-running `design_rank.py` would have regenerated
+`design_proposals.csv` (Additional file 2) and re-touched the novelty check, so
+the drawing is instead replayed from `results/design_proposals.json` by a new
+`scripts/make_fig4.py` — same pairs, same MCS highlighting, same legends, only
+the canvas and the saved dpi differ. It is now 1208x2760 at a true 300 dpi,
+4.0 x 9.2 in, which fits a page.
+
+No analysis was re-run and no result file was recomputed; `confirmatory.py`
+remains hash-gated and closed, and `design_proposals.csv` is byte-identical.

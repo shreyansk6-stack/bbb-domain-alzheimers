@@ -42,6 +42,7 @@ asserts that every listed reference is cited in the text.
 ```
 ./env/bin/python -I scripts/make_figures.py          # Figures 1, 3
 ./env/bin/python -I scripts/make_forest.py           # Figure 2
+./env/bin/python -I scripts/make_fig4.py             # Figure 4, from recorded JSON
 ./env/bin/python -I scripts/build_supplementary.py   # docs/supplementary.md (S1-S6)
 ./env/bin/python -I scripts/render_manuscript.py     # docs/manuscript.html
 ./env/bin/python -I scripts/finalize_submission.py   # submission copy, at submission only

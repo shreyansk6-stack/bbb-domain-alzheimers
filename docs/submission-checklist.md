@@ -22,6 +22,7 @@ recorded result files and fails loudly on leftover placeholders.
 | ✅ | Keywords (8) | in manuscript |
 | ✅ | References, all DOIs Crossref-verified 2026-11-21 | in manuscript |
 | ✅ | Corresponding author + ORCID `0009-0009-8654-110X` (verified) | cover letter |
+| ✅ | Both ORCIDs on the title block, each verified against the public record | in manuscript |
 | ✅ | Pre-registration public | [10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62) |
 | ✅ | Code and data manifests public | GitHub repo |
 
@@ -29,7 +30,6 @@ recorded result files and fails loudly on leftover placeholders.
 
 | | Item | Who |
 | --- | --- | --- |
-| ⬜ | **Sam's ORCID** — requested, not yet received | S.S. |
 | ⬜ | **Sam reads and approves the manuscript** — the contributions statement says he critically revised it, which is not yet true | S.S. |
 | ⬜ | **Suggested reviewers**, 3–4 with institution and email | S.K. |
 | ⬜ | Confirm postal address / campus box | S.K. |

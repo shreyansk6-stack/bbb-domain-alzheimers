@@ -93,7 +93,8 @@ want("F6 cost", 86, ["manuscript", "supplementary"])
 want("BRENK flagged", 200, ["manuscript", "supplementary"])
 want("registration DOI", "10.17605/OSF.IO/UQR62",
      ["manuscript", "supplementary", "cover letter"])
-want("ORCID", "0009-0009-8654-110X", ["cover letter"])
+want("ORCID (S.K.)", "0009-0009-8654-110X", ["cover letter", "manuscript"])
+want("ORCID (S.S.)", "0009-0002-0657-1528", ["manuscript"])
 want("Jaccard C/D identical", "1.000", ["supplementary", "manuscript"],
      pattern=r"1\.000")
 want("scaffold Jaccard", "0.010", ["manuscript"], pattern=r"0\.010")
@@ -121,8 +122,7 @@ print()
 print("PENDING (expected, not failures):")
 print("  - suggested reviewers not yet chosen" if pending else
       "  - none; reviewers chosen")
-print("  - Sam's ORCID not yet supplied"
-      if "ORCID" not in text["manuscript"] else "")
+print("  - S.S. has not yet read and approved the manuscript")
 
 # ------------------------------------------------------------------ report
 width = max(len(c[1]) for c in checks) + 2

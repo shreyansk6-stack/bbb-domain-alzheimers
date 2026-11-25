@@ -1,8 +1,12 @@
 # Applicability domain of blood–brain barrier predictors in Alzheimer's target chemical space: a methods audit and domain-constrained design
 
-**Shreyan Kancharla¹, Samuel Siyanbola¹**
+**Shreyan Kancharla¹**, **Samuel Siyanbola¹**
 
 ¹ Davidson College, Davidson, North Carolina, USA
+
+Shreyan Kancharla — ORCID [0009-0009-8654-110X](https://orcid.org/0009-0009-8654-110X)
+(corresponding author, shkancharla@davidson.edu)
+Samuel Siyanbola — ORCID [0009-0002-0657-1528](https://orcid.org/0009-0002-0657-1528)
 
 **Pre-registered** on OSF Registries, 2026-11-19, DOI
 [10.17605/OSF.IO/UQR62](https://doi.org/10.17605/OSF.IO/UQR62), against commit

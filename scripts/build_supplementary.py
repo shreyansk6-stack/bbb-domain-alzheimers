@@ -299,7 +299,7 @@ w("Ten curation variants, crossing assay-type pooling, activity threshold, "
   "headline out-of-domain percentages in the main text are the ranges across "
   "these variants, not a single curation's number.")
 w()
-w(block("results/sensitivity.txt", 8, 60))
+w(block("results/sensitivity.txt", 5, 60))
 w()
 w("**The out-of-domain finding is not an artefact of curation choices.** "
   "Across every variant, the great majority of BACE1 actives and a large "

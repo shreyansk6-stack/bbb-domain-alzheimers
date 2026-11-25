@@ -467,6 +467,9 @@ The gate is enforced in code, not by assertion: `scripts/gate.py` compares the S
 Ten curation variants, crossing assay-type pooling, activity threshold, target confidence score, assay format and skeleton deduplication. The headline out-of-domain percentages in the main text are the ranges across these variants, not a single curation's number.
 
 ```
+B3DB labelled reference set: 3892 skeletons (130 discordant skeletons excluded)
+  BBB+: 2472   BBB-: 1420
+
 BACE1: out-of-domain % of target actives (no B3DB neighbour above cutoff)
 variant                                         n     <0.3    <0.35     <0.4  median
 PRIMARY  IC50+Ki, p>=6, conf9, B, dedup      5157    85.8%    97.5%    99.4%   0.252

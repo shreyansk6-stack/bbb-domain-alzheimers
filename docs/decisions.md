@@ -1319,3 +1319,31 @@ contradict random matching and satisfy property matching.
 Figures renumbered to text order: 1 chemical space, 2 forest, 3 domain definitions,
 4 design structures (to SI). Palette is the three validated categorical slots,
 checked for colour-vision separation rather than chosen by eye.
+
+## 2026-11-24 — Submission package finalised
+
+Target journal *Journal of Cheminformatics*. Everything that does not require a
+second person is done: manuscript, three main-text figures, supplementary S1–S6,
+the 793-structure CSV, decision log, cover letter, APC waiver request and a
+submission checklist.
+
+**Added a pre-submission consistency gate** (`scripts/check_consistency.py`).
+It re-derives every headline number from `results/` and asserts it appears in the
+manuscript, SI and cover letter, checks the internal identities that have to hold
+(novel + known == F3 survivors; CSV length == novel count; topology − strict == 86;
+7 of the top 20 BRENK-flagged; 20 distinct scaffolds and parents), and fails on
+leftover placeholders. 46/46 pass.
+
+It found one real defect on first run: the S4 excerpt started a line late and
+dropped the "B3DB labelled reference set: 3892" line, so the supplementary
+sensitivity table had no reference-set size. Three other failures were the checker
+being stricter than the prose, which writes four-figure numbers with a thousands
+separator while the verbatim blocks do not.
+
+**ORCID 0009-0009-8654-110X** carried over from the NHANES submission and
+re-verified against the public ORCID API rather than trusted from the earlier
+session; the record returns the matching name.
+
+**Outstanding and not ours to close:** Sam's ORCID, Sam actually reading and
+approving the manuscript — the contributions statement asserts he critically
+revised it and that is not yet true — and the choice of suggested reviewers.

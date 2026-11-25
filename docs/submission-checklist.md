@@ -35,14 +35,17 @@ recorded result files and fails loudly on leftover placeholders.
 
 ## Do at submission, in this order
 
-1. **Delete the DRAFT banner** at the top of the manuscript.
-2. Re-run `scripts/check_consistency.py`. It must pass.
-3. Upload manuscript, three figures, three additional files.
-4. **Submit the APC waiver request in the waiver field.** BMC will not consider
+1. Run **`./env/bin/python -I scripts/finalize_submission.py`**. It runs the
+   consistency check, and only if that passes does it write
+   `docs/manuscript-submission.md` — the draft banner stripped, verified free of
+   placeholders. If the check fails it writes nothing.
+2. Upload **`docs/manuscript-submission.md`**, three figures, three additional
+   files. `docs/manuscript.md` stays as the working draft; never upload it.
+3. **Submit the APC waiver request in the waiver field.** BMC will not consider
    a request made during review or after acceptance. This is the one step that
    cannot be undone later.
-5. Enter both ORCIDs.
-6. Paste the cover letter, with suggested reviewers filled in.
+4. Enter both ORCIDs.
+5. Paste the cover letter.
 
 ## Notes
 

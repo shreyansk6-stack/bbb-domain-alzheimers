@@ -1199,7 +1199,7 @@ output and is not the reported set.
 ### The honest reading
 
 The headline "F6 forbids 40% of the catalogue" is true at the filter, but **the
-downstream cost is 86 compounds, not 1,551.** The 1,516 extra products that clear
+downstream cost is 86 compounds, not 1,516.** The 1,516 extra products that clear
 the relaxed F6 overwhelmingly fail the property window afterwards: substituting a
 ring carbon for nitrogen lowers cLogP, which pushes many products out of the 1–4
 window the same amendment specifies.
@@ -1347,3 +1347,33 @@ session; the record returns the matching name.
 **Outstanding and not ours to close:** Sam's ORCID, Sam actually reading and
 approving the manuscript — the contributions statement asserts he critically
 revised it and that is not yet true — and the choice of suggested reviewers.
+
+## 2026-11-24 — Full read-through: one real error, and missing context added
+
+Read the manuscript end to end rather than spot-checking, and extended the
+consistency gate to cover what the read turned up. 55 checks, all passing.
+
+**One substantive error, now fixed.** §4.3 stated that scaffold retention blocks
+**1,551** products. The correct figure is **1,516** — the difference between the
+topology and strict F6 stages, 40,460 − 38,944. The number appears in no result
+file, and 1,551 was a transcription slip that originated in this log, in a sentence
+that gave both figures for the same quantity ("86 compounds, not 1,551 … the 1,516
+extra products"). Corrected in both places.
+
+**The gate now locks the numbers that lived only in prose** and could therefore
+drift unnoticed: the 1,516 F6 figure recomputed from the two funnels, the BACE1
+sufficiency numbers (n = 89, MDE 0.136) parsed from `results/power.txt`, and the
+177 parents / 95 scaffolds recomputed from the proposals CSV. Every one is now
+asserted against its source rather than trusted.
+
+**Context added where a reader would otherwise be stuck.** B3DB is now named in the
+introduction as the standard public set rather than appearing unexplained in
+Methods. §2.2 now says what Tanimoto 0.35 means structurally — a permissive bar
+that makes the out-of-domain percentages in §3.1 *lower* than a stricter definition
+would give, which is the conservative direction and worth stating.
+
+**One abstract claim was understated.** It reported AD definitions overlapping at
+Jaccard 0.13–0.14, which is the overlap with the primary definition only; the
+alternatives overlap *each other* at as little as 0.010. The abstract now gives
+both, since the lower figure is the more striking one and omitting it undersold the
+finding.

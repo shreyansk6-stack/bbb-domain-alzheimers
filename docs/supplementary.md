@@ -394,7 +394,7 @@ is unaffected.
 
 ### S2.1 Decision log
 
-24 dated entries record every judgement call made during the study, including those that went against us. The full log is `docs/decisions.md` (Additional file 3); the index follows.
+26 dated entries record every judgement call made during the study, including those that went against us. The full log is `docs/decisions.md` (Additional file 3); the index follows.
 
 | date | decision |
 | --- | --- |
@@ -422,6 +422,8 @@ is unaffected.
 | 2026-11-21 | F6 forbids four of the catalogue's own ten transformations. Cost quantified |
 | 2026-11-21 | Chemistry review settled from the literature, not by a chemist |
 | 2026-11-21 | Manuscript figures 1 and 3 |
+| 2026-11-24 | Submission package finalised |
+| 2026-11-24 | Full read-through: one real error, and missing context added |
 
 ---
 

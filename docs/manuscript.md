@@ -36,8 +36,8 @@ predictors are trained on literature-derived data dominated by approved and
 CNS-active drugs, while target inhibitor series are narrow, heavily optimised
 medicinal chemistry. Published BBB models report applicability-domain (AD) coverage
 on their own held-out test sets and therefore report high coverage — 93.9%, 94.8%
-and "complete structural coverage" in three 2026 reports from two groups. Because a held-out split
-is drawn from the training distribution, that figure is near-guaranteed by
+and "complete structural coverage" in three 2026 reports from two groups. Because a
+held-out split is drawn from the training distribution, that figure is near-guaranteed by
 construction and carries no information about deployment.
 
 We pre-registered a three-arm audit measuring whether a B3DB-trained BBB classifier
@@ -56,8 +56,9 @@ property-matching halves it. Second, **BACE1 chemistry cannot be audited at all*
 only 89 labelled compounds fall within Tanimoto 0.35 of it, failing a pre-specified
 sufficiency criterion, so BBB filters applied to BACE1 hits in the literature cannot
 be validated with public data. Third, **standard AD definitions disagree about which
-compounds they include**, overlapping at Jaccard 0.13–0.14, and two of the three we
-tested are the same statistic. Fourth, **no off-the-shelf BBB tool can be evaluated
+compounds they include** — the three alternatives we tested overlap the primary
+definition at Jaccard 0.13–0.14 and each other at as little as 0.01 — and two of
+those three turn out to be the same statistic. Fourth, **no off-the-shelf BBB tool can be evaluated
 without contamination**, because the available tools are trained on the only
 available public ground truth.
 
@@ -102,9 +103,10 @@ That treatment rests on an assumption that is rarely examined — that the BBB m
 predictions are valid for the compounds it is being applied to. There is structural
 reason to doubt it. BBB training data are literature compilations weighted toward
 approved drugs and known CNS-active agents, assembled because those are the
-compounds for which human or rodent brain-penetration data exist. Target inhibitor
-series are something else entirely: the product of iterative medicinal-chemistry
-optimisation around a small number of scaffolds, selected for potency against one
+compounds for which human or rodent brain-penetration data exist. B3DB (Meng et al.
+2021) — the standard public set, and the one used here — was compiled from 50
+published sources. Target inhibitor series are something else entirely: the product
+of iterative medicinal-chemistry optimisation around a small number of scaffolds, selected for potency against one
 protein, with no selection pressure toward resembling a marketed drug. There is no
 reason for the two distributions to coincide, and considerable reason to expect they
 do not.
@@ -128,7 +130,8 @@ confirmations.
 
 The question is sharpened by a result that cuts against the intuitive expectation.
 A 2026 QSAR ADMET study reported a 0.32–0.39 AUC generalisation gap while its own
-applicability-domain analysis showed complete structural coverage (Prabhakar et al. 2026) — domain membership and predictive reliability came apart. If that
+applicability-domain analysis showed complete structural coverage (Prabhakar et al.
+2026) — domain membership and predictive reliability came apart. If that
 generalises, structural domain distance may not predict BBB prediction error at all,
 and we pre-specified a null result as a publishable outcome for that reason.
 
@@ -200,7 +203,16 @@ No data were refetched after registration.
 
 Primary: **maximum Tanimoto similarity ≥ 0.35** to the target active set, on Morgan
 fingerprints (radius 2, 2048 bits). The cutoff was fixed before the resulting class
-counts were known. A looser cutoff of 0.30 would have yielded better power and was
+counts were known.
+
+For readers not used to reading these values: 0.35 on ECFP4 is a permissive bar. A
+pair at that similarity shares appreciable substructure — typically a ring system or
+a common pharmacophore arm — but is not an analogue; close analogues of one another
+sit far higher. Calling a compound "in domain" at 0.35 is therefore a weak claim,
+and a deliberately generous one: it makes the in-domain set larger and the
+out-of-domain percentages in §3.1 *lower* than a stricter definition would give.
+
+A looser cutoff of 0.30 would have yielded better power and was
 explicitly declined, with the reasoning recorded, on the grounds that Tanimoto 0.30
 on Morgan fingerprints is a weak claim of chemical similarity and that buying power
 by loosening the definition of "in domain" would undercut the study's own argument.
@@ -588,7 +600,7 @@ design itself, each discoverable only by execution:
    PubChem admits no bulk lookup, so it could never have been applied to 40,534
    products; it is feasible only on the filtered survivors.
 3. **A filter forbade 40% of its own catalogue.** Scaffold retention rejects 100% of
-   the four transformations that alter a ring atom — 1,551 products — before any
+   the four transformations that alter a ring atom — 1,516 products — before any
    chemistry is considered. We did not relax it. A labelled post hoc sensitivity
    quantifies the cost at **86 compounds** (905 → 991), because the extra products
    mostly fail the property window specified in the same amendment. **The count

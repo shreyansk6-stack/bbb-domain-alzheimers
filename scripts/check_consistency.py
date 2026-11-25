@@ -90,6 +90,23 @@ want("F3 survivors", f3, ["manuscript", "supplementary"])
 want("novel survivors", nov["n_novel"], ["manuscript", "supplementary"])
 want("primary delta", "0.028", ["manuscript", "cover letter"])
 want("F6 cost", 86, ["manuscript", "supplementary"])
+
+# numbers that live only in prose and so can drift unnoticed
+f6_blocked = int(re.search(r"F6 scaffold retained\s*:\s*(\d+)",
+                           topo_txt).group(1)) - \
+    int(re.search(r"F6 scaffold retained\s*:\s*(\d+)", enum_txt).group(1))
+same("F6 blocks 1516 ring-altering products", f6_blocked, 1516)
+want("F6 blocked products", f6_blocked, ["manuscript"])
+
+power = open("results/power.txt").read()
+bace_n, bace_mde = re.search(
+    r"BACE1 at 0\.35 \(n=\s*(\d+)\): SE [\d.]+\s+MDE dAUC ~ ([\d.]+)",
+    power).groups()
+want("BACE1 n", int(bace_n), ["manuscript"])
+want("BACE1 MDE", bace_mde, ["manuscript"])
+want("parents", len({r["parent_chembl"] for r in rows}), ["manuscript",
+                                                          "supplementary"])
+want("scaffolds", len({r["scaffold"] for r in rows}), ["manuscript"])
 want("BRENK flagged", 200, ["manuscript", "supplementary"])
 want("registration DOI", "10.17605/OSF.IO/UQR62",
      ["manuscript", "supplementary", "cover letter"])

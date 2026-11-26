@@ -1,5 +1,9 @@
 # Submission checklist — *Journal of Cheminformatics*
 
+> **SUBMITTED 2026-11-25.** In Technical Check. See `docs/submission-record.md`
+> for what was uploaded and the outstanding APC waiver deadline (2026-12-09).
+> `docs/decisions.md` is frozen at 27 entries until revision.
+
 Run `./env/bin/python -I scripts/check_consistency.py` before submitting. It
 verifies every headline number in the manuscript, SI and cover letter against the
 recorded result files and fails loudly on leftover placeholders.

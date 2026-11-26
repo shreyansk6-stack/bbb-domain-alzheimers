@@ -3,8 +3,11 @@
 Pre-registered methods audit: applicability domain of BBB predictors in Alzheimer's
 target chemical space. **Single-author paper** (S.K.); the prospective second
 author withdrew on 2026-11-25 having made no contribution. Manuscript is
-**finalised and formatted for *Journal of Cheminformatics***. Nothing is
-outstanding before submission;
+**submitted to *Journal of Cheminformatics* on 2026-11-25** and in Technical
+Check. `docs/submission-record.md` holds what was uploaded and the one open
+item: the APC waiver application, due 2026-12-09. `docs/decisions.md` is frozen
+at 27 entries until revision, because the manuscript, the SI and the gate all
+state that count;
 `docs/submission-checklist.md` holds the order of operations.
 
 Start by reading `docs/submission-checklist.md` — it holds current state, what is

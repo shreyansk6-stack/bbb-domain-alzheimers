@@ -10,7 +10,10 @@ and the count is updated in all three places together.
 
 ## 2026-11-25 — Submitted to *Journal of Cheminformatics*
 
-Springer Nature Snapp. Status: **Technical Check**, then editorial consideration.
+Springer Nature Snapp. **Submission ID `36b6f176-1ee6-4af3-80c5-6dae6106e100`**,
+version v.1.0. Status as of 2026-11-26: Submission received (done), Technical
+Check (in progress). Correspondence goes to shkancharla@davidson.edu; the
+editorial office contact shown on the tracker is aysha.shafin@springernature.com.
 
 **Uploaded**
 
